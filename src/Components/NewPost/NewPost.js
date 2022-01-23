@@ -29,7 +29,7 @@ const NewPost = () => {
           onChange={(e) => onInput(e)}
         />
       </Col>
-      <Col className="spacer-padding" span={24}>
+      <Col className="has-spacer-padding" span={24}>
         <Row>
           <Col span={12}>
             <Upload maxCount={1}>

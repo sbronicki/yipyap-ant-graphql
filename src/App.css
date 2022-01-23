@@ -83,7 +83,6 @@ textarea {
   width: 100%;
   border: 1px solid #ccc;
   border: 5px;
-  padding-top: 1em;
 }
 /* home page */
 .home-page {
@@ -114,6 +113,9 @@ textarea {
   width: 100%;
   border-top: 1px solid #ccc;
   border-radius: 5px;
+}
+.last-post {
+  border-bottom: 1px solid #ccc;
 }
 
 /* footer */
@@ -171,8 +173,8 @@ textarea {
 .text-align-left {
   text-align: start;
 }
-.spacer-padding {
-  padding-top: 1em;
+.has-spacer-padding {
+  padding-top: 0.75em;
 }
 .bg-brand {
   background-color: #03fca8;

@@ -1,10 +1,10 @@
 import { Col, Comment, Row } from "antd";
 
-const Post = ({ postData }) => {
+const Post = ({ postData, className }) => {
   const { title, body, postID, author, image } = postData;
 
   return (
-    <Row className="post-container" id={postID}>
+    <Row className={`post-container ${className}`} id={postID}>
       <Col offset={1} span={22}>
         <Comment
           author={author}

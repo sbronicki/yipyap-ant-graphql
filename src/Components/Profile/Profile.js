@@ -34,7 +34,7 @@ const Profile = () => {
   ];
 
   return (
-    <Row>
+    <Row className="has-spacer-padding">
       <Col
         className="is-overflow-hidden is-flex-center banner-container"
         span={24}
