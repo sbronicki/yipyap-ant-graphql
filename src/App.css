@@ -111,11 +111,16 @@ textarea {
 
 .post-container {
   width: 100%;
-  border-top: 1px solid #ccc;
   border-radius: 5px;
+}
+.post {
+  border-top: 1px solid #ccc;
 }
 .last-post {
   border-bottom: 1px solid #ccc;
+}
+.first-post {
+  border-top: none;
 }
 
 /* footer */
@@ -128,10 +133,8 @@ textarea {
 }
 /* footer */
 
-/* @media */
+/* @media wider than 768px */
 @media only screen and (min-width: 768px) {
-  body {
-  }
   .nav-item-container {
     justify-content: space-around;
   }
@@ -149,6 +152,9 @@ textarea {
   }
   .stack-cols-mobile-rev {
     flex-direction: row !important;
+  }
+  .first-post {
+    border-top: 1px solid #ccc;
   }
 }
 
