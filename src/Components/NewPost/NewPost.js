@@ -15,7 +15,14 @@ const NewPost = () => {
   };
 
   return (
-    <Row>
+    <Row className="has-spacer-padding has-spacer-padding-below">
+      <Col
+        className="has-spacer-padding has-spacer-padding-below"
+        span={22}
+        offset={1}
+      >
+        <h2>New Post!</h2>
+      </Col>
       <Col span={22} offset={1}>
         <Input
           placeholder="Post Title"
@@ -34,7 +41,7 @@ const NewPost = () => {
           <Col span={12}>
             <Upload maxCount={1}>
               <Button className="button" icon={<UploadOutlined />}>
-                Upload
+                Upload Image
               </Button>
             </Upload>
           </Col>
