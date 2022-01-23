@@ -82,9 +82,10 @@ body {
   height: 100%;
 }
 .banner {
-  padding: 0.5em;
-  max-width: 99%;
+  max-width: 100%;
+  padding: 1em 0;
 }
+
 /* profile */
 
 /* //////////// */
@@ -112,6 +113,16 @@ body {
     transition: 0.3s;
     margin-top: 1em;
   }
+  .banner {
+    padding: 0.5em;
+    max-width: 99%;
+  }
+  .stack-cols-mobile {
+    flex-direction: row !important;
+  }
+  .stack-cols-mobile-rev {
+    flex-direction: row !important;
+  }
 }
 
 /* helpers */
@@ -122,4 +133,13 @@ body {
 }
 .is-overflow-hidden {
   overflow: hidden;
+}
+.stack-cols {
+  flex-direction: column;
+}
+.stack-cols-mobile {
+  flex-direction: column;
+}
+.stack-cols-mobile-rev {
+  flex-direction: column-reverse;
 }
