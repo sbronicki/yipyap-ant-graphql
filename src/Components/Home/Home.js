@@ -17,7 +17,6 @@ const Home = () => {
           <Menu.Item className="is-menu-item menu-first">
             <Link to="/new-post">New Post</Link>
           </Menu.Item>
-
           <Menu.Item className="is-menu-item">
             <Link to="/profile/">Profile</Link>
           </Menu.Item>

@@ -8,6 +8,7 @@ import NavBar from "./Components/Nav/NavBar";
 import Home from "./Components/Home/Home";
 import Profile from "./Components/Profile/Profile";
 import Feed from "./Components/Feed/Feed";
+import NewPost from "./Components/NewPost/NewPost";
 
 const { Content } = Layout;
 
@@ -23,6 +24,7 @@ const App = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/profile/" element={<Profile />} />
                 <Route path="/feed" element={<Feed />} />
+                <Route path="/new-post" element={<NewPost />} />
               </Routes>
             </Content>
           </Layout>

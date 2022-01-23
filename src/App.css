@@ -3,8 +3,23 @@
 .App {
   text-align: center;
 }
+html {
+  --antd-wave-shadow-color: #03fca8;
+}
 body {
   background-color: rgb(240, 242, 245);
+}
+textarea {
+  resize: none;
+}
+/* button */
+.button {
+}
+.button::after,
+.button:hover,
+.button:focus {
+  color: rgba(0, 0, 0, 0.85) !important;
+  border-color: rgba(0, 0, 0, 0.85) !important;
 }
 /* logo */
 .logo {
@@ -68,6 +83,7 @@ body {
   width: 100%;
   border: 1px solid #ccc;
   border: 5px;
+  padding-top: 1em;
 }
 /* home page */
 .home-page {
@@ -85,7 +101,6 @@ body {
 }
 .banner {
   max-width: 100%;
-  padding: 1em 0;
 }
 
 /* profile */
@@ -155,4 +170,11 @@ body {
 }
 .text-align-left {
   text-align: start;
+}
+.spacer-padding {
+  padding-top: 1em;
+}
+.bg-brand {
+  background-color: #03fca8;
+  color: #fff;
 }
