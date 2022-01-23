@@ -1,0 +1,100 @@
+@import "~antd/dist/antd.css";
+
+.App {
+  text-align: center;
+}
+body {
+  background-color: rgb(240, 242, 245);
+}
+/* logo */
+.logo {
+  height: 15em;
+}
+.logo-no-text {
+  max-height: 75px;
+}
+/* logo */
+
+/* nav */
+.navbar {
+  background-color: #03fca8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+.nav-item-container {
+  width: 100%;
+  max-width: 1860px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
+.is-menu-container {
+  background-color: #03fca8;
+  padding-top: 0.75em;
+  padding-bottom: 0.75em;
+  margin-bottom: 1em;
+}
+.is-menu-item {
+  background-color: #fff;
+  margin-top: 1px !important;
+  margin-bottom: 1px !important;
+  text-align: center;
+}
+.is-menu-item:hover {
+  opacity: 95%;
+}
+.menu-first {
+  margin-top: 0 !important;
+}
+.menu-last {
+  margin-bottom: 0 !important;
+}
+/* nav */
+
+/* sidebar */
+/* sidebar */
+
+/* main layout */
+/* //////////// */
+.main-layout {
+  display: flex;
+  align-items: center;
+}
+.main-content {
+  max-width: 750px;
+  width: 100%;
+}
+/* home page */
+.home-page {
+}
+/* home page */
+
+/* //////////// */
+/* main layout */
+
+/* footer */
+.footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: #03fca8;
+}
+/* footer */
+
+/* @media */
+@media only screen and (min-width: 768px) {
+  body {
+  }
+  .nav-item-container {
+    justify-content: space-around;
+  }
+  .main-content {
+    box-shadow: 0 4px 8px 0 #ccc;
+    transition: 0.3s;
+    margin-top: 1em;
+  }
+}
