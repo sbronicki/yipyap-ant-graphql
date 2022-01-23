@@ -66,6 +66,8 @@ body {
 .main-content {
   max-width: 1024px;
   width: 100%;
+  border: 1px solid #ccc;
+  border: 5px;
 }
 /* home page */
 .home-page {
@@ -90,6 +92,14 @@ body {
 
 /* //////////// */
 /* main layout */
+
+/* posts */
+
+.post-container {
+  width: 100%;
+  border-top: 1px solid #ccc;
+  border-radius: 5px;
+}
 
 /* footer */
 .footer {
@@ -142,4 +152,7 @@ body {
 }
 .stack-cols-mobile-rev {
   flex-direction: column-reverse;
+}
+.text-align-left {
+  text-align: start;
 }

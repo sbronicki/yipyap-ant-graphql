@@ -6,7 +6,8 @@ import Headshot from "./Headshot";
 const Profile = () => {
   const created = "08/09/2022";
   const numPosts = "3";
-  const colWidth = window.innerWidth < 768 ? 24 : 12;
+  const colWidth =
+    window.innerWidth < 768 ? { span: 24, offset: 0 } : { span: 8, offset: 2 };
 
   const dummyPosts = [
     {
@@ -25,7 +26,7 @@ const Profile = () => {
     },
     {
       title: "post title 3",
-      body: "POST BODY 3",
+      body: "POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3",
       postID: "id-789",
       author: "post author 3",
       image: "",
@@ -42,7 +43,7 @@ const Profile = () => {
       </Col>
       <Col>
         <Row className="stack-cols-mobile-rev">
-          <Col span={colWidth}>
+          <Col span={colWidth.span} offset={colWidth.offset}>
             <PageHeader title="USER'S Profile" subTitle="I'm the user!">
               <Descriptions column={1}>
                 <Descriptions.Item label="Member Since">
@@ -52,7 +53,7 @@ const Profile = () => {
               </Descriptions>
             </PageHeader>
           </Col>
-          <Col span={colWidth}>
+          <Col span={colWidth.span} offset={colWidth.offset}>
             <Headshot />
           </Col>
         </Row>

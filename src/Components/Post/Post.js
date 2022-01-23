@@ -1,19 +1,17 @@
-import { Col, Comment, Layout, Row } from "antd";
-
-const { Content } = Layout;
+import { Col, Comment, Row } from "antd";
 
 const Post = ({ postData }) => {
   const { title, body, postID, author, image } = postData;
 
   return (
-    <Layout id={postID}>
-      <Content>
+    <Row className="post-container" id={postID}>
+      <Col offset={1} span={22}>
         <Comment
           author={author}
           content={<PostBody title={title} body={body} />}
         />
-      </Content>
-    </Layout>
+      </Col>
+    </Row>
   );
 };
 
@@ -21,11 +19,11 @@ export default Post;
 
 const PostBody = ({ title, body }) => {
   return (
-    <Row className="stack-cols">
-      <Col>
+    <Row className="stack-cols post-body text-align-left">
+      <Col offset={2} span={20}>
         <p>{title}</p>
       </Col>
-      <Col>
+      <Col offset={2} span={20}>
         <p>{body}</p>
       </Col>
     </Row>
