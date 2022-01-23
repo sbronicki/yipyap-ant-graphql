@@ -8,7 +8,7 @@ const Home = () => {
     console.log("Log Out");
   };
   return (
-    <Row>
+    <Row className="home-page">
       <Col style={{ padding: "1em" }} span={24}>
         <Logo hasText />
       </Col>

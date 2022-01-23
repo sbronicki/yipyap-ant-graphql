@@ -64,13 +64,28 @@ body {
   align-items: center;
 }
 .main-content {
-  max-width: 750px;
+  max-width: 1024px;
   width: 100%;
 }
 /* home page */
 .home-page {
+  max-width: 750px;
+  width: 100%;
+  padding: 1em;
 }
 /* home page */
+
+/* profile */
+.profile {
+}
+.headshot {
+  height: 100%;
+}
+.banner {
+  padding: 0.5em;
+  max-width: 99%;
+}
+/* profile */
 
 /* //////////// */
 /* main layout */
@@ -97,4 +112,14 @@ body {
     transition: 0.3s;
     margin-top: 1em;
   }
+}
+
+/* helpers */
+.is-flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.is-overflow-hidden {
+  overflow: hidden;
 }
