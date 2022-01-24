@@ -42,7 +42,14 @@ const Profile = () => {
         <Banner />
       </Col>
       <Col>
-        <Row className="stack-cols-mobile-rev">
+        <Row className="stack-cols-mobile">
+          <Col
+            className="has-spacer-padding-bottom"
+            span={colWidth.span}
+            offset={colWidth.offset}
+          >
+            <Headshot />
+          </Col>
           <Col span={colWidth.span} offset={colWidth.offset}>
             <PageHeader title="USER'S Profile" subTitle="I'm the user!">
               <Descriptions column={1}>
@@ -52,9 +59,6 @@ const Profile = () => {
                 <Descriptions.Item label="Posts">{numPosts}</Descriptions.Item>
               </Descriptions>
             </PageHeader>
-          </Col>
-          <Col span={colWidth.span} offset={colWidth.offset}>
-            <Headshot />
           </Col>
         </Row>
       </Col>

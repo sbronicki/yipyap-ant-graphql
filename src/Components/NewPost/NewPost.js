@@ -27,9 +27,9 @@ const NewPost = () => {
   };
   console.log(title, body, image);
   return (
-    <Row className="has-spacer-padding has-spacer-padding-below">
+    <Row className="has-spacer-padding has-spacer-padding-bottom">
       <Col
-        className="has-spacer-padding has-spacer-padding-below"
+        className="has-spacer-padding has-spacer-padding-bottom"
         span={22}
         offset={1}
       >

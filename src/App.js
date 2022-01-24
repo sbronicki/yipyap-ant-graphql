@@ -19,7 +19,7 @@ const App = () => {
         <Layout>
           <NavBar />
           <Layout className="main-layout">
-            <Content className="main-content is-flex-center">
+            <Content className="main-content is-flex-center has-border-basic">
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/profile/" element={<Profile />} />

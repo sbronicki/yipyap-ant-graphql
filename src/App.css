@@ -81,7 +81,6 @@ textarea {
 .main-content {
   max-width: 1024px;
   width: 100%;
-  border: 1px solid #ccc;
   border: 5px;
 }
 /* home page */
@@ -182,10 +181,13 @@ textarea {
 .has-spacer-padding {
   padding-top: 0.75em;
 }
-.has-spacer-padding-below {
+.has-spacer-padding-bottom {
   padding-bottom: 0.75em;
 }
 .bg-brand {
   background-color: #03fca8;
   color: #fff;
+}
+.has-border-basic {
+  border: 1px solid #ccc;
 }
