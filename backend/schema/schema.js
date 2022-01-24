@@ -22,12 +22,36 @@ const usersData = [
   },
 ];
 
-const postData = [
+const postsData = [
   {
     id: "pID-1",
     title: "post Title 1",
     body: "this is the body",
-    author: "author",
+    userID: "123",
+  },
+  {
+    id: "pID-4",
+    title: "post Title 4",
+    body: "this is the body",
+    userID: "123",
+  },
+  {
+    id: "pID-5",
+    title: "post Title 5",
+    body: "this is the body",
+    userID: "123",
+  },
+  {
+    id: "pID-2",
+    title: "post Title 2",
+    body: "this is the body",
+    userID: "456",
+  },
+  {
+    id: "pID-3",
+    title: "post Title 3",
+    body: "this is the body",
+    userID: "789",
   },
 ];
 
@@ -35,6 +59,7 @@ const {
   GraphQLObjectType,
   GraphQLID,
   GraphQLString,
+  GraphQLList,
   GraphQLInt,
   GraphQLSchema,
 } = graphql;
@@ -48,6 +73,14 @@ const UserType = new GraphQLObjectType({
     name: { type: GraphQLString },
     email: { type: GraphQLString },
     password: { type: GraphQLString },
+    posts: {
+      type: GraphQLList(PostType),
+      resolve(parent, args) {
+        return _.filter(postsData, {
+          userID: parent.id,
+        });
+      },
+    },
   }),
 });
 
@@ -58,7 +91,12 @@ const PostType = new GraphQLObjectType({
     id: { type: GraphQLID },
     title: { type: GraphQLString },
     body: { type: GraphQLString },
-    author: { type: GraphQLString },
+    user: {
+      type: UserType,
+      resolve(parent, args) {
+        return _.find(usersData, { id: parent.userID });
+      },
+    },
   }),
 });
 
@@ -84,7 +122,7 @@ const RootQuery = new GraphQLObjectType({
         id: { type: GraphQLID },
       },
       resolve(parent, args) {
-        return _.find(postData, { id: args.id });
+        return _.find(postsData, { id: args.id });
       },
     },
   },
