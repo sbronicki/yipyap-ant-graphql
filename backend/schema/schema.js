@@ -110,6 +110,8 @@ const Mutation = new GraphQLObjectType({
           password: args.password,
         });
         user.save();
+
+        return user;
       },
     },
     createPost: {
@@ -132,6 +134,8 @@ const Mutation = new GraphQLObjectType({
           username: args.username,
         });
         post.save();
+
+        return post;
       },
     },
   },
