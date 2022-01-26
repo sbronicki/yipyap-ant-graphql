@@ -1,59 +1,7 @@
 const graphql = require("graphql");
 const _ = require("lodash");
-
-const usersData = [
-  {
-    id: "123",
-    name: "stanley",
-    email: "stanley@mbshighway.com",
-    password: "password1",
-  },
-  {
-    id: "456",
-    name: "andrew",
-    email: "andrew@mbshighway.com",
-    password: "password1",
-  },
-  {
-    id: "789",
-    name: "brady",
-    email: "brady@mbshighway.com",
-    password: "password1",
-  },
-];
-
-const postsData = [
-  {
-    id: "pID-1",
-    title: "post Title 1",
-    body: "this is the body",
-    userID: "123",
-  },
-  {
-    id: "pID-4",
-    title: "post Title 4",
-    body: "this is the body",
-    userID: "123",
-  },
-  {
-    id: "pID-5",
-    title: "post Title 5",
-    body: "this is the body",
-    userID: "123",
-  },
-  {
-    id: "pID-2",
-    title: "post Title 2",
-    body: "this is the body",
-    userID: "456",
-  },
-  {
-    id: "pID-3",
-    title: "post Title 3",
-    body: "this is the body",
-    userID: "789",
-  },
-];
+const User = require("../models/user");
+const Post = require("../models/post");
 
 const {
   GraphQLObjectType,
@@ -70,15 +18,15 @@ const UserType = new GraphQLObjectType({
   description: "User Type",
   fields: () => ({
     id: { type: GraphQLID },
-    name: { type: GraphQLString },
+    username: { type: GraphQLString },
     email: { type: GraphQLString },
     password: { type: GraphQLString },
     posts: {
       type: GraphQLList(PostType),
       resolve(parent, args) {
-        return _.filter(postsData, {
-          userID: parent.id,
-        });
+        // return _.filter(postsData, {
+        //   userID: parent.id,
+        // });
       },
     },
   }),
@@ -90,11 +38,12 @@ const PostType = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLID },
     title: { type: GraphQLString },
-    body: { type: GraphQLString },
+    content: { type: GraphQLString },
+    image: { type: GraphQLString },
     user: {
       type: UserType,
       resolve(parent, args) {
-        return _.find(usersData, { id: parent.userID });
+        // return _.find(usersData, { id: parent.userID });
       },
     },
   }),
@@ -113,13 +62,13 @@ const RootQuery = new GraphQLObjectType({
         },
       },
       resolve(parent, args) {
-        return _.find(usersData, { id: args.id });
+        // return _.find(usersData, { id: args.id });
       },
     },
     users: {
       type: new GraphQLList(UserType),
       resolve(parent, args) {
-        return usersData;
+        // return usersData;
       },
     },
     post: {
@@ -128,13 +77,13 @@ const RootQuery = new GraphQLObjectType({
         id: { type: GraphQLID },
       },
       resolve(parent, args) {
-        return _.find(postsData, { id: args.id });
+        // return _.find(postsData, { id: args.id });
       },
     },
     posts: {
       type: new GraphQLList(PostType),
       resolve(parent, args) {
-        return postsData;
+        // return postsData;
       },
     },
   },
@@ -148,17 +97,17 @@ const Mutation = new GraphQLObjectType({
       type: UserType,
       args: {
         // id: { type: GraphQLID },
-        name: { type: GraphQLString },
+        username: { type: GraphQLString },
         email: { type: GraphQLString },
         password: { type: GraphQLString },
       },
       resolve(parent, args) {
-        let user = {
-          name: args.name,
+        let user = new User({
+          username: args.username,
           email: args.email,
           password: args.password,
-        };
-        return user;
+        });
+        user.save();
       },
     },
     createPost: {
@@ -166,14 +115,14 @@ const Mutation = new GraphQLObjectType({
       args: {
         id: { type: GraphQLID },
         title: { type: GraphQLString },
-        body: { type: GraphQLString },
+        content: { type: GraphQLString },
         userID: { type: GraphQLID },
       },
       resolve(parent, args) {
         let post = {
           // id: args.id,
           title: args.title,
-          body: args.body,
+          content: args.content,
           userID: args.userID,
         };
         return post;
