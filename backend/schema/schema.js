@@ -116,6 +116,12 @@ const RootQuery = new GraphQLObjectType({
         return _.find(usersData, { id: args.id });
       },
     },
+    users: {
+      type: new GraphQLList(UserType),
+      resolve(parent, args) {
+        return usersData;
+      },
+    },
     post: {
       type: PostType,
       args: {
@@ -125,9 +131,58 @@ const RootQuery = new GraphQLObjectType({
         return _.find(postsData, { id: args.id });
       },
     },
+    posts: {
+      type: new GraphQLList(PostType),
+      resolve(parent, args) {
+        return postsData;
+      },
+    },
+  },
+});
+
+// mutations
+const Mutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    createUser: {
+      type: UserType,
+      args: {
+        // id: { type: GraphQLID },
+        name: { type: GraphQLString },
+        email: { type: GraphQLString },
+        password: { type: GraphQLString },
+      },
+      resolve(parent, args) {
+        let user = {
+          name: args.name,
+          email: args.email,
+          password: args.password,
+        };
+        return user;
+      },
+    },
+    createPost: {
+      type: PostType,
+      args: {
+        id: { type: GraphQLID },
+        title: { type: GraphQLString },
+        body: { type: GraphQLString },
+        userID: { type: GraphQLID },
+      },
+      resolve(parent, args) {
+        let post = {
+          // id: args.id,
+          title: args.title,
+          body: args.body,
+          userID: args.userID,
+        };
+        return post;
+      },
+    },
   },
 });
 
 module.exports = new GraphQLSchema({
   query: RootQuery,
+  mutation: Mutation,
 });
