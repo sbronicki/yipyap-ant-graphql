@@ -25,7 +25,7 @@ const UserType = new GraphQLObjectType({
       type: GraphQLList(PostType),
       resolve(parent, args) {
         // return _.filter(postsData, {
-        //   userID: parent.id,
+        //   creator: parent.id,
         // });
       },
     },
@@ -40,10 +40,12 @@ const PostType = new GraphQLObjectType({
     title: { type: GraphQLString },
     content: { type: GraphQLString },
     image: { type: GraphQLString },
+    creator: { type: GraphQLID },
+    username: { type: GraphQLString },
     user: {
       type: UserType,
       resolve(parent, args) {
-        // return _.find(usersData, { id: parent.userID });
+        // return _.find(usersData, { id: parent.creator });
       },
     },
   }),
@@ -113,19 +115,23 @@ const Mutation = new GraphQLObjectType({
     createPost: {
       type: PostType,
       args: {
-        id: { type: GraphQLID },
+        // id: { type: GraphQLID },
         title: { type: GraphQLString },
         content: { type: GraphQLString },
-        userID: { type: GraphQLID },
+        image: { type: GraphQLString },
+        creator: { type: GraphQLID },
+        username: { type: GraphQLString },
       },
       resolve(parent, args) {
-        let post = {
+        let post = new Post({
           // id: args.id,
           title: args.title,
           content: args.content,
-          userID: args.userID,
-        };
-        return post;
+          image: args.image,
+          creator: args.creator,
+          username: args.username,
+        });
+        post.save();
       },
     },
   },
