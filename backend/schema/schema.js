@@ -160,6 +160,28 @@ const Mutation = new GraphQLObjectType({
         return post;
       },
     },
+    updatePost: {
+      type: PostType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        title: { type: GraphQLString },
+        content: { type: GraphQLString },
+        image: { type: GraphQLString },
+      },
+      resolve(parent, args) {
+        return Post.findByIdAndUpdate(
+          args.id,
+          {
+            $set: {
+              title: args.title,
+              content: args.content,
+              image: args.image,
+            },
+          },
+          { new: true }
+        );
+      },
+    },
   },
 });
 
