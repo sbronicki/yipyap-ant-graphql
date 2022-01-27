@@ -10,6 +10,7 @@ const {
   GraphQLList,
   GraphQLInt,
   GraphQLSchema,
+  GraphQLNonNull,
 } = graphql;
 
 // types
@@ -100,13 +101,12 @@ const Mutation = new GraphQLObjectType({
     createUser: {
       type: UserType,
       args: {
-        // id: { type: GraphQLID },
-        username: { type: GraphQLString },
-        email: { type: GraphQLString },
-        password: { type: GraphQLString },
+        username: { type: new GraphQLNonNull(GraphQLString) },
+        email: { type: new GraphQLNonNull(GraphQLString) },
+        password: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve(parent, args) {
-        let user = new User({
+        const user = new User({
           username: args.username,
           email: args.email,
           password: args.password,
@@ -116,19 +116,39 @@ const Mutation = new GraphQLObjectType({
         return user;
       },
     },
+    updateUser: {
+      type: UserType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        username: { type: GraphQLString },
+        email: { type: GraphQLString },
+        password: { type: GraphQLString },
+      },
+      resolve(parent, args) {
+        return User.findByIdAndUpdate(
+          args.id,
+          {
+            $set: {
+              username: args.username,
+              email: args.email,
+              password: args.password,
+            },
+          },
+          { new: true }
+        );
+      },
+    },
     createPost: {
       type: PostType,
       args: {
-        // id: { type: GraphQLID },
-        title: { type: GraphQLString },
-        content: { type: GraphQLString },
+        title: { type: new GraphQLNonNull(GraphQLString) },
+        content: { type: new GraphQLNonNull(GraphQLString) },
         image: { type: GraphQLString },
-        creator: { type: GraphQLID },
-        username: { type: GraphQLString },
+        creator: { type: new GraphQLNonNull(GraphQLID) },
+        username: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve(parent, args) {
-        let post = new Post({
-          // id: args.id,
+        const post = new Post({
           title: args.title,
           content: args.content,
           image: args.image,
