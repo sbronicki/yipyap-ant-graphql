@@ -4,7 +4,7 @@
   text-align: center;
 }
 html {
-  --antd-wave-shadow-color: #03fca8;
+  --antd-wave-shadow-color: #05fca9;
 }
 body {
   background-color: rgb(240, 242, 245);
@@ -32,7 +32,7 @@ textarea {
 
 /* nav */
 .navbar {
-  background-color: #03fca8;
+  background-color: #05fca9;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,7 +47,7 @@ textarea {
   color: #fff;
 }
 .is-menu-container {
-  background-color: #03fca8;
+  background-color: #05fca9;
   padding-top: 0.75em;
   padding-bottom: 0.75em;
   margin-bottom: 1em;
@@ -128,7 +128,7 @@ textarea {
   position: fixed;
   bottom: 0;
   left: 0;
-  background-color: #03fca8;
+  background-color: #05fca9;
 }
 /* footer */
 
@@ -185,7 +185,7 @@ textarea {
   padding-bottom: 0.75em;
 }
 .bg-brand {
-  background-color: #03fca8;
+  background-color: #05fca9;
   color: #fff;
 }
 .has-border-basic {
