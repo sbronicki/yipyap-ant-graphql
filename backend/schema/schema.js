@@ -64,13 +64,13 @@ const RootQuery = new GraphQLObjectType({
         },
       },
       resolve(parent, args) {
-        // return _.find(usersData, { id: args.id });
+        return User.findById(args.id);
       },
     },
     users: {
       type: new GraphQLList(UserType),
       resolve(parent, args) {
-        // return usersData;
+        return User.find();
       },
     },
     post: {
@@ -79,13 +79,13 @@ const RootQuery = new GraphQLObjectType({
         id: { type: GraphQLID },
       },
       resolve(parent, args) {
-        // return _.find(postsData, { id: args.id });
+        return Post.findById(args.id);
       },
     },
     posts: {
       type: new GraphQLList(PostType),
       resolve(parent, args) {
-        // return postsData;
+        return Post.find();
       },
     },
   },
