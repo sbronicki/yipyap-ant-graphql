@@ -182,6 +182,20 @@ const Mutation = new GraphQLObjectType({
         );
       },
     },
+    deletePost: {
+      type: PostType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve(parent, args) {
+        const deletedPost = Post.findByIdAndDelete(args.id).exec();
+
+        if (!deletedPost) {
+          throw new "Error"();
+        }
+        return deletedPost;
+      },
+    },
   },
 });
 
