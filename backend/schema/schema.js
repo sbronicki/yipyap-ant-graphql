@@ -22,11 +22,11 @@ const UserType = new GraphQLObjectType({
     email: { type: GraphQLString },
     password: { type: GraphQLString },
     posts: {
+      // all posts by user
       type: GraphQLList(PostType),
       resolve(parent, args) {
-        // return _.filter(postsData, {
-        //   creator: parent.id,
-        // });
+        console.log(parent.id, args);
+        return Post.find({ creator: parent.id });
       },
     },
   }),
@@ -36,16 +36,18 @@ const PostType = new GraphQLObjectType({
   name: "Post",
   description: "Post Type",
   fields: () => ({
-    id: { type: GraphQLID },
+    id: { type: GraphQLID }, // post id
     title: { type: GraphQLString },
     content: { type: GraphQLString },
     image: { type: GraphQLString },
-    creator: { type: GraphQLID },
+    creator: { type: GraphQLID }, // creator id
     username: { type: GraphQLString },
     user: {
+      // user to query
       type: UserType,
       resolve(parent, args) {
-        // return _.find(usersData, { id: parent.creator });
+        console.log(parent.creator, args);
+        return User.findById(parent.creator);
       },
     },
   }),
