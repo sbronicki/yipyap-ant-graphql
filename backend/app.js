@@ -28,5 +28,25 @@ app.use(
 );
 
 app.listen(4000, () => {
-  console.log("listening on post 4000");
+  console.log("listening on port 4000");
 });
+
+// var myHeaders = new Headers();
+// myHeaders.append("Content-Type", "application/json");
+
+// var graphql = JSON.stringify({
+//   query:
+//     "{\r\n  User {\r\n    Comment\r\n    author {\r\n      name\r\n    }\r\n  }\r\n}",
+//   variables: {},
+// });
+// var requestOptions = {
+//   method: "GET",
+//   headers: myHeaders,
+//   body: graphql,
+//   redirect: "follow",
+// };
+
+// fetch("http://localhost:4000/graphql", requestOptions)
+//   // .then((response) => response.text())
+//   .then((result) => console.log(result))
+//   .catch((error) => console.log("error", error));

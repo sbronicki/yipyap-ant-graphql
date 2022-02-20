@@ -1,9 +1,29 @@
+import { gql, useQuery } from "@apollo/client";
 import { Col, Descriptions, PageHeader, Row } from "antd";
 import Posts from "../Post/Posts";
 import Banner from "./Banner";
 import Headshot from "./Headshot";
 
+const getUserQuery = gql`
+  {
+    user(id: "6060f2bf516c070015695607") {
+      id
+      username
+      email
+      posts {
+        title
+      }
+    }
+  }
+`;
+
 const Profile = () => {
+  const { loading, error, data } = useQuery(getUserQuery);
+
+  console.log(data);
+
+  // console.log(data);
+
   const created = "08/09/2022";
   const numPosts = "3";
   const colWidth =

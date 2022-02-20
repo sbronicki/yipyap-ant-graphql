@@ -14,16 +14,17 @@ const Home = () => {
       </Col>
       <Col span={18} offset={3}>
         <Menu className="is-menu-container" style={{ borderRadius: "10px" }}>
-          <Menu.Item className="is-menu-item menu-first">
+          <Menu.Item key={"post"} className="is-menu-item menu-first">
             <Link to="/new-post">New Post</Link>
           </Menu.Item>
-          <Menu.Item className="is-menu-item">
+          <Menu.Item key={"profile"} className="is-menu-item">
             <Link to="/profile/">Profile</Link>
           </Menu.Item>
-          <Menu.Item className="is-menu-item">
+          <Menu.Item key={"feed"} className="is-menu-item">
             <Link to="/feed">Feed</Link>
           </Menu.Item>
           <Menu.Item
+            key={"logout"}
             onClick={() => onLogOut()}
             className="is-menu-item menu-last"
           >
