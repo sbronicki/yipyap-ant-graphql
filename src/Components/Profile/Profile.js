@@ -4,54 +4,36 @@ import Posts from "../Post/Posts";
 import Banner from "./Banner";
 import Headshot from "./Headshot";
 
-const getUserQuery = gql`
-  {
-    user(id: "6060f2bf516c070015695607") {
-      id
-      username
-      email
-      posts {
-        title
+const Profile = ({ userID }) => {
+  const getUserQuery = gql`
+    {
+      user(id: "6060f2bf516c070015695607") {
+        id
+        username
+        email
+        posts {
+          id
+          title
+          content
+          creator
+          username
+        }
       }
     }
-  }
-`;
-
-const Profile = () => {
+  `;
   const { loading, error, data } = useQuery(getUserQuery);
 
-  console.log(data);
+  if (loading) return <></>;
+  if (error) return <></>;
 
-  // console.log(data);
+  const user = data.user;
+
+  console.log(user);
 
   const created = "08/09/2022";
-  const numPosts = "3";
+  const numPosts = user.posts.length;
   const colWidth =
     window.innerWidth < 768 ? { span: 24, offset: 0 } : { span: 8, offset: 2 };
-
-  const dummyPosts = [
-    {
-      title: "post title",
-      body: "POST BODY",
-      postID: "id-123",
-      author: "post author",
-      image: "",
-    },
-    {
-      title: "post title 2",
-      body: "POST BODY 2",
-      postID: "id-456",
-      author: "post author 2",
-      image: "",
-    },
-    {
-      title: "post title 3",
-      body: "POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3POST BODY 3",
-      postID: "id-789",
-      author: "post author 3",
-      image: "",
-    },
-  ];
 
   return (
     <Row className="has-spacer-padding">
@@ -71,7 +53,7 @@ const Profile = () => {
             <Headshot />
           </Col>
           <Col span={colWidth.span} offset={colWidth.offset}>
-            <PageHeader title="USER'S Profile" subTitle="I'm the user!">
+            <PageHeader title={user.username} subTitle="I'm the user!">
               <Descriptions column={1}>
                 <Descriptions.Item label="Member Since">
                   {created}
@@ -83,7 +65,7 @@ const Profile = () => {
         </Row>
       </Col>
       <Col className="is-flex-center stack-cols" span={24}>
-        <Posts postList={dummyPosts} />
+        <Posts postList={user.posts} />
       </Col>
     </Row>
   );
