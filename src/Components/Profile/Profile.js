@@ -16,7 +16,6 @@ const Profile = ({ userID }) => {
           title
           content
           creator
-          username
         }
       }
     }
@@ -27,8 +26,6 @@ const Profile = ({ userID }) => {
   if (error) return <></>;
 
   const user = data.user;
-
-  console.log(user);
 
   const created = "08/09/2022";
   const numPosts = user.posts.length;

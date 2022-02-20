@@ -1,7 +1,6 @@
 import { Col, Comment, Row } from "antd";
 
 const Post = ({ postData, className }) => {
-  console.log(postData);
   const { title, content, id, username, image } = postData;
 
   return (
