@@ -1,31 +1,43 @@
+import { gql, useQuery, useMutation } from "@apollo/client";
+
 import { UploadOutlined } from "@ant-design/icons";
-import { clear } from "@testing-library/user-event/dist/clear";
 import { Button, Col, Input, Row, Upload } from "antd";
 import { useState } from "react/cjs/react.development";
+import { CREATE_POST_MUTATION } from "../../GraphQL/mutations";
 
 const { TextArea } = Input;
 
 const NewPost = () => {
   const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
+  const [content, setContent] = useState("");
   const [image, setImage] = useState({});
 
+  const [createPost, { error }] = useMutation(CREATE_POST_MUTATION);
+
   const onSave = () => {
-    const post = {
-      title: title,
-      body: body,
-      image: image,
-    };
-    console.log(post);
+    createPost({
+      variables: {
+        title: title,
+        content: content,
+        image: image,
+        creator: "6060f2bf516c070015695607",
+        username: "Yip-Yap-Team",
+      },
+    }).then((res) => {
+      console.log(res);
+      debugger;
+    });
+
+    if (error) console.log(error);
+
     clear();
   };
   const clear = () => {
     setTitle("");
-    setBody("");
+    setContent("");
     setImage({});
     // clear file list
   };
-  console.log(title, body, image);
   return (
     <Row className="has-spacer-padding has-spacer-padding-bottom">
       <Col
@@ -44,10 +56,10 @@ const NewPost = () => {
         />
         <TextArea
           size="large"
-          placeholder="Post Body"
+          placeholder="Post content"
           maxLength={100}
-          onChange={(e) => setBody(e.target.value)}
-          value={body}
+          onChange={(e) => setContent(e.target.value)}
+          value={content}
         />
       </Col>
       <Col className="has-spacer-padding" span={24}>

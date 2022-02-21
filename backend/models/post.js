@@ -5,9 +5,11 @@ const postSchema = mongoose.Schema({
   content: { type: String, required: true },
   image: { type: String },
   creator: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    type: String,
     required: true,
+    // type: mongoose.Schema.Types.ObjectId,
+    // ref: "User",
+    // required: true,
   },
   username: { type: String, required: true },
 });

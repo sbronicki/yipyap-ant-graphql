@@ -144,7 +144,7 @@ const Mutation = new GraphQLObjectType({
         title: { type: new GraphQLNonNull(GraphQLString) },
         content: { type: new GraphQLNonNull(GraphQLString) },
         image: { type: GraphQLString },
-        creator: { type: new GraphQLNonNull(GraphQLID) },
+        creator: { type: new GraphQLNonNull(GraphQLString) },
         username: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve(parent, args) {
@@ -155,6 +155,8 @@ const Mutation = new GraphQLObjectType({
           creator: args.creator,
           username: args.username,
         });
+
+        console.log(post);
         post.save();
 
         return post;
