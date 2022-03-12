@@ -13,8 +13,6 @@ const Profile = ({ userID }) => {
 
   const user = data.user;
 
-  debugger;
-
   const created = "08/09/2022";
   const numPosts = user.posts.length;
   const colWidth =

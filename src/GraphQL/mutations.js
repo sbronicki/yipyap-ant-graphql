@@ -2,16 +2,16 @@ import { gql } from "@apollo/client";
 
 export const CREATE_POST_MUTATION = gql`
   mutation createPost(
+    $userID: ID!
     $title: String!
     $content: String!
     $image: String
-    $userID: ID!
   ) {
     createPost(
+      userID: $userID
       title: $title
       content: $content
       image: $image
-      userID: $userID
     ) {
       id
       title

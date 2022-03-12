@@ -1,6 +1,5 @@
-import { gql, useQuery, useMutation } from "@apollo/client";
-
 import { UploadOutlined } from "@ant-design/icons";
+import { useMutation } from "@apollo/client";
 import { Button, Col, Input, Row, Upload } from "antd";
 import { useState } from "react/cjs/react.development";
 import { CREATE_POST_MUTATION } from "../../GraphQL/mutations";
@@ -10,31 +9,31 @@ const { TextArea } = Input;
 const NewPost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [image, setImage] = useState({});
+  const [image, setImage] = useState("");
 
-  const [createPost, { error }] = useMutation(CREATE_POST_MUTATION);
+  const [createPost, { loading, error }] = useMutation(CREATE_POST_MUTATION);
 
-  const onSave = () => {
+  if (loading) return <></>;
+  if (error) console.log(error);
+
+  const onSave = (e) => {
+    const userID = "622cd3001a05e78573bb1b1e";
     createPost({
       variables: {
-        userID: "622cd3001a05e78573bb1b1e",
-        title: title,
-        content: content,
-        image: image,
+        userID,
+        title,
+        content,
+        image,
       },
     }).then((res) => {
       console.log(res);
-      debugger;
     });
-
-    if (error) console.log(error);
-
     clear();
   };
   const clear = () => {
     setTitle("");
     setContent("");
-    setImage({});
+    setImage("");
     // clear file list
   };
   return (
@@ -61,7 +60,7 @@ const NewPost = () => {
           value={content}
         />
       </Col>
-      <Col className="has-spacer-padding" span={24}>
+      <Col className="has-spacer-padding has-spacer-padding-bottom" span={24}>
         <Row>
           <Col span={12}>
             <Upload onChange={(e) => setImage(e)} maxCount={1}>

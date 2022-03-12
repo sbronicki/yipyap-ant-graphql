@@ -105,6 +105,8 @@ const Mutation = new GraphQLObjectType({
           email: args.email,
           password: args.password,
         });
+
+        console.log(user);
         return user.save();
       },
     },
@@ -133,17 +135,17 @@ const Mutation = new GraphQLObjectType({
     createPost: {
       type: PostType,
       args: {
+        userID: { type: new GraphQLNonNull(GraphQLID) },
         title: { type: new GraphQLNonNull(GraphQLString) },
         content: { type: new GraphQLNonNull(GraphQLString) },
         image: { type: GraphQLString },
-        userID: { type: new GraphQLNonNull(GraphQLID) },
       },
       resolve(parent, args) {
         const post = new Post({
+          userID: args.userID,
           title: args.title,
           content: args.content,
           image: args.image,
-          userID: args.userID,
         });
 
         console.log(post);
