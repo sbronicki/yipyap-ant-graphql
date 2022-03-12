@@ -5,17 +5,19 @@ export const CREATE_POST_MUTATION = gql`
     $title: String!
     $content: String!
     $image: String
-    $creator: String!
-    $username: String!
+    $userID: ID!
   ) {
     createPost(
       title: $title
       content: $content
       image: $image
-      creator: $creator
-      username: $username
+      userID: $userID
     ) {
       id
+      title
+      user {
+        username
+      }
     }
   }
 `;

@@ -17,11 +17,10 @@ const NewPost = () => {
   const onSave = () => {
     createPost({
       variables: {
+        userID: "622cd3001a05e78573bb1b1e",
         title: title,
         content: content,
         image: image,
-        creator: "6060f2bf516c070015695607",
-        username: "Yip-Yap-Team",
       },
     }).then((res) => {
       console.log(res);

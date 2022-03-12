@@ -10,7 +10,7 @@ const app = express();
 
 mongoose
   .connect(
-    `mongodb+srv://stanley:${process.env.DB_PW}@cluster0.llbrq.mongodb.net/node-react-yipyap?retryWrites=true&w=majority`
+    `mongodb+srv://stanley:${process.env.DB_PW}@cluster0.llbrq.mongodb.net/yipyapGQLbackend`
   )
   .catch(() => {
     console.log("Connnection failed...");

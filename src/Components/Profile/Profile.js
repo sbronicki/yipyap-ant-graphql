@@ -3,29 +3,17 @@ import { Col, Descriptions, PageHeader, Row } from "antd";
 import Posts from "../Post/Posts";
 import Banner from "./Banner";
 import Headshot from "./Headshot";
+import { GET_USER_QUERY } from "../../GraphQL/queries";
 
 const Profile = ({ userID }) => {
-  const getUserQuery = gql`
-    {
-      user(id: "6060f2bf516c070015695607") {
-        id
-        username
-        email
-        posts {
-          id
-          title
-          content
-          creator
-        }
-      }
-    }
-  `;
-  const { loading, error, data } = useQuery(getUserQuery);
+  const { loading, error, data } = useQuery(GET_USER_QUERY);
 
   if (loading) return <></>;
   if (error) return <></>;
 
   const user = data.user;
+
+  debugger;
 
   const created = "08/09/2022";
   const numPosts = user.posts.length;

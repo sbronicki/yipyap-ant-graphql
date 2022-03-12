@@ -23,11 +23,9 @@ const UserType = new GraphQLObjectType({
     email: { type: GraphQLString },
     password: { type: GraphQLString },
     posts: {
-      // all posts by user
       type: GraphQLList(PostType),
       resolve(parent, args) {
-        console.log(parent.id, args);
-        return Post.find({ creator: parent.id });
+        return Post.find({ userID: parent.id });
       },
     },
   }),
@@ -37,18 +35,14 @@ const PostType = new GraphQLObjectType({
   name: "Post",
   description: "Post Type",
   fields: () => ({
-    id: { type: GraphQLID }, // post id
+    id: { type: GraphQLID },
     title: { type: GraphQLString },
     content: { type: GraphQLString },
     image: { type: GraphQLString },
-    creator: { type: GraphQLID }, // creator id
-    username: { type: GraphQLString },
     user: {
-      // user to query
       type: UserType,
       resolve(parent, args) {
-        console.log(parent.creator, args);
-        return User.findById(parent.creator);
+        return User.findById(parent.userID);
       },
     },
   }),
@@ -111,9 +105,7 @@ const Mutation = new GraphQLObjectType({
           email: args.email,
           password: args.password,
         });
-        user.save();
-
-        return user;
+        return user.save();
       },
     },
     updateUser: {
@@ -144,22 +136,18 @@ const Mutation = new GraphQLObjectType({
         title: { type: new GraphQLNonNull(GraphQLString) },
         content: { type: new GraphQLNonNull(GraphQLString) },
         image: { type: GraphQLString },
-        creator: { type: new GraphQLNonNull(GraphQLString) },
-        username: { type: new GraphQLNonNull(GraphQLString) },
+        userID: { type: new GraphQLNonNull(GraphQLID) },
       },
       resolve(parent, args) {
         const post = new Post({
           title: args.title,
           content: args.content,
           image: args.image,
-          creator: args.creator,
-          username: args.username,
+          userID: args.userID,
         });
 
         console.log(post);
-        post.save();
-
-        return post;
+        return post.save();
       },
     },
     updatePost: {

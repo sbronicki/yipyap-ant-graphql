@@ -1,21 +1,10 @@
 import { gql, useQuery } from "@apollo/client";
 import { Col, Row } from "antd";
+import { GET_POSTS_QUERY } from "../../GraphQL/queries";
 import Posts from "../Post/Posts";
 
 const Feed = () => {
-  const getPostsQuery = gql`
-    {
-      posts {
-        id
-        title
-        content
-        creator
-        username
-      }
-    }
-  `;
-
-  const { loading, error, data } = useQuery(getPostsQuery);
+  const { loading, error, data } = useQuery(GET_POSTS_QUERY);
 
   if (loading) return <></>;
   if (error) return <></>;
