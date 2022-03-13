@@ -29,3 +29,19 @@ export const DELETE_POST_MUTATION = gql`
     }
   }
 `;
+
+export const UPDATE_POST_MUTATION = gql`
+  mutation updatePost(
+    $id: ID!
+    $title: String
+    $content: String
+    $image: String
+  ) {
+    updatePost(id: $id, title: $title, content: $content, image: $image) {
+      post {
+        title
+        id
+      }
+    }
+  }
+`;
