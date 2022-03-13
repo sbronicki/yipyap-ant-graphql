@@ -19,7 +19,7 @@ const Profile = ({ userID }) => {
     window.innerWidth < 768 ? { span: 24, offset: 0 } : { span: 8, offset: 2 };
 
   return (
-    <Row className="has-spacer-padding">
+    <Row className="has-spacer-padding-top">
       <Col
         className="is-overflow-hidden is-flex-center banner-container"
         span={24}

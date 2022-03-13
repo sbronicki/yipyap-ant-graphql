@@ -179,10 +179,13 @@ textarea {
   text-align: start;
 }
 .has-spacer-padding {
-  padding-top: 0.75em;
+  padding: 0.75em;
 }
 .has-spacer-padding-bottom {
   padding-bottom: 0.75em;
+}
+.has-spacer-padding-top {
+  padding-top: 0.75em;
 }
 .bg-brand {
   background-color: #05fca9;

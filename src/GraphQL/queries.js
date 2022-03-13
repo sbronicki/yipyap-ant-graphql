@@ -7,6 +7,11 @@ export const GET_USER_QUERY = gql`
       username
       posts {
         title
+        content
+        id
+        user {
+          username
+        }
       }
     }
   }

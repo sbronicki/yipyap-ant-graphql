@@ -37,9 +37,9 @@ const NewPost = () => {
     // clear file list
   };
   return (
-    <Row className="has-spacer-padding has-spacer-padding-bottom">
+    <Row className="has-spacer-padding-top has-spacer-padding-bottom">
       <Col
-        className="has-spacer-padding has-spacer-padding-bottom"
+        className="has-spacer-padding-top has-spacer-padding-bottom"
         span={22}
         offset={1}
       >
@@ -60,7 +60,10 @@ const NewPost = () => {
           value={content}
         />
       </Col>
-      <Col className="has-spacer-padding has-spacer-padding-bottom" span={24}>
+      <Col
+        className="has-spacer-padding-top has-spacer-padding-bottom"
+        span={24}
+      >
         <Row>
           <Col span={12}>
             <Upload onChange={(e) => setImage(e)} maxCount={1}>
