@@ -1,18 +1,30 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { useMutation } from "@apollo/client";
 import { Col, Comment, Row, Tooltip } from "antd";
+import { DELETE_POST_MUTATION } from "../../GraphQL/mutations";
 
 const Post = ({ postData, className }) => {
   const { title, content, id, image, user } = postData;
+
+  const [deletePost, { loading, error }] = useMutation(DELETE_POST_MUTATION);
 
   const editPost = (postID) => {
     console.log(postID);
     console.log("edit post");
   };
 
-  const deletePost = (postID) => {
+  const onDelete = (id) => {
     console.log("delete post");
-    console.log(postID);
+    console.log(id);
+    deletePost({
+      variables: {
+        id,
+      },
+    }).then((res) => console.log(res));
   };
+
+  if (loading) return <></>;
+  if (error) return <></>;
 
   return (
     <Row className={`post-container ${className}`} id={id} key={id}>
@@ -24,7 +36,7 @@ const Post = ({ postData, className }) => {
               title={title}
               content={content}
               editPost={editPost}
-              deletePost={deletePost}
+              onDelete={onDelete}
               id={id}
             />
           }
@@ -36,7 +48,7 @@ const Post = ({ postData, className }) => {
 
 export default Post;
 
-const PostBody = ({ title, content, editPost, deletePost, id }) => {
+const PostBody = ({ title, content, editPost, onDelete, id }) => {
   return (
     <Row className="stack-cols post-body text-align-left">
       <Col offset={2} span={20}>
@@ -45,7 +57,7 @@ const PostBody = ({ title, content, editPost, deletePost, id }) => {
             <p>{title}</p>
           </Col>
           <Col className="is-flex-center" span={2}>
-            <PostActions id={id} editPost={editPost} deletePost={deletePost} />
+            <PostActions id={id} editPost={editPost} onDelete={onDelete} />
           </Col>
         </Row>
       </Col>
@@ -56,7 +68,7 @@ const PostBody = ({ title, content, editPost, deletePost, id }) => {
   );
 };
 
-const PostActions = ({ id, editPost, deletePost }) => {
+const PostActions = ({ id, editPost, onDelete }) => {
   return (
     <>
       <Tooltip>
@@ -65,7 +77,7 @@ const PostActions = ({ id, editPost, deletePost }) => {
         </span>
       </Tooltip>
       <Tooltip>
-        <span onClick={() => deletePost(id)}>
+        <span onClick={() => onDelete(id)}>
           <DeleteOutlined className="has-spacer-padding" />
         </span>
       </Tooltip>
