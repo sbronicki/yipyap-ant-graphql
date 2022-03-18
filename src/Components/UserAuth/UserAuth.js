@@ -4,7 +4,7 @@ import Logo from "../Logo/Logo";
 import { useState, useLayoutEffect } from "react";
 
 const UserAuth = () => {
-  const [isSignup, setIsSignup] = useState(false);
+  const [isSignup, setIsSignup] = useState(true);
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");

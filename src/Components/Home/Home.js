@@ -7,7 +7,7 @@ const Home = () => {
   const onLogOut = () => {
     console.log("Log Out");
   };
-  const isLoggedIn = false;
+  const isLoggedIn = true;
 
   return isLoggedIn ? (
     <Row className="home-page">

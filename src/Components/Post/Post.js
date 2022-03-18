@@ -19,6 +19,9 @@ const Post = ({ postData, className }) => {
   const [title, setTitle] = useState(postData.title);
   const [content, setContent] = useState(postData.content);
   const [image, setImage] = useState(postData.image);
+  const [titleEdit, setTitleEdit] = useState(postData.title);
+  const [contentEdit, setContentEdit] = useState(postData.content);
+  const [imageEdit, setImageEdit] = useState(postData.image);
 
   const [editMode, setEditMode] = useState(false);
 
@@ -26,11 +29,14 @@ const Post = ({ postData, className }) => {
   const [updatePost] = useMutation(UPDATE_POST_MUTATION);
 
   const onEdit = () => {
+    onDiscardEdit();
     setEditMode(!editMode);
   };
 
   const onDiscardEdit = () => {
-    console.log("need temps v tired comiitfnngfdn");
+    setTitleEdit(title);
+    setContentEdit(content);
+    setImageEdit(image);
   };
 
   const onUpdate = (postID) => {
@@ -39,16 +45,14 @@ const Post = ({ postData, className }) => {
     updatePost({
       variables: {
         id,
-        title,
-        content,
-        image,
+        titleEdit,
+        contentEdit,
+        imageEdit,
       },
     });
   };
 
   const onDelete = (id) => {
-    console.log("delete post");
-    console.log(id);
     deletePost({
       variables: {
         id,
@@ -67,9 +71,13 @@ const Post = ({ postData, className }) => {
           content={
             <PostBody
               title={title}
+              titleEdit={titleEdit}
               setTitle={setTitle}
+              setTitleEdit={setTitleEdit}
               content={content}
+              contentEdit={contentEdit}
               setContent={setContent}
+              setContentEdit={setContentEdit}
               onUpdate={onUpdate}
               editMode={editMode}
               onDiscardEdit={onDiscardEdit}
@@ -88,9 +96,11 @@ export default Post;
 
 const PostBody = ({
   title,
-  setTitle,
   content,
-  setContent,
+  titleEdit,
+  setTitleEdit,
+  contentEdit,
+  setContentEdit,
   editMode,
   onDiscardEdit,
   onEdit,
@@ -106,8 +116,8 @@ const PostBody = ({
             {editMode ? (
               <Input
                 maxLength={20}
-                onChange={(e) => setTitle(e.target.value)}
-                value={title}
+                onChange={(e) => setTitleEdit(e.target.value)}
+                value={titleEdit}
               />
             ) : (
               <p>{title}</p>
@@ -130,8 +140,8 @@ const PostBody = ({
           <TextArea
             size="large"
             maxLength={100}
-            onChange={(e) => setContent(e.target.value)}
-            value={content}
+            onChange={(e) => setContentEdit(e.target.value)}
+            value={contentEdit}
           />
         ) : (
           <p>{content}</p>
@@ -162,7 +172,7 @@ const PostActions = ({
         </span>
       </Tooltip>
       <Tooltip>
-        <span onClick={(e) => onDelete(id)}>
+        <span onClick={(e) => onUpdate(id)}>
           <CheckOutlined className="has-spacer-padding" />
         </span>
       </Tooltip>
