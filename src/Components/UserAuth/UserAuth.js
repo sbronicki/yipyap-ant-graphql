@@ -26,7 +26,11 @@ const UserAuth = () => {
   };
 
   const onSignup = () => {
-    console.log({ username }, { email }, { password });
+    if (isSignup) {
+      console.log({ username }, { email }, { password });
+    } else {
+      console.log({ username }, { password });
+    }
   };
 
   return (

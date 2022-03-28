@@ -48,7 +48,7 @@ const Profile = ({ userID }) => {
         </Row>
       </Col>
       <Col className="is-flex-center stack-cols" span={24}>
-        <Posts postList={user.posts} />
+        <Posts postList={user.posts} parent={"profile"} />
       </Col>
     </Row>
   );

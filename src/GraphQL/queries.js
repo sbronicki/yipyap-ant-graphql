@@ -48,6 +48,7 @@ export const GET_POSTS_QUERY = gql`
     posts {
       id
       title
+      content
       user {
         id
         username

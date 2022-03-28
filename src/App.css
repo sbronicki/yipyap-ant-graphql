@@ -215,3 +215,6 @@ textarea {
 .has-border-basic {
   border: 1px solid #ccc;
 }
+.is-fullWidth {
+  width: 100%;
+}
