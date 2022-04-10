@@ -5,7 +5,7 @@ import { useState, useLayoutEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { CREATE_USER_MUTATION } from "../../GraphQL/mutations";
 import { useContext } from "react";
-import { UserContext } from "../../Context/UserContext";
+import User, { UserContext } from "../../Context/UserContext";
 
 const UserAuth = () => {
   const { user, setUser } = useContext(UserContext);
@@ -37,7 +37,6 @@ const UserAuth = () => {
 
   const onSubmit = () => {
     if (isSignup) {
-      console.log({ username }, { email }, { password });
       createUser({
         variables: {
           email,
@@ -47,25 +46,25 @@ const UserAuth = () => {
       }).then((res) => {
         console.log(res);
         // login()
-        debugger;
       });
     } else {
-      console.log({ username }, { password });
       // call then
-      setUser({
-        email: "test@email",
-        username: username,
-        profileData: {
-          banner: "",
-          image: "",
-          bio: "",
-          memberDate: "",
-          posts: [],
-        },
-        auth: {
-          token: "234234",
-        },
-      });
+      setUser(
+        new User({
+          email: "email",
+          username: "userrr",
+          profileData: {
+            banner: "",
+            image: "",
+            bio: "",
+            memberDate: "",
+            posts: [],
+          },
+          auth: {
+            token: null,
+          },
+        })
+      );
     }
   };
 

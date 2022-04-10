@@ -11,6 +11,8 @@ import {
   useQuery,
   gql,
 } from "@apollo/client";
+import { UserProvider } from "./Context/UserContext";
+import { BrowserRouter } from "react-router-dom";
 
 axios.defaults.baseURL = "http://localhost:4000/graphql";
 
@@ -22,7 +24,11 @@ const client = new ApolloClient({
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <BrowserRouter>
+        <UserProvider>
+          <App />
+        </UserProvider>
+      </BrowserRouter>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")

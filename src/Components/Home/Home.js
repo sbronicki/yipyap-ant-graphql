@@ -26,7 +26,7 @@ const Home = () => {
             <Link to="/new-post">New Post</Link>
           </Menu.Item>
           <Menu.Item key={"profile"} className="is-menu-item">
-            <Link to="/profile/">Profile</Link>
+            <Link to={`/profile/${user.username}`}>Profile</Link>
           </Menu.Item>
           <Menu.Item key={"feed"} className="is-menu-item">
             <Link to="/feed">Feed</Link>
@@ -49,7 +49,7 @@ const Home = () => {
       <Col span={18} offset={3}>
         <Menu className="is-menu-container" style={{ borderRadius: "10px" }}>
           <Menu.Item key={"profile"} className="is-menu-item">
-            <Link to="/profile/">Yip-Yap Team Profile</Link>
+            <Link to="/profile/yip-yap-team">Yip-Yap Team Profile</Link>
           </Menu.Item>
           <Menu.Item key={"feed"} className="is-menu-item">
             <Link to="/feed">Community Feed</Link>

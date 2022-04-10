@@ -6,9 +6,17 @@ import { MenuOutlined, UserOutlined } from "@ant-design/icons";
 
 import Logo from "../Logo/Logo";
 import { Link } from "react-router-dom";
+import { useContext } from "react/cjs/react.development";
+import { UserContext } from "../../Context/UserContext";
+import { useEffect } from "react";
 
 const NavBar = () => {
+  const { user, setUser } = useContext(UserContext);
   const [toggleSideDrawer, setToggleSideDrawer] = useState(false);
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   return (
     <Header className="navbar">
@@ -18,7 +26,7 @@ const NavBar = () => {
           style={{ fontSize: "2em" }}
         />
         <Logo />
-        <Link to="/profile/">
+        <Link to={`/profile/${user ? user.username : "yip-yap-team"}`}>
           <Avatar
             style={{
               border: "2px solid #fff",

@@ -7,6 +7,14 @@ export const useUser = () => useContext(UserContext);
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
+  useEffect(() => {
+    if (!user) {
+      // try auto login
+    }
+  }, []);
+
+  console.log(user);
+
   return (
     <UserContext.Provider value={{ user: user, setUser: setUser }}>
       {children}
@@ -14,19 +22,20 @@ export const UserProvider = ({ children }) => {
   );
 };
 
-const User = (userObj) => {
-  return {
-    email: "",
-    username: "",
-    profileData: {
+class User {
+  constructor(data) {
+    this.email = data.email;
+    this.username = data.username;
+    this.profileData = {
       banner: "",
       image: "",
       bio: "",
       memberDate: "",
       posts: [],
-    },
-    auth: {
+    };
+    this.auth = {
       token: null,
-    },
-  };
-};
+    };
+  }
+}
+export default User;
