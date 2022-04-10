@@ -110,6 +110,14 @@ const Mutation = new GraphQLObjectType({
         return user.save();
       },
     },
+    loginUser: {
+      type: UserType,
+      args: {
+        email: { type: GraphQLString },
+        password: { type: GraphQLString },
+      },
+      resolve(parent, args) {},
+    },
     updateUser: {
       type: UserType,
       args: {

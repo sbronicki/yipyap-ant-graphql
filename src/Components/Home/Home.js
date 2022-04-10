@@ -1,15 +1,21 @@
 import { Col, Menu, Row } from "antd";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../Context/UserContext";
 
 import Logo from "../Logo/Logo";
+import { useEffect } from "react/cjs/react.production.min";
 
 const Home = () => {
+  const { user } = useContext(UserContext);
+
+  const isAuthed = user;
+
   const onLogOut = () => {
     console.log("Log Out");
   };
-  const isLoggedIn = true;
 
-  return isLoggedIn ? (
+  return isAuthed ? (
     <Row className="home-page">
       <Col style={{ padding: "1em" }} span={24}>
         <Logo hasText />

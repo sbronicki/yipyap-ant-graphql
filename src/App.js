@@ -10,29 +10,32 @@ import Profile from "./Components/Profile/Profile";
 import Feed from "./Components/Feed/Feed";
 import NewPost from "./Components/NewPost/NewPost";
 import UserAuth from "./Components/UserAuth/UserAuth";
+import { UserProvider } from "./Context/UserContext";
 
 const { Content } = Layout;
 
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="App">
-        <Layout>
-          <NavBar />
-          <Layout className="main-layout">
-            <Content className="main-content is-flex-center has-border-basic">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/profile/" element={<Profile />} />
-                <Route path="/feed" element={<Feed />} />
-                <Route path="/new-post" element={<NewPost />} />
-                <Route path="/auth" element={<UserAuth />} />
-              </Routes>
-            </Content>
+      <UserProvider>
+        <div className="App">
+          <Layout>
+            <NavBar />
+            <Layout className="main-layout">
+              <Content className="main-content is-flex-center has-border-basic">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/profile/" element={<Profile />} />
+                  <Route path="/feed" element={<Feed />} />
+                  <Route path="/new-post" element={<NewPost />} />
+                  <Route path="/auth" element={<UserAuth />} />
+                </Routes>
+              </Content>
+            </Layout>
+            <FooterContent />
           </Layout>
-          <FooterContent />
-        </Layout>
-      </div>
+        </div>
+      </UserProvider>
     </BrowserRouter>
   );
 };

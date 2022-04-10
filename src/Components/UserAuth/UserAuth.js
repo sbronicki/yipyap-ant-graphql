@@ -4,8 +4,11 @@ import Logo from "../Logo/Logo";
 import { useState, useLayoutEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { CREATE_USER_MUTATION } from "../../GraphQL/mutations";
+import { useContext } from "react";
+import { UserContext } from "../../Context/UserContext";
 
 const UserAuth = () => {
+  const { user, setUser } = useContext(UserContext);
   const [isSignup, setIsSignup] = useState(true);
 
   const [username, setUsername] = useState("");
@@ -32,7 +35,7 @@ const UserAuth = () => {
     }
   };
 
-  const onSignup = () => {
+  const onSubmit = () => {
     if (isSignup) {
       console.log({ username }, { email }, { password });
       createUser({
@@ -43,10 +46,26 @@ const UserAuth = () => {
         },
       }).then((res) => {
         console.log(res);
+        // login()
         debugger;
       });
     } else {
       console.log({ username }, { password });
+      // call then
+      setUser({
+        email: "test@email",
+        username: username,
+        profileData: {
+          banner: "",
+          image: "",
+          bio: "",
+          memberDate: "",
+          posts: [],
+        },
+        auth: {
+          token: "234234",
+        },
+      });
     }
   };
 
@@ -73,7 +92,7 @@ const UserAuth = () => {
               setUsername={setUsername}
               setEmail={setEmail}
               setPassword={setPassword}
-              onFinish={onSignup}
+              onFinish={onSubmit}
             />
           </Menu.Item>
           <Menu.Item
@@ -91,7 +110,7 @@ const UserAuth = () => {
               setUsername={setUsername}
               setEmail={setEmail}
               setPassword={setPassword}
-              onFinish={onSignup}
+              onFinish={onSubmit}
             />
           </Menu.Item>
         </Menu>

@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const [toggleSideDrawer, setToggleSideDrawer] = useState(false);
+
   return (
     <Header className="navbar">
       <div className="nav-item-container">
