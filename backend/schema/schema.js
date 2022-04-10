@@ -1,5 +1,8 @@
 const graphql = require("graphql");
 const _ = require("lodash");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
 const User = require("../models/user");
 const Post = require("../models/post");
 
@@ -100,14 +103,16 @@ const Mutation = new GraphQLObjectType({
         password: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve(parent, args) {
-        const user = new User({
-          username: args.username,
-          email: args.email,
-          password: args.password,
+        bcrypt.hash(args.password, 12).then((hash) => {
+          const user = new User({
+            username: args.username,
+            email: args.email,
+            password: hash,
+            createDate: new Date().toISOString(),
+          });
+          console.log(user);
+          return user.save();
         });
-
-        console.log(user);
-        return user.save();
       },
     },
     loginUser: {

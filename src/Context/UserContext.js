@@ -7,12 +7,6 @@ export const useUser = () => useContext(UserContext);
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    if (!user) {
-      // try auto login
-    }
-  }, []);
-
   console.log(user);
 
   return (
@@ -24,6 +18,7 @@ export const UserProvider = ({ children }) => {
 
 class User {
   constructor(data) {
+    // this.userID = data.id;
     this.email = data.email;
     this.username = data.username;
     this.profileData = {

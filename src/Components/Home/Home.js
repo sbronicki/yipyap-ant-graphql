@@ -9,13 +9,11 @@ import { useEffect } from "react/cjs/react.production.min";
 const Home = () => {
   const { user } = useContext(UserContext);
 
-  const isAuthed = user;
-
   const onLogOut = () => {
     console.log("Log Out");
   };
 
-  return isAuthed ? (
+  return user ? (
     <Row className="home-page">
       <Col style={{ padding: "1em" }} span={24}>
         <Logo hasText />

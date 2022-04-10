@@ -44,8 +44,9 @@ const UserAuth = () => {
           password,
         },
       }).then((res) => {
-        console.log(res);
-        // login()
+        // not really tho lol
+        setUser(new User(res.data.createUser));
+        debugger;
       });
     } else {
       // call then
