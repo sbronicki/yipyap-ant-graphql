@@ -45,3 +45,12 @@ export const UPDATE_POST_MUTATION = gql`
     }
   }
 `;
+
+export const CREATE_USER_MUTATION = gql`
+  mutation createUser($email: String!, $username: String!, $password: String!) {
+    createUser(email: $email, username: $username, password: $password) {
+      id
+      username
+    }
+  }
+`;

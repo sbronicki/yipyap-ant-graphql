@@ -2,6 +2,8 @@ import { Col, Menu, Row, Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import Logo from "../Logo/Logo";
 import { useState, useLayoutEffect } from "react";
+import { useMutation } from "@apollo/client";
+import { CREATE_USER_MUTATION } from "../../GraphQL/mutations";
 
 const UserAuth = () => {
   const [isSignup, setIsSignup] = useState(true);
@@ -11,6 +13,11 @@ const UserAuth = () => {
   const [password, setPassword] = useState("");
   const expandedClass = "is-expandable-expanded";
   const collapsedClass = "is-expandable-collapsed";
+
+  const [createUser, { loading, error }] = useMutation(CREATE_USER_MUTATION);
+
+  if (loading) return <></>;
+  if (error) console.log(error);
 
   const onChangeForm = (_isSignup) => {
     if (isSignup && _isSignup) {
@@ -28,6 +35,16 @@ const UserAuth = () => {
   const onSignup = () => {
     if (isSignup) {
       console.log({ username }, { email }, { password });
+      createUser({
+        variables: {
+          email,
+          username,
+          password,
+        },
+      }).then((res) => {
+        console.log(res);
+        debugger;
+      });
     } else {
       console.log({ username }, { password });
     }
