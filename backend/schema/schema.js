@@ -129,14 +129,14 @@ const Mutation = new GraphQLObjectType({
     loginUser: {
       type: UserType,
       args: {
-        email: { type: GraphQLString },
+        username: { type: GraphQLString },
         password: { type: GraphQLString },
       },
       async resolve(parent, args) {
-        const user = await User.findOne({ email: args.email });
+        const user = await User.findOne({ username: args.username });
 
         if (!user) {
-          throw new Error("no user with that email");
+          throw new Error("no user with that username");
         }
 
         const match = await bcrypt.compare(args.password, user.password);

@@ -3,7 +3,10 @@ import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import Logo from "../Logo/Logo";
 import { useState, useLayoutEffect } from "react";
 import { useMutation } from "@apollo/client";
-import { CREATE_USER_MUTATION } from "../../GraphQL/mutations";
+import {
+  CREATE_USER_MUTATION,
+  LOGIN_USER_MUTATION,
+} from "../../GraphQL/mutations";
 import { useContext } from "react";
 import User, { UserContext } from "../../Context/UserContext";
 
@@ -18,9 +21,10 @@ const UserAuth = () => {
   const collapsedClass = "is-expandable-collapsed";
 
   const [createUser, { loading, error }] = useMutation(CREATE_USER_MUTATION);
+  const [loginUser, { _loading, _error }] = useMutation(LOGIN_USER_MUTATION);
 
-  if (loading) return <></>;
-  if (error) console.log(error);
+  if (loading || _loading) return <>loading...</>;
+  if (error || _error) console.log(error);
 
   const onChangeForm = (_isSignup) => {
     if (isSignup && _isSignup) {
@@ -36,6 +40,7 @@ const UserAuth = () => {
   };
 
   const onSubmit = () => {
+    console.log({ email });
     if (isSignup) {
       createUser({
         variables: {
@@ -49,23 +54,15 @@ const UserAuth = () => {
         debugger;
       });
     } else {
-      // call then
-      setUser(
-        new User({
-          email: "email",
-          username: "userrr",
-          profileData: {
-            banner: "",
-            image: "",
-            bio: "",
-            memberDate: "",
-            posts: [],
-          },
-          auth: {
-            token: null,
-          },
-        })
-      );
+      loginUser({
+        variables: {
+          username,
+          password,
+        },
+      }).then((res) => {
+        setUser(new User(res.data.loginUser));
+        debugger;
+      });
     }
   };
 
@@ -131,6 +128,7 @@ const SigninSignup = ({
   setEmail,
   setPassword,
 }) => {
+  console.log(email);
   return (
     <Form
       className="login-form"
