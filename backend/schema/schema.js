@@ -25,6 +25,8 @@ const UserType = new GraphQLObjectType({
     username: { type: GraphQLString },
     email: { type: GraphQLString },
     password: { type: GraphQLString },
+    createDate: { type: GraphQLString },
+    token: { type: GraphQLString },
     posts: {
       type: GraphQLList(PostType),
       resolve(parent, args) {
@@ -102,17 +104,26 @@ const Mutation = new GraphQLObjectType({
         email: { type: new GraphQLNonNull(GraphQLString) },
         password: { type: new GraphQLNonNull(GraphQLString) },
       },
-      resolve(parent, args) {
-        bcrypt.hash(args.password, 12).then((hash) => {
-          const user = new User({
-            username: args.username,
-            email: args.email,
-            password: hash,
-            createDate: new Date().toISOString(),
-          });
-          console.log(user);
-          return user.save();
+      async resolve(parent, args) {
+        const hash = await bcrypt.hash(args.password, 12);
+        const user = new User({
+          username: args.username,
+          email: args.email,
+          password: hash,
+          createDate: new Date().toISOString(),
         });
+        console.log(user);
+
+        const res = await user.save();
+
+        console.log(res);
+
+        const token = generateToken(res);
+        return {
+          ...res._doc,
+          id: res._id,
+          token,
+        };
       },
     },
     loginUser: {
@@ -121,7 +132,28 @@ const Mutation = new GraphQLObjectType({
         email: { type: GraphQLString },
         password: { type: GraphQLString },
       },
-      resolve(parent, args) {},
+      async resolve(parent, args) {
+        const user = await User.findOne({ email: args.email });
+
+        if (!user) {
+          throw new Error("no user with that email");
+        }
+
+        const match = await bcrypt.compare(args.password, user.password);
+
+        if (!match) {
+          throw new Error("passwords do not match");
+        }
+
+        if (match && user) {
+          const token = generateToken(user);
+          return {
+            ...user._doc,
+            id: user._id,
+            token,
+          };
+        }
+      },
     },
     updateUser: {
       type: UserType,
@@ -208,3 +240,15 @@ module.exports = new GraphQLSchema({
   query: RootQuery,
   mutation: Mutation,
 });
+
+const generateToken = (user) => {
+  return jwt.sign(
+    {
+      id: user.id,
+      email: user.email,
+      username: user.username,
+    },
+    process.env.SECRET_KEY,
+    { expiresIn: "1h" }
+  );
+};
