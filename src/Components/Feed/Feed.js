@@ -10,7 +10,7 @@ const Feed = () => {
   const { loading, error, data } = useQuery(GET_POSTS_QUERY);
 
   if (loading) return <Loading />;
-  if (error) return <Error />;
+  if (error) return <Error error={error} />;
 
   const colWidth =
     window.innerWidth < 768 ? { span: 24, offset: 0 } : { span: 8, offset: 2 };

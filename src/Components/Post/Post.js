@@ -63,7 +63,7 @@ const Post = ({ postData, className }) => {
   };
 
   if (loading) return <Loading />;
-  if (error) return <Error />;
+  if (error) return <Error error={error} />;
 
   return (
     <Row className={`post-container ${className}`} id={id} key={id}>

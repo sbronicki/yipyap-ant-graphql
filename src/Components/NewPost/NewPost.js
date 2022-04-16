@@ -16,7 +16,7 @@ const NewPost = () => {
   const [createPost, { loading, error }] = useMutation(CREATE_POST_MUTATION);
 
   if (loading) return <Loading />;
-  if (error) return <Error />;
+  if (error) return <Error error={error} />;
 
   const onSave = (e) => {
     const userID = "622cd3001a05e78573bb1b1e";

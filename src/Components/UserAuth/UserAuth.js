@@ -26,7 +26,7 @@ const UserAuth = () => {
   const [loginUser, { _loading, _error }] = useMutation(LOGIN_USER_MUTATION);
 
   if (loading || _loading) return <Loading />;
-  if (error || _error) return <Error />;
+  if (error || _error) return <Error error={error} />;
 
   const onChangeForm = (_isSignup) => {
     if (isSignup && _isSignup) {
