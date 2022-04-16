@@ -45,12 +45,13 @@ const PostType = new GraphQLObjectType({
     title: { type: GraphQLString },
     content: { type: GraphQLString },
     image: { type: GraphQLString },
-    user: {
-      type: UserType,
-      resolve(parent, args) {
-        return User.findById(parent.userID);
-      },
-    },
+    username: { type: GraphQLString },
+    // user: {
+    //   type: UserType,
+    //   resolve(parent, args) {
+    //     return User.findById(parent.userID);
+    //   },
+    // },
   }),
 });
 
@@ -148,6 +149,7 @@ const Mutation = new GraphQLObjectType({
 
         if (match && user) {
           const token = generateToken(user);
+          console.log("login", user);
           return {
             ...user._doc,
             id: user._id,
@@ -181,17 +183,17 @@ const Mutation = new GraphQLObjectType({
     createPost: {
       type: PostType,
       args: {
-        userID: { type: new GraphQLNonNull(GraphQLID) },
         title: { type: new GraphQLNonNull(GraphQLString) },
         content: { type: new GraphQLNonNull(GraphQLString) },
         image: { type: GraphQLString },
+        username: { type: GraphQLString },
       },
       resolve(parent, args) {
         const post = new Post({
-          userID: args.userID,
           title: args.title,
           content: args.content,
           image: args.image,
+          username: args.username,
         });
 
         console.log(post);

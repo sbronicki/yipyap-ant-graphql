@@ -53,7 +53,6 @@ const UserAuth = () => {
       }).then((res) => {
         // not really tho lol
         setUser(new User(res.data.createUser));
-        debugger;
       });
     } else {
       loginUser({
@@ -63,7 +62,6 @@ const UserAuth = () => {
         },
       }).then((res) => {
         setUser(new User(res.data.loginUser));
-        debugger;
       });
     }
   };

@@ -2,6 +2,8 @@ import { UploadOutlined } from "@ant-design/icons";
 import { useMutation } from "@apollo/client";
 import { Button, Col, Input, Row, Upload } from "antd";
 import { useState } from "react/cjs/react.development";
+import { useContext } from "react";
+import { UserContext } from "../../Context/UserContext";
 import { CREATE_POST_MUTATION } from "../../GraphQL/mutations";
 import Error from "../Error/Error";
 import Loading from "../Loading/Loading";
@@ -9,9 +11,10 @@ import Loading from "../Loading/Loading";
 const { TextArea } = Input;
 
 const NewPost = () => {
+  const { user } = useContext(UserContext);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
 
   const [createPost, { loading, error }] = useMutation(CREATE_POST_MUTATION);
 
@@ -19,10 +22,9 @@ const NewPost = () => {
   if (error) return <Error error={error} />;
 
   const onSave = (e) => {
-    const userID = "622cd3001a05e78573bb1b1e";
     createPost({
       variables: {
-        userID,
+        username: user.username,
         title,
         content,
         image,

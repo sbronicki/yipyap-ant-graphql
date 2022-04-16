@@ -7,12 +7,10 @@ export const GET_USER_QUERY = gql`
       username
       createDate
       posts {
+        id
         title
         content
-        id
-        user {
-          username
-        }
+        username
       }
     }
   }
@@ -31,15 +29,12 @@ export const GET_USERS_QUERY = gql`
 `;
 
 export const GET_POST_QUERY = gql`
-  {
-    post(id: "622cda1bdc590987450a7e5b") {
+  query getPost($id: String!) {
+    post(id: $id) {
       title
       content
       image
-      user {
-        id
-        username
-      }
+      username
     }
   }
 `;
@@ -50,10 +45,7 @@ export const GET_POSTS_QUERY = gql`
       id
       title
       content
-      user {
-        id
-        username
-      }
+      username
     }
   }
 `;

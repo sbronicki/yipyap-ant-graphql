@@ -10,6 +10,7 @@ import { UserContext, User } from "../../Context/UserContext";
 import { useLayoutEffect } from "react";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
+import { useState } from "react";
 
 const Profile = () => {
   const colWidth =
@@ -18,16 +19,21 @@ const Profile = () => {
   const location = useLocation();
   const usernameFromURL = location.pathname.replace("/profile/", "");
 
-  // const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
+
+  const [isUsersProfile, setIsUsersProfile] = useState(
+    user && user.username === usernameFromURL
+  );
 
   const { loading, error, data } = useQuery(GET_USER_QUERY, {
     variables: { username: usernameFromURL },
+    skip: user,
   });
 
   if (loading) return <Loading />;
   if (error) return <Error error={error} />;
 
-  const profileData = data.user;
+  const profileData = user || data.user;
 
   return (
     <Row className="has-spacer-padding-top">

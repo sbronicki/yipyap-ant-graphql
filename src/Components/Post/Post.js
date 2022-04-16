@@ -17,7 +17,7 @@ import Error from "../Error/Error";
 const { TextArea } = Input;
 
 const Post = ({ postData, className }) => {
-  const { id, user } = postData;
+  const { id, username } = postData;
   const [title, setTitle] = useState(postData.title);
   const [content, setContent] = useState(postData.content);
   const [image, setImage] = useState(postData.image);
@@ -69,7 +69,7 @@ const Post = ({ postData, className }) => {
     <Row className={`post-container ${className}`} id={id} key={id}>
       <Col offset={1} span={22}>
         <Comment
-          author={user.username}
+          author={username}
           content={
             <PostBody
               title={title}
