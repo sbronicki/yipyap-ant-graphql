@@ -20,20 +20,19 @@ const Profile = () => {
   const usernameFromURL = location.pathname.replace("/profile/", "");
 
   const { user } = useContext(UserContext);
-
-  const [isUsersProfile, setIsUsersProfile] = useState(
-    user && user.username === usernameFromURL
-  );
+  const isUsersProfile = user && user.username === usernameFromURL;
 
   const { loading, error, data } = useQuery(GET_USER_QUERY, {
     variables: { username: usernameFromURL },
-    skip: user,
+    skip: isUsersProfile,
   });
 
   if (loading) return <Loading />;
   if (error) return <Error error={error} />;
 
-  const profileData = user || data.user;
+  const profileData = isUsersProfile ? user.profileData : data.user;
+
+  if (!profileData) return <Error error={"No profile data"} />;
 
   return (
     <Row className="has-spacer-padding-top">

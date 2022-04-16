@@ -26,6 +26,7 @@ export class User {
       image: "",
       bio: "",
       memberDate: "",
+      username: data.username,
       posts: [],
     };
     this.auth = {
