@@ -8,6 +8,8 @@ import { useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext, User } from "../../Context/UserContext";
 import { useLayoutEffect } from "react";
+import Loading from "../Loading/Loading";
+import Error from "../Error/Error";
 
 const Profile = () => {
   const colWidth =
@@ -22,8 +24,8 @@ const Profile = () => {
     variables: { username: usernameFromURL },
   });
 
-  if (loading) return <></>;
-  if (error) return <></>;
+  if (loading) return <Loading />;
+  if (error) return <Error />;
 
   const profileData = data.user;
 

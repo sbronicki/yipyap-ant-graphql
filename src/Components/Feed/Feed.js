@@ -1,14 +1,16 @@
 import { gql, useQuery } from "@apollo/client";
 import { Col, PageHeader, Row } from "antd";
 import { GET_POSTS_QUERY } from "../../GraphQL/queries";
+import Error from "../Error/Error";
+import Loading from "../Loading/Loading";
 import Posts from "../Post/Posts";
 import Banner from "../Profile/Banner";
 
 const Feed = () => {
   const { loading, error, data } = useQuery(GET_POSTS_QUERY);
 
-  if (loading) return <></>;
-  if (error) return <></>;
+  if (loading) return <Loading />;
+  if (error) return <Error />;
 
   const colWidth =
     window.innerWidth < 768 ? { span: 24, offset: 0 } : { span: 8, offset: 2 };

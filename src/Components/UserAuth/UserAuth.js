@@ -9,6 +9,8 @@ import {
 } from "../../GraphQL/mutations";
 import { useContext } from "react";
 import { UserContext, User } from "../../Context/UserContext";
+import Loading from "../Loading/Loading";
+import Error from "../Error/Error";
 
 const UserAuth = () => {
   const { user, setUser } = useContext(UserContext);
@@ -23,8 +25,8 @@ const UserAuth = () => {
   const [createUser, { loading, error }] = useMutation(CREATE_USER_MUTATION);
   const [loginUser, { _loading, _error }] = useMutation(LOGIN_USER_MUTATION);
 
-  if (loading || _loading) return <>loading...</>;
-  if (error || _error) console.log(error);
+  if (loading || _loading) return <Loading />;
+  if (error || _error) return <Error />;
 
   const onChangeForm = (_isSignup) => {
     if (isSignup && _isSignup) {

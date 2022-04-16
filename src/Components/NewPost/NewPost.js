@@ -3,6 +3,8 @@ import { useMutation } from "@apollo/client";
 import { Button, Col, Input, Row, Upload } from "antd";
 import { useState } from "react/cjs/react.development";
 import { CREATE_POST_MUTATION } from "../../GraphQL/mutations";
+import Error from "../Error/Error";
+import Loading from "../Loading/Loading";
 
 const { TextArea } = Input;
 
@@ -13,8 +15,8 @@ const NewPost = () => {
 
   const [createPost, { loading, error }] = useMutation(CREATE_POST_MUTATION);
 
-  if (loading) return <></>;
-  if (error) console.log(error);
+  if (loading) return <Loading />;
+  if (error) return <Error />;
 
   const onSave = (e) => {
     const userID = "622cd3001a05e78573bb1b1e";

@@ -11,6 +11,8 @@ import {
   UPDATE_POST_MUTATION,
 } from "../../GraphQL/mutations";
 import { useState } from "react/cjs/react.development";
+import Loading from "../Loading/Loading";
+import Error from "../Error/Error";
 
 const { TextArea } = Input;
 
@@ -60,8 +62,8 @@ const Post = ({ postData, className }) => {
     }).then((res) => console.log(res));
   };
 
-  if (loading) return <></>;
-  if (error) return <></>;
+  if (loading) return <Loading />;
+  if (error) return <Error />;
 
   return (
     <Row className={`post-container ${className}`} id={id} key={id}>
