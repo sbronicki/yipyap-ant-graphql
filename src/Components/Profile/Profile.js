@@ -4,24 +4,28 @@ import Posts from "../Post/Posts";
 import Banner from "./Banner";
 import Headshot from "./Headshot";
 import { GET_USER_QUERY } from "../../GraphQL/queries";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useContext } from "react";
-import { UserContext } from "../../Context/UserContext";
+import { UserContext, User } from "../../Context/UserContext";
+import { useLayoutEffect } from "react";
 
-const Profile = ({ userID }) => {
-  const { user } = useContext(UserContext);
+const Profile = () => {
+  const colWidth =
+    window.innerWidth < 768 ? { span: 24, offset: 0 } : { span: 8, offset: 2 };
 
-  const { loading, error, data } = useQuery(GET_USER_QUERY);
+  const location = useLocation();
+  const usernameFromURL = location.pathname.replace("/profile/", "");
+
+  // const { user } = useContext(UserContext);
+
+  const { loading, error, data } = useQuery(GET_USER_QUERY, {
+    variables: { username: usernameFromURL },
+  });
 
   if (loading) return <></>;
   if (error) return <></>;
 
-  const _user = data.user;
-
-  const created = "08/09/2022";
-  const numPosts = _user.posts.length;
-  const colWidth =
-    window.innerWidth < 768 ? { span: 24, offset: 0 } : { span: 8, offset: 2 };
+  const profileData = data.user;
 
   return (
     <Row className="has-spacer-padding-top">
@@ -41,19 +45,24 @@ const Profile = ({ userID }) => {
             <Headshot />
           </Col>
           <Col span={colWidth.span} offset={colWidth.offset}>
-            <PageHeader title={_user.username} subTitle="I'm the user!">
+            <PageHeader title={profileData.username} subTitle="I'm the user!">
               <Descriptions column={1}>
                 <Descriptions.Item label="Member Since">
-                  {created}
+                  {profileData.createDate}
                 </Descriptions.Item>
-                <Descriptions.Item label="Posts">{numPosts}</Descriptions.Item>
+                <Descriptions.Item label="Posts">
+                  {profileData.posts.length}
+                </Descriptions.Item>
               </Descriptions>
             </PageHeader>
           </Col>
         </Row>
       </Col>
       <Col className="is-flex-center stack-cols" span={24}>
-        <Posts postList={_user.posts} parent={"profile"} />
+        <Posts
+          postList={profileData.posts}
+          noDataMsg={`${profileData.username} hasn't posted anything :(`}
+        />
       </Col>
     </Row>
   );

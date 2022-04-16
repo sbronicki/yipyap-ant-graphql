@@ -1,10 +1,11 @@
 import { gql } from "@apollo/client";
 
 export const GET_USER_QUERY = gql`
-  {
-    user(id: "622cd3001a05e78573bb1b1e") {
+  query getUser($username: String!) {
+    user(username: $username) {
       id
       username
+      createDate
       posts {
         title
         content

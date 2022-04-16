@@ -16,7 +16,7 @@ export const UserProvider = ({ children }) => {
   );
 };
 
-class User {
+export class User {
   constructor(data) {
     // this.userID = data.id;
     this.email = data.email;
@@ -33,4 +33,3 @@ class User {
     };
   }
 }
-export default User;

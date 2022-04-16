@@ -8,7 +8,7 @@ import {
   LOGIN_USER_MUTATION,
 } from "../../GraphQL/mutations";
 import { useContext } from "react";
-import User, { UserContext } from "../../Context/UserContext";
+import { UserContext, User } from "../../Context/UserContext";
 
 const UserAuth = () => {
   const { user, setUser } = useContext(UserContext);

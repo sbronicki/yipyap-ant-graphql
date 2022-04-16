@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
 const Post = require("../models/post");
+const { formatDate } = require("../utils");
 
 const {
   GraphQLObjectType,
@@ -61,12 +62,12 @@ const RootQuery = new GraphQLObjectType({
     user: {
       type: UserType,
       args: {
-        id: {
-          type: GraphQLID,
+        username: {
+          type: GraphQLString,
         },
       },
       resolve(parent, args) {
-        return User.findById(args.id);
+        return User.findOne({ username: args.username });
       },
     },
     users: {
@@ -110,7 +111,7 @@ const Mutation = new GraphQLObjectType({
           username: args.username,
           email: args.email,
           password: hash,
-          createDate: new Date().toISOString(),
+          createDate: formatDate(new Date().toISOString()),
         });
         console.log(user);
 

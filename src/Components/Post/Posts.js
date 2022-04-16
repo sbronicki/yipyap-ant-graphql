@@ -1,6 +1,10 @@
 import Post from "./Post";
 
-const Posts = ({ postList }) => {
+const Posts = ({ postList, noDataMsg }) => {
+  if (postList.length === 0) {
+    return <h1>{noDataMsg || "No posts data!"}</h1>;
+  }
+
   return postList.map((post, i) => (
     <Post
       key={i}
