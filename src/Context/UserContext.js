@@ -7,7 +7,7 @@ export const useUser = () => useContext(UserContext);
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  console.log(user);
+  window.gl_user = user;
 
   return (
     <UserContext.Provider value={{ user: user, setUser: setUser }}>
@@ -21,16 +21,17 @@ export class User {
     // this.userID = data.id;
     this.email = data.email;
     this.username = data.username;
+    this.id = data.id;
     this.profileData = {
-      banner: "",
-      image: "",
-      bio: "",
-      memberDate: "",
+      banner: data.banner,
+      image: data.image,
+      bio: data.bio,
+      createDate: data.createDate,
       username: data.username,
-      posts: [],
+      posts: data.posts,
     };
     this.auth = {
-      token: null,
+      token: data.token,
     };
   }
 }

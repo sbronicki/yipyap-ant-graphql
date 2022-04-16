@@ -62,7 +62,6 @@ export const LOGIN_USER_MUTATION = gql`
       id
       email
       username
-      createDate
       token
     }
   }

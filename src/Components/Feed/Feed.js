@@ -13,10 +13,6 @@ const Feed = () => {
   if (loading) return <Loading />;
   if (error) return <Error error={error} />;
 
-  const colWidth =
-    window.innerWidth < 768 ? { span: 24, offset: 0 } : { span: 8, offset: 2 };
-
-  console.log({ data });
   return (
     <Row className="is-fullWidth">
       <Col className="is-flex-center stack-cols" span={24}>

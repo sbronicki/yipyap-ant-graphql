@@ -19,20 +19,25 @@ const Profile = () => {
   const location = useLocation();
   const usernameFromURL = location.pathname.replace("/profile/", "");
 
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const isUsersProfile = user && user.username === usernameFromURL;
 
   const { loading, error, data } = useQuery(GET_USER_QUERY, {
     variables: { username: usernameFromURL },
-    skip: isUsersProfile,
   });
 
   if (loading) return <Loading />;
   if (error) return <Error error={error} />;
 
-  const profileData = isUsersProfile ? user.profileData : data.user;
+  const profileData = data.user;
+
+  window.gl_profileData = profileData;
 
   if (!profileData) return <Error error={"No profile data"} />;
+
+  if (isUsersProfile) {
+    // update user obj in context
+  }
 
   return (
     <Row className="has-spacer-padding-top">

@@ -42,7 +42,6 @@ const UserAuth = () => {
   };
 
   const onSubmit = () => {
-    console.log({ email });
     if (isSignup) {
       createUser({
         variables: {
@@ -128,7 +127,6 @@ const SigninSignup = ({
   setEmail,
   setPassword,
 }) => {
-  console.log(email);
   return (
     <Form
       className="login-form"
