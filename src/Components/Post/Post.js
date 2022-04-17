@@ -13,6 +13,7 @@ import {
 import { useState } from "react/cjs/react.development";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
+import { Link } from "react-router-dom";
 
 const { TextArea } = Input;
 
@@ -69,7 +70,7 @@ const Post = ({ postData, className }) => {
     <Row className={`post-container ${className}`} id={id} key={id}>
       <Col offset={1} span={22}>
         <Comment
-          author={username}
+          author={<Link to={`/profile/${username}`}>{username}</Link>}
           content={
             <PostBody
               title={title}

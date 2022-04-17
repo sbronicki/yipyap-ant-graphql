@@ -10,17 +10,23 @@ import { UserContext, User } from "../../Context/UserContext";
 import { useLayoutEffect } from "react";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Profile = () => {
-  const colWidth =
-    window.innerWidth < 768 ? { span: 24, offset: 0 } : { span: 8, offset: 2 };
-
   const location = useLocation();
   const usernameFromURL = location.pathname.replace("/profile/", "");
 
   const { user, setUser } = useContext(UserContext);
   const isUsersProfile = user && user.username === usernameFromURL;
+
+  useEffect(() => {
+    if (isUsersProfile) {
+      setUser({ ...user, profileData: { ...profileData } });
+    }
+  }, [isUsersProfile]);
+
+  const colWidth =
+    window.innerWidth < 768 ? { span: 24, offset: 0 } : { span: 8, offset: 2 };
 
   const { loading, error, data } = useQuery(GET_USER_QUERY, {
     variables: { username: usernameFromURL },
@@ -30,14 +36,9 @@ const Profile = () => {
   if (error) return <Error error={error} />;
 
   const profileData = data.user;
-
   window.gl_profileData = profileData;
 
   if (!profileData) return <Error error={"No profile data"} />;
-
-  if (isUsersProfile) {
-    // update user obj in context
-  }
 
   return (
     <Row className="has-spacer-padding-top">

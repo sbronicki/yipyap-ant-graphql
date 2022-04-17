@@ -86,6 +86,19 @@ const RootQuery = new GraphQLObjectType({
         return Post.findById(args.id);
       },
     },
+    userPosts: {
+      type: new GraphQLList(PostType),
+      args: {
+        username: {
+          type: GraphQLString,
+        },
+      },
+      resolve(parent, args) {
+        console.log({ parent });
+        console.log({ args });
+        return Post.find({ username: args.username });
+      },
+    },
     posts: {
       type: new GraphQLList(PostType),
       resolve(parent, args) {
