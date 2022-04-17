@@ -39,6 +39,17 @@ export const GET_POST_QUERY = gql`
   }
 `;
 
+export const GET_USER_POSTS = gql`
+  query getUserPosts($username: String!) {
+    userPosts(username: $username) {
+      title
+      content
+      id
+      image
+    }
+  }
+`;
+
 export const GET_POSTS_QUERY = gql`
   {
     posts {
