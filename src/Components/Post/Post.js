@@ -14,6 +14,8 @@ import { useState } from "react/cjs/react.development";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../Context/UserContext";
 
 const { TextArea } = Input;
 
@@ -87,6 +89,7 @@ const Post = ({ postData, className }) => {
               onEdit={onEdit}
               onDelete={onDelete}
               id={id}
+              username={username}
             />
           }
         />
@@ -110,7 +113,11 @@ const PostBody = ({
   onUpdate,
   onDelete,
   id,
+  username,
 }) => {
+  const { user } = useContext(UserContext);
+  const showPostActions = user && user.username === username;
+
   return (
     <Row className="stack-cols post-body text-align-left">
       <Col offset={2} span={20}>
@@ -126,16 +133,18 @@ const PostBody = ({
               <p>{title}</p>
             )}
           </Col>
-          <Col className="is-flex-center" span={3}>
-            <PostActions
-              id={id}
-              editMode={editMode}
-              onDiscardEdit={onDiscardEdit}
-              onEdit={onEdit}
-              onUpdate={onUpdate}
-              onDelete={onDelete}
-            />
-          </Col>
+          {showPostActions && (
+            <Col className="is-flex-center" span={3}>
+              <PostActions
+                id={id}
+                editMode={editMode}
+                onDiscardEdit={onDiscardEdit}
+                onEdit={onEdit}
+                onUpdate={onUpdate}
+                onDelete={onDelete}
+              />
+            </Col>
+          )}
         </Row>
       </Col>
       <Col offset={2} span={20}>
