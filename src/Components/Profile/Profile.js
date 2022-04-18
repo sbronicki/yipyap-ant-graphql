@@ -39,8 +39,6 @@ const Profile = () => {
   if (error) return <Error error={error} />;
   if (!profileData) return <Error error={"No profile data"} />;
 
-  console.count("rerenders: ");
-
   return (
     <Row className="has-spacer-padding-top">
       <Col

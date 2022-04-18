@@ -1,4 +1,11 @@
-ant d
+Yip Yap V2!
 
+MERNG app
 
-not sure why i cant pin this...
+ToDo:
+Sidebar / Navigation
+Footer
+Update UI after deleting post
+Handle errors frontend and backend
+Handle loading
+Persist auth

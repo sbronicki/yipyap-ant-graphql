@@ -19,7 +19,7 @@ import Feed from "./Components/Feed/Feed";
 import NewPost from "./Components/NewPost/NewPost";
 import UserAuth from "./Components/UserAuth/UserAuth";
 import { UserContext } from "./Context/UserContext";
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { useContext } from "react";
 
 const { Content } = Layout;
@@ -30,7 +30,7 @@ const App = () => {
 
   const { user } = useContext(UserContext);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const path = location.pathname.split("/")[1];
     if (!allowedRoutes.includes(path)) {
       if (user) {
@@ -43,7 +43,7 @@ const App = () => {
     }
   }, [location, navigate, user]);
 
-  console.count("App renders: ");
+  console.count("App renders");
 
   return (
     <div className="App">
