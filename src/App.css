@@ -74,11 +74,11 @@ textarea {
 }
 .is-expandable-expanded {
   height: 250px !important;
-  transition: height 0.75s ease-in-out;
+  transition: height 0.75s ease-out;
 }
 .is-expandable-collapsed {
   height: 40px !important;
-  transition: height 0.75s ease-in-out;
+  transition: height 0.75s ease-out;
 }
 .menu-dissolve {
   opacity: 0;
