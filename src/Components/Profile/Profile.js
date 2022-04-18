@@ -19,26 +19,27 @@ const Profile = () => {
   const { user, setUser } = useContext(UserContext);
   const isUsersProfile = user && user.username === usernameFromURL;
 
-  useEffect(() => {
-    if (isUsersProfile) {
-      setUser({ ...user, profileData: { ...profileData } });
-    }
-  }, [isUsersProfile]);
-
-  const colWidth =
-    window.innerWidth < 768 ? { span: 24, offset: 0 } : { span: 8, offset: 2 };
-
   const { loading, error, data } = useQuery(GET_USER_QUERY, {
     variables: { username: usernameFromURL },
   });
 
-  if (loading) return <Loading />;
-  if (error) return <Error error={error} />;
-
-  const profileData = data.user;
+  const profileData = data?.user;
   window.gl_profileData = profileData;
 
+  useEffect(() => {
+    if (isUsersProfile) {
+      setUser({ ...user, profileData: { ...profileData } });
+    }
+  }, [profileData, isUsersProfile]);
+
+  const colWidth =
+    window.innerWidth < 768 ? { span: 24, offset: 0 } : { span: 8, offset: 2 };
+
+  if (loading) return <Loading />;
+  if (error) return <Error error={error} />;
   if (!profileData) return <Error error={"No profile data"} />;
+
+  console.count("rerenders: ");
 
   return (
     <Row className="has-spacer-padding-top">

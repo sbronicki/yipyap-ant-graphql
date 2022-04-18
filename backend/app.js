@@ -5,6 +5,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const schema = require("./schema/schema");
+const isAuth = require("./middleware/is-auth");
 
 const app = express();
 
@@ -21,6 +22,14 @@ mongoose.connection.once("open", () => {
 });
 
 app.use(cors());
+
+app.use((req, res, next) => {
+  console.log(req);
+  res.setHeader("Access-Control-Allow-Headers", "Authorization");
+  next();
+});
+
+app.use(isAuth);
 
 app.use(
   "/graphql",

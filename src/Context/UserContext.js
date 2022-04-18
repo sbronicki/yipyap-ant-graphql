@@ -2,11 +2,8 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 export const UserContext = createContext(null);
 
-export const useUser = () => useContext(UserContext);
-
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-
   window.gl_user = user;
 
   return (

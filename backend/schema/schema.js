@@ -201,7 +201,11 @@ const Mutation = new GraphQLObjectType({
         image: { type: GraphQLString },
         username: { type: GraphQLString },
       },
-      resolve(parent, args) {
+      resolve(parent, args, req) {
+        if (!req.isAuth) {
+          throw new Error("Unauthenticated!");
+        }
+
         const post = new Post({
           title: args.title,
           content: args.content,

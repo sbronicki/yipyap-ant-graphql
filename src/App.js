@@ -41,6 +41,8 @@ const App = () => {
     }
   }, [location, navigate, user]);
 
+  console.count("App renders: ");
+
   return (
     <div className="App">
       <Layout>
