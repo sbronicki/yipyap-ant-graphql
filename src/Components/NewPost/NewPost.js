@@ -16,7 +16,14 @@ const NewPost = () => {
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
 
-  const [createPost, { loading, error }] = useMutation(CREATE_POST_MUTATION);
+  const [createPost, { loading, error }] = useMutation(CREATE_POST_MUTATION, {
+    context: {
+      headers: {
+        // "Content-Type": "application/json",
+        Authorization: "Bearer " + user.auth.token,
+      },
+    },
+  });
 
   if (loading) return <Loading />;
   if (error) return <Error error={error} />;
