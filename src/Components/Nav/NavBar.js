@@ -25,7 +25,7 @@ const NavBar = () => {
           onClick={() => setToggleSideDrawer(!toggleSideDrawer)}
           style={{ fontSize: "2em" }}
         />
-        <Logo />
+        <Logo size="small" />
         <Link to={`/profile/${user ? user.username : "yip-yap-team"}`}>
           <Avatar
             style={{
