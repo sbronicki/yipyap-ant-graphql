@@ -7,11 +7,7 @@ import Logo from "../Logo/Logo";
 import { useEffect } from "react/cjs/react.production.min";
 
 const Home = () => {
-  const { user } = useContext(UserContext);
-
-  const onLogOut = () => {
-    console.log("Log Out");
-  };
+  const { user, logout } = useContext(UserContext);
 
   return user ? (
     <Row className="home-page">
@@ -31,7 +27,7 @@ const Home = () => {
           </Menu.Item>
           <Menu.Item
             key={"logout"}
-            onClick={() => onLogOut()}
+            onClick={logout}
             className="is-menu-item menu-last"
           >
             Log Out

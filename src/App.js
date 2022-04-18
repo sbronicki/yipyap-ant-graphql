@@ -38,6 +38,8 @@ const App = () => {
       } else {
         navigate("/auth");
       }
+    } else if (path === "new-post" && !user) {
+      navigate("/auth");
     }
   }, [location, navigate, user]);
 
@@ -53,7 +55,7 @@ const App = () => {
               <Route path="/" element={<Home />} />
               <Route path="/profile/*" element={<Profile />} />
               <Route path="/feed" element={<Feed />} />
-              <Route path="/new-post" element={<NewPost />} />
+              {user && <Route path="/new-post" element={<NewPost />} />}
               <Route
                 path="/auth"
                 element={user ? <Navigate to="/" /> : <UserAuth />}

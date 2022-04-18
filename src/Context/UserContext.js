@@ -6,8 +6,14 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   window.gl_user = user;
 
+  const logout = () => {
+    setUser(null);
+  };
+
   return (
-    <UserContext.Provider value={{ user: user, setUser: setUser }}>
+    <UserContext.Provider
+      value={{ user: user, setUser: setUser, logout: logout }}
+    >
       {children}
     </UserContext.Provider>
   );
