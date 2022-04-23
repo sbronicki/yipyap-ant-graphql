@@ -20,7 +20,7 @@ const Home = ({ hasLogo = true }) => {
 
 export default Home;
 
-export const NavMenu = ({ classNames, styles }) => {
+export const NavMenu = ({ classNames, styles, inSideBar = false }) => {
   const { user, logout } = useContext(UserContext);
 
   return (
@@ -30,6 +30,11 @@ export const NavMenu = ({ classNames, styles }) => {
     >
       {user ? (
         <>
+          {inSideBar && (
+            <Menu.Item key={"home"} className="is-menu-item">
+              <Link to="/">Home</Link>
+            </Menu.Item>
+          )}
           <Menu.Item key={"post"} className="is-menu-item menu-first">
             <Link to="/new-post">New Post</Link>
           </Menu.Item>

@@ -18,10 +18,9 @@ import Feed from "./Components/Feed/Feed";
 import NewPost from "./Components/NewPost/NewPost";
 import UserAuth from "./Components/UserAuth/UserAuth";
 import { UserContext } from "./Context/UserContext";
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useState, useEffect } from "react";
 import { useContext } from "react";
 import SideBar from "./Components/Nav/SideBar/SideBar";
-import { useState } from "react";
 
 const { Content, Footer } = Layout;
 
@@ -33,7 +32,7 @@ const App = () => {
 
   const [showSideBar, setShowSideBar] = useState(false);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const path = location.pathname.split("/")[1];
     if (!allowedRoutes.includes(path)) {
       if (user) {

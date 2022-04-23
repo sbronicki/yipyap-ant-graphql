@@ -17,7 +17,7 @@ const SideBar = ({ showSideBar }) => {
       }`}
     >
       <SideBarMessage username={user?.username} />
-      <NavMenu classNames={"sidebar-menu"} />
+      <NavMenu inSideBar classNames={"sidebar-menu"} />
     </Sider>
   );
 };
