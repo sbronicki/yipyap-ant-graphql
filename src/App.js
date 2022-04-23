@@ -11,7 +11,6 @@ import {
 import { Layout } from "antd";
 import "./App.css";
 
-import FooterContent from "./Components/Footer/Footer";
 import NavBar from "./Components/Nav/NavBar";
 import Home from "./Components/Home/Home";
 import Profile from "./Components/Profile/Profile";
@@ -24,7 +23,7 @@ import { useContext } from "react";
 import SideBar from "./Components/Nav/SideBar/SideBar";
 import { useState } from "react";
 
-const { Content } = Layout;
+const { Content, Footer } = Layout;
 
 const App = () => {
   const location = useLocation();
@@ -74,7 +73,7 @@ const App = () => {
               </Routes>
             </Content>
           </Layout>
-          <FooterContent />
+          <Footer className="footer" />
         </Layout>
       </Layout>
     </div>
