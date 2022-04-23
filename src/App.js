@@ -47,6 +47,10 @@ const App = () => {
     }
   }, [location, navigate, user]);
 
+  useLayoutEffect(() => {
+    if (showSideBar) setShowSideBar(false);
+  }, [location]);
+
   console.count("App renders");
 
   return (

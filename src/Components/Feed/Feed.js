@@ -35,21 +35,21 @@ export default Feed;
 const FeedBanner = ({ text, subText }) => {
   return (
     <Row>
-      <Col span={3}>
+      <Col span={5}>
         <Logo />
       </Col>
-      <Col span={18}>
+      <Col span={14}>
         <Row className="is-fullWidth">
           <Col span={24}>
             <h2 className="has-spacer-padding-top">{text}</h2>
           </Col>
           <Col span={24}>
-            <h2 className="has-spacer-padding-bottom">{subText}</h2>
+            <p className="has-spacer-padding">{subText}</p>
           </Col>
         </Row>
       </Col>
-      <Col span={3}>
-        <Logo />
+      <Col span={5}>
+        <Logo size={"medium"} />
       </Col>
     </Row>
   );
