@@ -4,18 +4,32 @@ import { useContext } from "react";
 import { UserContext } from "../../Context/UserContext";
 
 import Logo from "../Logo/Logo";
-import { useEffect } from "react/cjs/react.production.min";
 
-const Home = () => {
-  const { user, logout } = useContext(UserContext);
-
-  return user ? (
+const Home = ({ hasLogo = true }) => {
+  return (
     <Row className="home-page">
       <Col style={{ padding: "1em" }} span={24}>
-        <Logo hasText />
+        {hasLogo && <Logo hasText />}
       </Col>
       <Col span={18} offset={3}>
-        <Menu className="is-menu-container" style={{ borderRadius: "10px" }}>
+        <NavMenu />
+      </Col>
+    </Row>
+  );
+};
+
+export default Home;
+
+export const NavMenu = ({ classNames, styles }) => {
+  const { user, logout } = useContext(UserContext);
+
+  return (
+    <Menu
+      className={classNames || "is-menu-container"}
+      style={styles || { borderRadius: "10px" }}
+    >
+      {user ? (
+        <>
           <Menu.Item key={"post"} className="is-menu-item menu-first">
             <Link to="/new-post">New Post</Link>
           </Menu.Item>
@@ -32,29 +46,20 @@ const Home = () => {
           >
             Log Out
           </Menu.Item>
-        </Menu>
-      </Col>
-    </Row>
-  ) : (
-    <Row className="home-page">
-      <Col style={{ padding: "1em" }} span={24}>
-        <Logo hasText />
-      </Col>
-      <Col span={18} offset={3}>
-        <Menu className="is-menu-container" style={{ borderRadius: "10px" }}>
-          <Menu.Item key={"profile"} className="is-menu-item">
+        </>
+      ) : (
+        <>
+          <Menu.Item key={"profile"} className="is-menu-item menu-first">
             <Link to="/profile/yip-yap-team">Yip-Yap Team Profile</Link>
           </Menu.Item>
           <Menu.Item key={"feed"} className="is-menu-item">
             <Link to="/feed">Community Feed</Link>
           </Menu.Item>
-          <Menu.Item key={"post"} className="is-menu-item menu-first">
+          <Menu.Item key={"post"} className="is-menu-item menu-last">
             <Link to="/auth">Sign In / Sign Up</Link>
           </Menu.Item>
-        </Menu>
-      </Col>
-    </Row>
+        </>
+      )}
+    </Menu>
   );
 };
-
-export default Home;

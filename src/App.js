@@ -21,6 +21,8 @@ import UserAuth from "./Components/UserAuth/UserAuth";
 import { UserContext } from "./Context/UserContext";
 import { useLayoutEffect } from "react";
 import { useContext } from "react";
+import SideBar from "./Components/Nav/SideBar/SideBar";
+import { useState } from "react";
 
 const { Content } = Layout;
 
@@ -29,6 +31,8 @@ const App = () => {
   const navigate = useNavigate();
 
   const { user } = useContext(UserContext);
+
+  const [showSideBar, setShowSideBar] = useState(false);
 
   useLayoutEffect(() => {
     const path = location.pathname.split("/")[1];
@@ -48,23 +52,26 @@ const App = () => {
   return (
     <div className="App">
       <Layout>
-        <NavBar />
-        <Layout className="main-layout">
-          <Content className="main-content is-flex-center has-border-basic">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/profile/*" element={<Profile />} />
-              <Route path="/feed" element={<Feed />} />
-              {user && <Route path="/new-post" element={<NewPost />} />}
-              <Route
-                path="/auth"
-                element={user ? <Navigate to="/" /> : <UserAuth />}
-              />
-              <Route path="/redirect" element={<Navigate to="/" />} />
-            </Routes>
-          </Content>
+        <NavBar toggleSideBar={() => setShowSideBar(!showSideBar)} />
+        <Layout style={{ margin: "64px 0" }}>
+          <SideBar showSideBar={showSideBar} />
+          <Layout className="main-layout">
+            <Content className="main-content is-flex-center has-border-basic">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/profile/*" element={<Profile />} />
+                <Route path="/feed" element={<Feed />} />
+                {user && <Route path="/new-post" element={<NewPost />} />}
+                <Route
+                  path="/auth"
+                  element={user ? <Navigate to="/" /> : <UserAuth />}
+                />
+                <Route path="/redirect" element={<Navigate to="/" />} />
+              </Routes>
+            </Content>
+          </Layout>
+          <FooterContent />
         </Layout>
-        <FooterContent />
       </Layout>
     </div>
   );

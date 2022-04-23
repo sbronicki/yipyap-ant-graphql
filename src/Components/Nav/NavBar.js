@@ -10,9 +10,8 @@ import { useContext } from "react/cjs/react.development";
 import { UserContext } from "../../Context/UserContext";
 import { useEffect } from "react";
 
-const NavBar = () => {
+const NavBar = ({ toggleSideBar }) => {
   const { user, setUser } = useContext(UserContext);
-  const [toggleSideDrawer, setToggleSideDrawer] = useState(false);
 
   useEffect(() => {
     console.log(user);
@@ -21,10 +20,7 @@ const NavBar = () => {
   return (
     <Header className="navbar">
       <div className="nav-item-container">
-        <MenuOutlined
-          onClick={() => setToggleSideDrawer(!toggleSideDrawer)}
-          style={{ fontSize: "2em" }}
-        />
+        <MenuOutlined onClick={toggleSideBar} style={{ fontSize: "2em" }} />
         <Logo size="small" />
         <Link to={`/profile/${user ? user.username : "yip-yap-team"}`}>
           <Avatar

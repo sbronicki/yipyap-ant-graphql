@@ -7,7 +7,7 @@ html {
   --antd-wave-shadow-color: #05fca9;
 }
 body {
-  background-color: rgb(240, 242, 245);
+  background-color: #fff;
 }
 textarea {
   resize: none;
@@ -35,7 +35,10 @@ textarea {
 
 /* nav */
 .navbar {
+  z-index: 1000;
   background-color: #05fca9;
+  position: fixed;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -94,6 +97,20 @@ textarea {
 /* nav */
 
 /* sidebar */
+.sidebar {
+  position: fixed;
+  background-color: #fff;
+  z-index: 999;
+  border-right: 1px solid #ccc;
+  height: 90%;
+}
+.sidebar-menu {
+}
+.sidebar-active {
+}
+.sidebar-inactive {
+  width: 0px !important;
+}
 /* sidebar */
 
 /* main layout */
@@ -112,6 +129,7 @@ textarea {
   max-width: 750px;
   width: 100%;
   padding: 1em;
+  background-color: #fff;
 }
 /* home page */
 
@@ -153,6 +171,7 @@ textarea {
   bottom: 0;
   left: 0;
   background-color: #05fca9;
+  z-index: 1000;
 }
 /* footer */
 
@@ -219,5 +238,12 @@ textarea {
   border: 1px solid #ccc;
 }
 .is-fullWidth {
+  width: 100%;
+}
+/* overrides */
+.ant-layout {
+  background-color: #fff;
+}
+.ant-layout-sider-children {
   width: 100%;
 }
