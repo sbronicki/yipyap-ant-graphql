@@ -17,10 +17,13 @@ import Profile from "./Components/Profile/Profile";
 import Feed from "./Components/Feed/Feed";
 import NewPost from "./Components/NewPost/NewPost";
 import UserAuth from "./Components/UserAuth/UserAuth";
-import { UserContext } from "./Context/UserContext";
+import { User, UserContext } from "./Context/UserContext";
 import { useLayoutEffect, useState, useEffect } from "react";
 import { useContext } from "react";
 import SideBar from "./Components/Nav/SideBar/SideBar";
+import { useMutation, useQuery } from "@apollo/client";
+import { LOGIN_USER_MUTATION } from "./GraphQL/mutations";
+import { GET_USER_QUERY } from "./GraphQL/queries";
 
 const { Content, Footer } = Layout;
 
@@ -28,9 +31,16 @@ const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { user } = useContext(UserContext);
+  const { user, login } = useContext(UserContext);
 
   const [showSideBar, setShowSideBar] = useState(false);
+
+  const [loginUser, { _loading, _error }] = useMutation(LOGIN_USER_MUTATION);
+
+  const { loading, error, data } = useQuery(GET_USER_QUERY, {
+    variables: { username: localStorage.username },
+    skip: !localStorage.token,
+  });
 
   useEffect(() => {
     const path = location.pathname.split("/")[1];
@@ -48,6 +58,14 @@ const App = () => {
   useLayoutEffect(() => {
     if (showSideBar) setShowSideBar(false);
   }, [location]);
+
+  useEffect(() => {
+    if (localStorage.token) {
+      if (data) {
+        login(new User(data.user));
+      }
+    }
+  }, [data]);
 
   console.count("App renders");
 

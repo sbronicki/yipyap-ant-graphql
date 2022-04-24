@@ -6,13 +6,21 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   window.gl_user = user;
 
+  const login = (_user) => {
+    setUser(_user);
+    localStorage.setItem("token", _user.auth.token);
+    localStorage.setItem("username", _user.username);
+  };
+
   const logout = () => {
     setUser(null);
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
   };
 
   return (
     <UserContext.Provider
-      value={{ user: user, setUser: setUser, logout: logout }}
+      value={{ user: user, setUser: setUser, logout: logout, login: login }}
     >
       {children}
     </UserContext.Provider>

@@ -1,7 +1,7 @@
 import { Col, Menu, Row, Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import Logo from "../Logo/Logo";
-import { useState, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import {
   CREATE_USER_MUTATION,
@@ -11,9 +11,11 @@ import { useContext } from "react";
 import { UserContext, User } from "../../Context/UserContext";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
+import { useNavigate } from "react-router-dom";
 
 const UserAuth = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, login } = useContext(UserContext);
+  const navigate = useNavigate();
   const [isSignup, setIsSignup] = useState(true);
 
   const [username, setUsername] = useState("");
@@ -24,6 +26,10 @@ const UserAuth = () => {
 
   const [createUser, { loading, error }] = useMutation(CREATE_USER_MUTATION);
   const [loginUser, { _loading, _error }] = useMutation(LOGIN_USER_MUTATION);
+
+  useEffect(() => {
+    if (user) navigate("/");
+  }, [user]);
 
   if (loading || _loading) return <Loading />;
   if (error || _error) return <Error error={error} />;
@@ -49,10 +55,7 @@ const UserAuth = () => {
           username,
           password,
         },
-      }).then((res) => {
-        // not really tho lol
-        setUser(new User(res.data.createUser));
-      });
+      }).then((res) => {});
     } else {
       loginUser({
         variables: {
@@ -60,7 +63,7 @@ const UserAuth = () => {
           password,
         },
       }).then((res) => {
-        setUser(new User(res.data.loginUser));
+        login(new User(res.data.loginUser));
       });
     }
   };
