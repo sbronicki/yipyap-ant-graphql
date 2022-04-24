@@ -59,14 +59,14 @@ const NewPost = () => {
       <Col span={22} offset={1}>
         <Input
           placeholder="Post Title"
-          maxLength={20}
+          maxLength={50}
           onChange={(e) => setTitle(e.target.value)}
           value={title}
         />
         <TextArea
           size="large"
           placeholder="Post content"
-          maxLength={100}
+          maxLength={1000}
           onChange={(e) => setContent(e.target.value)}
           value={content}
         />

@@ -125,7 +125,7 @@ const PostBody = ({
           <Col span={21}>
             {editMode ? (
               <Input
-                maxLength={20}
+                maxLength={50}
                 onChange={(e) => setTitleEdit(e.target.value)}
                 value={titleEdit}
               />
