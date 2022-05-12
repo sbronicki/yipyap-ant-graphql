@@ -61,7 +61,7 @@ const App = () => {
 
   useEffect(() => {
     if (localStorage.token) {
-      if (data) {
+      if (!user && data) {
         login(new User(data.user));
       }
     }
