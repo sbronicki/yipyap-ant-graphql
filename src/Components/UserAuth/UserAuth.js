@@ -18,7 +18,7 @@ const UserAuth = () => {
   const navigate = useNavigate();
   const [isSignup, setIsSignup] = useState(true);
   const [showWelcome, setShowWelcome] = useState(false);
-
+  const [subbedUserame, setSubbedUsername] = useState(null);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,9 +41,10 @@ const UserAuth = () => {
       return;
     } else {
       setIsSignup(_isSignup);
-      clearInputs();
       if (showWelcome) {
-        setShowWelcome(false);
+        isSignup ? showSignin() : showSignup();
+      } else {
+        clearInputs();
       }
     }
   };
@@ -78,14 +79,19 @@ const UserAuth = () => {
   };
 
   const handleWelcome = () => {
-    // setTimeout to show welcome message then open signin form
     setShowWelcome(true);
+    setSubbedUsername(username);
   };
 
   const showSignin = () => {
+    setIsSignup(false);
+    clearInputs();
+  };
+
+  const showSignup = () => {
+    setIsSignup(true);
     clearInputs();
     setShowWelcome(false);
-    setIsSignup(false);
   };
 
   return (
@@ -105,7 +111,10 @@ const UserAuth = () => {
             {isSignup && (loading || _loading) ? (
               <Loading />
             ) : showWelcome ? (
-              <WelcomeNewUser username={username} showSignin={showSignin} />
+              <WelcomeNewUser
+                username={subbedUserame}
+                showSignin={showSignin}
+              />
             ) : (
               <>
                 Join Yip-Yap Today!
