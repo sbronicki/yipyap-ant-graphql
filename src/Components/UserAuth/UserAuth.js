@@ -18,7 +18,7 @@ const UserAuth = () => {
   const navigate = useNavigate();
   const [isSignup, setIsSignup] = useState(true);
   const [showWelcome, setShowWelcome] = useState(false);
-
+  const [subbedUserame, setSubbedUsername] = useState(null);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,19 +33,6 @@ const UserAuth = () => {
   }, [user]);
 
   if (error || _error) return <Error error={error} />;
-
-  const onChangeForm = (_isSignup) => {
-    if (isSignup && _isSignup) {
-      return;
-    } else if (!isSignup && !_isSignup) {
-      return;
-    } else {
-      setIsSignup(_isSignup);
-      setUsername("");
-      setEmail("");
-      setPassword("");
-    }
-  };
 
   const onSubmit = () => {
     if (isSignup) {
@@ -70,9 +57,41 @@ const UserAuth = () => {
     }
   };
 
+  const onChangeForm = (_isSignup) => {
+    if (isSignup && _isSignup) {
+      return;
+    } else if (!isSignup && !_isSignup) {
+      return;
+    } else {
+      setIsSignup(_isSignup);
+      if (showWelcome) {
+        isSignup ? showSignin() : showSignup();
+      } else {
+        clearInputs();
+      }
+    }
+  };
+
   const handleWelcome = () => {
-    // setTimeout to show welcome message then open signin form
     setShowWelcome(true);
+    setSubbedUsername(username);
+  };
+
+  const showSignin = () => {
+    setIsSignup(false);
+    clearInputs();
+  };
+
+  const showSignup = () => {
+    setIsSignup(true);
+    clearInputs();
+    setShowWelcome(false);
+  };
+
+  const clearInputs = () => {
+    setUsername("");
+    setEmail("");
+    setPassword("");
   };
 
   return (
@@ -92,12 +111,16 @@ const UserAuth = () => {
             {isSignup && (loading || _loading) ? (
               <Loading />
             ) : showWelcome ? (
-              <WelcomeNewUser />
+              <WelcomeNewUser
+                username={subbedUserame}
+                showSignin={showSignin}
+              />
             ) : (
               <>
                 Join Yip-Yap Today!
                 <SigninSignup
                   isSignup
+                  isActive={isSignup}
                   username={username}
                   email={email}
                   password={password}
@@ -122,6 +145,7 @@ const UserAuth = () => {
               <>
                 Already have an account? Sign in
                 <SigninSignup
+                  isActive={!isSignup}
                   username={username}
                   email={email}
                   password={password}
@@ -150,24 +174,39 @@ const SigninSignup = ({
   setUsername,
   setEmail,
   setPassword,
+  isActive,
 }) => {
+  const [_isActive, set_isActive] = useState(false);
+
+  useEffect(() => {
+    if (!isActive) {
+      setTimeout(() => {
+        set_isActive(isActive);
+      }, 750);
+    } else {
+      set_isActive(isActive);
+    }
+  }, [isActive]);
+
   return (
     <Form
       className="login-form"
       initialValues={{ remember: true }}
       onFinish={onFinish}
     >
-      <Form.Item
-        rules={[{ required: true, message: "Please input your Username!" }]}
-      >
-        <Input
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          prefix={<UserOutlined className="site-form-item-icon" />}
-          placeholder="Username"
-        />
-      </Form.Item>
-      {isSignup && (
+      {_isActive && (
+        <Form.Item
+          rules={[{ required: true, message: "Please input your Username!" }]}
+        >
+          <Input
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder="Username"
+          />
+        </Form.Item>
+      )}
+      {_isActive && isSignup && (
         <Form.Item
           rules={[{ required: true, message: "Please input your Email!" }]}
         >
@@ -179,27 +218,49 @@ const SigninSignup = ({
           />
         </Form.Item>
       )}
-      <Form.Item
-        rules={[{ required: true, message: "Please input your Password!" }]}
-      >
-        <Input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          prefix={<LockOutlined className="site-form-item-icon" />}
-          type="password"
-          placeholder="Password"
-        />
-      </Form.Item>
+      {_isActive && (
+        <>
+          <Form.Item
+            rules={[{ required: true, message: "Please input your Password!" }]}
+          >
+            <Input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="Password"
+            />
+          </Form.Item>
 
-      <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
-          {isSignup ? "Sign up" : "Sign in"}
-        </Button>
-      </Form.Item>
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
+              {isSignup ? "Sign up" : "Sign in"}
+            </Button>
+          </Form.Item>
+        </>
+      )}
     </Form>
   );
 };
 
-const WelcomeNewUser = ({}) => {
-  return <>WelcomeNewUser</>;
+const WelcomeNewUser = ({ username, showSignin }) => {
+  return (
+    <>
+      <Row className="stack-cols">
+        <Col>
+          <p>Welcome, {username}!</p>
+        </Col>
+        <Col>
+          <Logo />
+        </Col>
+        <Col>
+          <p onClick={showSignin}>Please sign in!</p>
+        </Col>
+      </Row>
+    </>
+  );
 };
