@@ -41,10 +41,17 @@ const UserAuth = () => {
       return;
     } else {
       setIsSignup(_isSignup);
-      setUsername("");
-      setEmail("");
-      setPassword("");
+      clearInputs();
+      if (showWelcome) {
+        setShowWelcome(false);
+      }
     }
+  };
+
+  const clearInputs = () => {
+    setUsername("");
+    setEmail("");
+    setPassword("");
   };
 
   const onSubmit = () => {
@@ -75,6 +82,12 @@ const UserAuth = () => {
     setShowWelcome(true);
   };
 
+  const showSignin = () => {
+    clearInputs();
+    setShowWelcome(false);
+    setIsSignup(false);
+  };
+
   return (
     <Row className="auth-page">
       <Col style={{ padding: "1em" }} span={24}>
@@ -92,7 +105,7 @@ const UserAuth = () => {
             {isSignup && (loading || _loading) ? (
               <Loading />
             ) : showWelcome ? (
-              <WelcomeNewUser />
+              <WelcomeNewUser username={username} showSignin={showSignin} />
             ) : (
               <>
                 Join Yip-Yap Today!
@@ -200,6 +213,20 @@ const SigninSignup = ({
   );
 };
 
-const WelcomeNewUser = ({}) => {
-  return <>WelcomeNewUser</>;
+const WelcomeNewUser = ({ username, showSignin }) => {
+  return (
+    <>
+      <Row className="stack-cols">
+        <Col>
+          <p>Welcome, {username}!</p>
+        </Col>
+        <Col>
+          <Logo />
+        </Col>
+        <Col>
+          <p onClick={showSignin}>Please sign in!</p>
+        </Col>
+      </Row>
+    </>
+  );
 };
