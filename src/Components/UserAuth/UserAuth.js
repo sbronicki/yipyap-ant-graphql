@@ -17,6 +17,7 @@ const UserAuth = () => {
   const { user, setUser, login } = useContext(UserContext);
   const navigate = useNavigate();
   const [isSignup, setIsSignup] = useState(true);
+  const [showWelcome, setShowWelcome] = useState(false);
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -31,7 +32,6 @@ const UserAuth = () => {
     if (user) navigate("/");
   }, [user]);
 
-  if (loading || _loading) return <Loading />;
   if (error || _error) return <Error error={error} />;
 
   const onChangeForm = (_isSignup) => {
@@ -55,7 +55,9 @@ const UserAuth = () => {
           username,
           password,
         },
-      }).then((res) => {});
+      }).then((res) => {
+        handleWelcome();
+      });
     } else {
       loginUser({
         variables: {
@@ -66,6 +68,11 @@ const UserAuth = () => {
         login(new User(res.data.loginUser));
       });
     }
+  };
+
+  const handleWelcome = () => {
+    // setTimeout to show welcome message then open signin form
+    setShowWelcome(true);
   };
 
   return (
@@ -82,17 +89,25 @@ const UserAuth = () => {
             }`}
             onClick={() => onChangeForm(true)}
           >
-            Join Yip-Yap Today!
-            <SigninSignup
-              isSignup
-              username={username}
-              email={email}
-              password={password}
-              setUsername={setUsername}
-              setEmail={setEmail}
-              setPassword={setPassword}
-              onFinish={onSubmit}
-            />
+            {isSignup && (loading || _loading) ? (
+              <Loading />
+            ) : showWelcome ? (
+              <WelcomeNewUser />
+            ) : (
+              <>
+                Join Yip-Yap Today!
+                <SigninSignup
+                  isSignup
+                  username={username}
+                  email={email}
+                  password={password}
+                  setUsername={setUsername}
+                  setEmail={setEmail}
+                  setPassword={setPassword}
+                  onFinish={onSubmit}
+                />
+              </>
+            )}
           </Menu.Item>
           <Menu.Item
             key={"signin"}
@@ -101,16 +116,22 @@ const UserAuth = () => {
             }`}
             onClick={() => onChangeForm(false)}
           >
-            Already have an account? Sign in
-            <SigninSignup
-              username={username}
-              email={email}
-              password={password}
-              setUsername={setUsername}
-              setEmail={setEmail}
-              setPassword={setPassword}
-              onFinish={onSubmit}
-            />
+            {!isSignup && (loading || _loading) ? (
+              <Loading />
+            ) : (
+              <>
+                Already have an account? Sign in
+                <SigninSignup
+                  username={username}
+                  email={email}
+                  password={password}
+                  setUsername={setUsername}
+                  setEmail={setEmail}
+                  setPassword={setPassword}
+                  onFinish={onSubmit}
+                />
+              </>
+            )}
           </Menu.Item>
         </Menu>
       </Col>
@@ -177,4 +198,8 @@ const SigninSignup = ({
       </Form.Item>
     </Form>
   );
+};
+
+const WelcomeNewUser = ({}) => {
+  return <>WelcomeNewUser</>;
 };
