@@ -34,27 +34,6 @@ const UserAuth = () => {
 
   if (error || _error) return <Error error={error} />;
 
-  const onChangeForm = (_isSignup) => {
-    if (isSignup && _isSignup) {
-      return;
-    } else if (!isSignup && !_isSignup) {
-      return;
-    } else {
-      setIsSignup(_isSignup);
-      if (showWelcome) {
-        isSignup ? showSignin() : showSignup();
-      } else {
-        clearInputs();
-      }
-    }
-  };
-
-  const clearInputs = () => {
-    setUsername("");
-    setEmail("");
-    setPassword("");
-  };
-
   const onSubmit = () => {
     if (isSignup) {
       createUser({
@@ -78,6 +57,21 @@ const UserAuth = () => {
     }
   };
 
+  const onChangeForm = (_isSignup) => {
+    if (isSignup && _isSignup) {
+      return;
+    } else if (!isSignup && !_isSignup) {
+      return;
+    } else {
+      setIsSignup(_isSignup);
+      if (showWelcome) {
+        isSignup ? showSignin() : showSignup();
+      } else {
+        clearInputs();
+      }
+    }
+  };
+
   const handleWelcome = () => {
     setShowWelcome(true);
     setSubbedUsername(username);
@@ -92,6 +86,12 @@ const UserAuth = () => {
     setIsSignup(true);
     clearInputs();
     setShowWelcome(false);
+  };
+
+  const clearInputs = () => {
+    setUsername("");
+    setEmail("");
+    setPassword("");
   };
 
   return (
@@ -120,6 +120,7 @@ const UserAuth = () => {
                 Join Yip-Yap Today!
                 <SigninSignup
                   isSignup
+                  isActive={isSignup}
                   username={username}
                   email={email}
                   password={password}
@@ -144,6 +145,7 @@ const UserAuth = () => {
               <>
                 Already have an account? Sign in
                 <SigninSignup
+                  isActive={!isSignup}
                   username={username}
                   email={email}
                   password={password}
@@ -172,24 +174,39 @@ const SigninSignup = ({
   setUsername,
   setEmail,
   setPassword,
+  isActive,
 }) => {
+  const [_isActive, set_isActive] = useState(false);
+
+  useEffect(() => {
+    if (!isActive) {
+      setTimeout(() => {
+        set_isActive(isActive);
+      }, 750);
+    } else {
+      set_isActive(isActive);
+    }
+  }, [isActive]);
+
   return (
     <Form
       className="login-form"
       initialValues={{ remember: true }}
       onFinish={onFinish}
     >
-      <Form.Item
-        rules={[{ required: true, message: "Please input your Username!" }]}
-      >
-        <Input
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          prefix={<UserOutlined className="site-form-item-icon" />}
-          placeholder="Username"
-        />
-      </Form.Item>
-      {isSignup && (
+      {_isActive && (
+        <Form.Item
+          rules={[{ required: true, message: "Please input your Username!" }]}
+        >
+          <Input
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder="Username"
+          />
+        </Form.Item>
+      )}
+      {_isActive && isSignup && (
         <Form.Item
           rules={[{ required: true, message: "Please input your Email!" }]}
         >
@@ -201,23 +218,31 @@ const SigninSignup = ({
           />
         </Form.Item>
       )}
-      <Form.Item
-        rules={[{ required: true, message: "Please input your Password!" }]}
-      >
-        <Input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          prefix={<LockOutlined className="site-form-item-icon" />}
-          type="password"
-          placeholder="Password"
-        />
-      </Form.Item>
+      {_isActive && (
+        <>
+          <Form.Item
+            rules={[{ required: true, message: "Please input your Password!" }]}
+          >
+            <Input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="Password"
+            />
+          </Form.Item>
 
-      <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
-          {isSignup ? "Sign up" : "Sign in"}
-        </Button>
-      </Form.Item>
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
+              {isSignup ? "Sign up" : "Sign in"}
+            </Button>
+          </Form.Item>
+        </>
+      )}
     </Form>
   );
 };
