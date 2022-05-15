@@ -272,6 +272,7 @@ p {
 .ant-input-affix-wrapper-focused {
   border: 1px solid rgb(175, 175, 175) !important;
 }
+.ant-input,
 .ant-input-affix-wrapper:focus,
 .ant-input-affix-wrapper-focused {
   box-shadow: none !important;

@@ -49,7 +49,7 @@ export const NavMenu = ({ classNames, styles, inSideBar = false }) => {
             onClick={logout}
             className="is-menu-item menu-last"
           >
-            Log Out
+            <p className="link-hover">Log Out</p>
           </Menu.Item>
         </>
       ) : (

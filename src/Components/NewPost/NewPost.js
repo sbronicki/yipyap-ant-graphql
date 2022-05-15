@@ -64,6 +64,7 @@ const NewPost = () => {
           value={title}
         />
         <TextArea
+          className="first-post"
           size="large"
           placeholder="Post content"
           maxLength={1000}
