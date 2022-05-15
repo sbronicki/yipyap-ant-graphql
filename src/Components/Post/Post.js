@@ -173,17 +173,17 @@ const PostActions = ({
 }) => {
   return editMode ? (
     <>
-      <Tooltip>
+      <Tooltip className="tool-tip-hover">
         <span onClick={onEdit}>
           <EditOutlined className="has-spacer-padding" />
         </span>
       </Tooltip>
-      <Tooltip>
+      <Tooltip className="tool-tip-hover">
         <span onClick={onDiscardEdit}>
           <UndoOutlined className="has-spacer-padding" />
         </span>
       </Tooltip>
-      <Tooltip>
+      <Tooltip className="tool-tip-hover">
         <span onClick={(e) => onUpdate(id)}>
           <CheckOutlined className="has-spacer-padding" />
         </span>
@@ -191,12 +191,12 @@ const PostActions = ({
     </>
   ) : (
     <>
-      <Tooltip>
+      <Tooltip className="tool-tip-hover">
         <span onClick={onEdit}>
           <EditOutlined className="has-spacer-padding" />
         </span>
       </Tooltip>
-      <Tooltip>
+      <Tooltip className="tool-tip-hover">
         <span onClick={(e) => onDelete(id)}>
           <DeleteOutlined className="has-spacer-padding" />
         </span>

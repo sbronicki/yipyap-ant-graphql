@@ -252,6 +252,9 @@ textarea {
 .border-top-none {
   border-top: none !important;
 }
+.tool-tip-hover:hover {
+  cursor: pointer;
+}
 /* overrides */
 .ant-layout {
   background-color: #fff;
