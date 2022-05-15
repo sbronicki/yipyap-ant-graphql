@@ -86,6 +86,9 @@ textarea {
   height: 40px !important;
   transition: height 0.5s ease-out;
 }
+.is-expandable-collapsed:hover {
+  cursor: pointer !important;
+}
 .menu-dissolve {
   opacity: 0;
   transition: opacity 0.5s ease-out;
@@ -240,10 +243,26 @@ textarea {
 .is-fullWidth {
   width: 100%;
 }
+.link-hover:hover {
+  cursor: pointer;
+  color: #1890ff;
+}
 /* overrides */
 .ant-layout {
   background-color: #fff;
 }
 .ant-layout-sider-children {
   width: 100%;
+}
+li,
+.ant-menu-item,
+.ant-menu-submenu-title:hover,
+.ant-menu-item-selected {
+  opacity: 1 !important;
+  background-color: #fff !important;
+  color: unset !important;
+  cursor: unset;
+}
+p {
+  margin: 0 !important;
 }
