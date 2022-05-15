@@ -76,7 +76,7 @@ const App = () => {
         <Layout style={{ margin: "64px 0" }}>
           <SideBar showSideBar={showSideBar} />
           <Layout className="main-layout">
-            <Content className="main-content is-flex-center has-border-basic">
+            <Content className="main-content is-flex-center">
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/profile/*" element={<Profile />} />

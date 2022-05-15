@@ -117,7 +117,9 @@ const UserAuth = () => {
               />
             ) : (
               <>
-                Join Yip-Yap Today!
+                <p className={!isSignup ? "link-hover" : ""}>
+                  Join Yip-Yap Today!
+                </p>
                 <SigninSignup
                   isSignup
                   isActive={isSignup}
@@ -143,7 +145,9 @@ const UserAuth = () => {
               <Loading />
             ) : (
               <>
-                Already have an account? Sign in
+                <p className={isSignup ? "link-hover" : ""}>
+                  Already have an account? Sign in
+                </p>
                 <SigninSignup
                   isActive={!isSignup}
                   username={username}
@@ -234,9 +238,8 @@ const SigninSignup = ({
 
           <Form.Item>
             <Button
-              type="primary"
               htmlType="submit"
-              className="login-form-button"
+              className="button login-form-button bg-brand"
             >
               {isSignup ? "Sign up" : "Sign in"}
             </Button>

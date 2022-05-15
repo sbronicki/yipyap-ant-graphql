@@ -33,12 +33,11 @@ const Feed = () => {
 export default Feed;
 
 const FeedBanner = ({ text, subText }) => {
+  const mobile = window.innerWidth < 768;
   return (
     <Row>
-      <Col span={5}>
-        <Logo />
-      </Col>
-      <Col span={14}>
+      <Col span={!mobile ? 5 : 4}>{!mobile && <Logo />}</Col>
+      <Col span={!mobile ? 14 : 16}>
         <Row className="is-fullWidth">
           <Col span={24}>
             <h2 className="has-spacer-padding-top">{text}</h2>
@@ -48,9 +47,7 @@ const FeedBanner = ({ text, subText }) => {
           </Col>
         </Row>
       </Col>
-      <Col span={5}>
-        <Logo size={"medium"} />
-      </Col>
+      <Col span={!mobile ? 5 : 4}>{!mobile && <Logo />}</Col>
     </Row>
   );
 };
