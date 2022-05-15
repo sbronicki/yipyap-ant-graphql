@@ -266,3 +266,14 @@ li,
 p {
   margin: 0 !important;
 }
+.ant-input-affix-wrapper:active,
+.ant-input-affix-wrapper:hover,
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+  border: 1px solid rgb(175, 175, 175) !important;
+}
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+  box-shadow: none !important;
+  border-color: rgb(150, 150, 150, 0.5) !important;
+}
