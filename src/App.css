@@ -14,12 +14,16 @@ textarea {
 }
 /* button */
 .button {
+  border: 1px solid #fff;
+  border-radius: 5px !important;
+  margin: 2px;
 }
 .button::after,
 .button:hover,
 .button:focus {
-  color: rgba(0, 0, 0, 0.85) !important;
-  border-color: rgba(0, 0, 0, 0.85) !important;
+  color: #fff !important;
+  background-color: #05fca9;
+  border-color: rgba(0, 0, 0, 0);
 }
 /* logo */
 .logo {
@@ -161,10 +165,8 @@ textarea {
   border-top: 1px solid #ccc;
 }
 .last-post {
-  border-bottom: 1px solid #ccc;
 }
 .first-post {
-  border-top: none;
 }
 
 /* footer */
@@ -247,6 +249,9 @@ textarea {
   cursor: pointer;
   color: #1890ff;
 }
+.border-top-none {
+  border-top: none !important;
+}
 /* overrides */
 .ant-layout {
   background-color: #fff;
@@ -277,4 +282,9 @@ p {
 .ant-input-affix-wrapper-focused {
   box-shadow: none !important;
   border-color: rgb(150, 150, 150, 0.5) !important;
+}
+.ant-menu-inline,
+.ant-menu-vertical,
+.ant-menu-vertical-left {
+  border: 1px solid #f0f0f0;
 }

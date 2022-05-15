@@ -238,9 +238,8 @@ const SigninSignup = ({
 
           <Form.Item>
             <Button
-              type="primary"
               htmlType="submit"
-              className="login-form-button"
+              className="button login-form-button bg-brand"
             >
               {isSignup ? "Sign up" : "Sign in"}
             </Button>
