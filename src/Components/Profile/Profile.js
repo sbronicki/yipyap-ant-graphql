@@ -1,16 +1,14 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { Col, Descriptions, PageHeader, Row } from "antd";
+import { useContext, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { UserContext } from "../../Context/UserContext";
+import { GET_USER_QUERY } from "../../GraphQL/queries";
+import Error from "../Error/Error";
+import Loading from "../Loading/Loading";
 import Posts from "../Post/Posts";
 import Banner from "./Banner";
 import Headshot from "./Headshot";
-import { GET_USER_QUERY } from "../../GraphQL/queries";
-import { useLocation } from "react-router-dom";
-import { useContext } from "react";
-import { UserContext, User } from "../../Context/UserContext";
-import { useLayoutEffect } from "react";
-import Loading from "../Loading/Loading";
-import Error from "../Error/Error";
-import { useState, useEffect } from "react";
 
 const Profile = () => {
   const location = useLocation();
@@ -19,21 +17,22 @@ const Profile = () => {
   const { user, setUser } = useContext(UserContext);
   const isUsersProfile = user && user.username === usernameFromURL;
 
-  const { loading, error, data } = useQuery(GET_USER_QUERY, {
+  const { loading, error, data, refetch } = useQuery(GET_USER_QUERY, {
     variables: { username: usernameFromURL },
   });
 
   const profileData = data?.user;
+  const colWidth =
+    window.innerWidth < 768 ? { span: 24, offset: 0 } : { span: 8, offset: 2 };
+
   window.gl_profileData = profileData;
 
   useEffect(() => {
     if (isUsersProfile) {
+      if (user.profileData.posts) refetch();
       setUser({ ...user, profileData: { ...profileData } });
     }
-  }, [profileData, isUsersProfile]);
-
-  const colWidth =
-    window.innerWidth < 768 ? { span: 24, offset: 0 } : { span: 8, offset: 2 };
+  }, [isUsersProfile]);
 
   if (loading) return <Loading />;
   if (error) return <Error error={error} />;

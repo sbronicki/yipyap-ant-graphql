@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { Col, PageHeader, Row } from "antd";
 import { GET_POSTS_QUERY } from "../../GraphQL/queries";
@@ -8,7 +9,12 @@ import Posts from "../Post/Posts";
 import Banner from "../Profile/Banner";
 
 const Feed = () => {
-  const { loading, error, data } = useQuery(GET_POSTS_QUERY);
+  const { loading, error, data, refetch } = useQuery(GET_POSTS_QUERY);
+
+  useEffect(() => {
+    refetch();
+    console.count("refetch");
+  }, []);
 
   if (loading) return <Loading />;
   if (error) return <Error error={error} />;
