@@ -261,7 +261,9 @@ const WelcomeNewUser = ({ username, showSignin }) => {
           <Logo />
         </Col>
         <Col>
-          <p onClick={showSignin}>Please sign in!</p>
+          <p className="link-hover" onClick={showSignin}>
+            Please sign in!
+          </p>
         </Col>
       </Row>
     </>
