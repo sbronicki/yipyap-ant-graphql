@@ -4,7 +4,7 @@ MERNG app
 
 Todo: (for launch)
 
-        Update UI after new, update, delete post
+        Update UI after update, delete post
 
         Handle errors frontend and backend
 
@@ -16,15 +16,7 @@ Todo: (for launch)
 
         Image upload (profile img, banner, posts)
 
-        Feed style update
-
-        Post structure and style update
-
         YipYap Team profile
-
-        Override remaining antd colors
-
-        New user welcome screen
 
 Backlog:
 
