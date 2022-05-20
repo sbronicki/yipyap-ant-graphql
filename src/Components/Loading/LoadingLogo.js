@@ -5,7 +5,7 @@ import Logo from "../Logo/Logo";
 
 const LoadingLogo = () => {
   return (
-    <Row className="error error-is-auth">
+    <Row className="loading loading-logo">
       <Col style={{ padding: "1em" }} span={24}>
         <Logo />
       </Col>
