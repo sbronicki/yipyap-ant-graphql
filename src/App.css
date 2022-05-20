@@ -242,6 +242,9 @@ textarea {
 .has-border-basic {
   border: 1px solid #ccc;
 }
+.has-border-basic-bottom {
+  border-bottom: 1px solid #ccc;
+}
 .is-fullWidth {
   width: 100%;
 }

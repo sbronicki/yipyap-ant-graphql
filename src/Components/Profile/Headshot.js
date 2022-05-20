@@ -4,8 +4,13 @@ import tempImg from "../Logo/yip-yap-logo-png.png";
 
 const { Content } = Layout;
 const Headshot = () => {
+  const isMobile = window.innerWidth < 768;
   return (
-    <Layout className="headshot has-border-basic">
+    <Layout
+      className={`headshot ${
+        isMobile ? "has-border-basic-bottom" : "has-border-basic"
+      }`}
+    >
       <Content>
         <img src={tempImg} />
       </Content>

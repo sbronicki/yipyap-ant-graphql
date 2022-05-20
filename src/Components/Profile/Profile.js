@@ -22,8 +22,8 @@ const Profile = () => {
   });
 
   const profileData = data?.user;
-  const colWidth =
-    window.innerWidth < 768 ? { span: 24, offset: 0 } : { span: 8, offset: 2 };
+  const isMobile = window.innerWidth < 768;
+  const colWidth = isMobile ? { span: 24, offset: 0 } : { span: 8, offset: 2 };
 
   window.gl_profileData = profileData;
 
@@ -40,12 +40,14 @@ const Profile = () => {
 
   return (
     <Row className="has-spacer-padding-top">
-      <Col
-        className="is-overflow-hidden is-flex-center banner-container"
-        span={24}
-      >
-        <Banner />
-      </Col>
+      {!isMobile && (
+        <Col
+          className="is-overflow-hidden is-flex-center banner-container"
+          span={24}
+        >
+          <Banner />
+        </Col>
+      )}
       <Col>
         <Row className="stack-cols-mobile">
           <Col
