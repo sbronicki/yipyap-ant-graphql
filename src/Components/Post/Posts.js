@@ -5,15 +5,18 @@ const Posts = ({ postList, noDataMsg }) => {
     return <h1>{noDataMsg || "No posts data!"}</h1>;
   }
 
-  return postList.map((post, i) => (
-    <Post
-      key={i}
-      postData={post}
-      className={`post ${
-        i === 0 ? "first-post" : i === postList.length - 1 ? "last-post" : ""
-      }`}
-    />
-  ));
+  return postList
+    .slice(0)
+    .reverse()
+    .map((post, i) => (
+      <Post
+        key={i}
+        postData={post}
+        className={`post ${
+          i === 0 ? "first-post" : i === postList.length - 1 ? "last-post" : ""
+        }`}
+      />
+    ));
 };
 
 export default Posts;
