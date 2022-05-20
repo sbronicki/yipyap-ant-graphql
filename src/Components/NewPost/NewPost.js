@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { UserContext } from "../../Context/UserContext";
 import { CREATE_POST_MUTATION } from "../../GraphQL/mutations";
 import Error from "../Error/Error";
-import Loading from "../Loading/Loading";
+import LoadingLogo from "../Loading/LoadingLogo";
 
 const { TextArea } = Input;
 
@@ -25,7 +25,7 @@ const NewPost = () => {
     },
   });
 
-  if (loading) return <Loading />;
+  if (loading) return <LoadingLogo />;
   if (error) return <Error error={error} />;
 
   const onSave = (e) => {

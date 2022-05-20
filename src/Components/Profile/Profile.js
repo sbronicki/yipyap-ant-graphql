@@ -6,7 +6,7 @@ import { MobileContext } from "../../Context/MobileContext";
 import { UserContext } from "../../Context/UserContext";
 import { GET_USER_QUERY } from "../../GraphQL/queries";
 import Error from "../Error/Error";
-import Loading from "../Loading/Loading";
+import LoadingLogo from "../Loading/LoadingLogo";
 import Posts from "../Post/Posts";
 import Banner from "./Banner";
 import Headshot from "./Headshot";
@@ -39,7 +39,7 @@ const Profile = () => {
     }
   }, [isUsersProfile]);
 
-  if (loading) return <Loading />;
+  if (loading) return <LoadingLogo />;
   if (error) return <Error error={error} />;
   if (!profileData) return <Error error={"No profile data"} />;
 

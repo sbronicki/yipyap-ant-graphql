@@ -9,7 +9,7 @@ import {
 } from "../../GraphQL/mutations";
 import { useContext } from "react";
 import { UserContext, User } from "../../Context/UserContext";
-import Loading from "../Loading/Loading";
+import LoadingLogo from "../Loading/LoadingLogo";
 import Error from "../Error/Error";
 import { useNavigate } from "react-router-dom";
 
@@ -109,7 +109,7 @@ const UserAuth = () => {
             onClick={() => onChangeForm(true)}
           >
             {isSignup && (loading || _loading) ? (
-              <Loading />
+              <LoadingLogo />
             ) : showWelcome ? (
               <WelcomeNewUser
                 username={subbedUserame}
@@ -142,7 +142,7 @@ const UserAuth = () => {
             onClick={() => onChangeForm(false)}
           >
             {!isSignup && (loading || _loading) ? (
-              <Loading />
+              <LoadingLogo />
             ) : (
               <>
                 <p className={isSignup ? "link-hover" : ""}>
