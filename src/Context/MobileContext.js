@@ -25,7 +25,9 @@ export const MobileProvider = ({ children }) => {
   window.gl_innerWidth = windowWidth;
 
   return (
-    <MobileContext.Provider value={{ isMobile: isMobile }}>
+    <MobileContext.Provider
+      value={{ isMobile: isMobile, windowWidth: windowWidth }}
+    >
       {children}
     </MobileContext.Provider>
   );
