@@ -7,6 +7,8 @@ import Loading from "../Loading/Loading";
 import Logo from "../Logo/Logo";
 import Posts from "../Post/Posts";
 import Banner from "../Profile/Banner";
+import { useContext } from "react";
+import { MobileContext } from "../../Context/MobileContext";
 
 const Feed = () => {
   const { loading, error, data, refetch } = useQuery(GET_POSTS_QUERY);
@@ -39,11 +41,12 @@ const Feed = () => {
 export default Feed;
 
 const FeedBanner = ({ text, subText }) => {
-  const mobile = window.innerWidth < 768;
+  const { isMobile } = useContext(MobileContext);
+
   return (
     <Row>
-      <Col span={!mobile ? 5 : 4}>{!mobile && <Logo />}</Col>
-      <Col span={!mobile ? 14 : 16}>
+      <Col span={!isMobile ? 5 : 4}>{!isMobile && <Logo />}</Col>
+      <Col span={!isMobile ? 14 : 16}>
         <Row className="is-fullWidth">
           <Col span={24}>
             <h2 className="has-spacer-padding-top">{text}</h2>
@@ -53,7 +56,7 @@ const FeedBanner = ({ text, subText }) => {
           </Col>
         </Row>
       </Col>
-      <Col span={!mobile ? 5 : 4}>{!mobile && <Logo />}</Col>
+      <Col span={!isMobile ? 5 : 4}>{!isMobile && <Logo />}</Col>
     </Row>
   );
 };

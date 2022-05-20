@@ -20,14 +20,7 @@ const Profile = () => {
 
   const desktopWidth = { span: 8, offset: 2 };
   const mobileWidth = { span: 24, offset: 0 };
-
-  const [colWidth, setColWidth] = useState(
-    isMobile ? desktopWidth : mobileWidth
-  );
-
-  useEffect(() => {
-    setColWidth(isMobile ? mobileWidth : desktopWidth);
-  }, [isMobile]);
+  const colWidth = isMobile ? mobileWidth : desktopWidth;
 
   const isUsersProfile = user && user.username === usernameFromURL;
 
