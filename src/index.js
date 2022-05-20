@@ -13,6 +13,7 @@ import {
 } from "@apollo/client";
 import { UserProvider } from "./Context/UserContext";
 import { BrowserRouter } from "react-router-dom";
+import { MobileProvider } from "./Context/MobileContext";
 
 axios.defaults.baseURL = "http://localhost:4000/graphql";
 
@@ -26,7 +27,9 @@ ReactDOM.render(
     <ApolloProvider client={client}>
       <BrowserRouter>
         <UserProvider>
-          <App />
+          <MobileProvider>
+            <App />
+          </MobileProvider>
         </UserProvider>
       </BrowserRouter>
     </ApolloProvider>
