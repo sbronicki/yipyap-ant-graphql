@@ -19,7 +19,7 @@ import { UserContext } from "../../Context/UserContext";
 
 const { TextArea } = Input;
 
-const Post = ({ postData, className }) => {
+const Post = ({ postData, className, refetch }) => {
   const { id, username } = postData;
   const [title, setTitle] = useState(postData.title);
   const [content, setContent] = useState(postData.content);
@@ -62,7 +62,7 @@ const Post = ({ postData, className }) => {
       variables: {
         id,
       },
-    }).then((res) => console.log(res));
+    }).then(() => refetch());
   };
 
   if (loading) return <Loading />;

@@ -32,7 +32,7 @@ const Feed = () => {
         />
       </Col>
       <Col className="is-flex-center stack-cols" span={24}>
-        <Posts postList={data.posts} parent="feed" />
+        <Posts refetch={refetch} postList={data.posts} parent="feed" />
       </Col>
     </Row>
   );

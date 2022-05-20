@@ -1,6 +1,6 @@
 import Post from "./Post";
 
-const Posts = ({ postList, noDataMsg }) => {
+const Posts = ({ postList, noDataMsg, refetch }) => {
   if (postList.length === 0) {
     return <h1>{noDataMsg || "No posts data!"}</h1>;
   }
@@ -10,6 +10,7 @@ const Posts = ({ postList, noDataMsg }) => {
     .reverse()
     .map((post, i) => (
       <Post
+        refetch={refetch}
         key={i}
         postData={post}
         className={`post ${

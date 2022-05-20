@@ -28,20 +28,33 @@ const Profile = () => {
     variables: { username: usernameFromURL },
   });
 
+  const _refetch = () => {
+    refetch().then((res) => {
+      setUser({ ...user, profileData: res.data.user });
+      debugger;
+    });
+  };
+
   const profileData = data?.user;
 
   window.gl_profileData = profileData;
 
   useEffect(() => {
     if (isUsersProfile) {
-      if (user.profileData.posts) refetch();
-      setUser({ ...user, profileData: { ...profileData } });
+      if (user.profileData.posts) {
+        _refetch();
+      } else {
+        setUser({ ...user, profileData: { ...profileData } });
+      }
+      debugger;
     }
-  }, [isUsersProfile]);
+  }, [isUsersProfile, refetch]);
 
   if (loading) return <Loading />;
   if (error) return <Error error={error} />;
   if (!profileData) return <Error error={"No profile data"} />;
+
+  console.count("profile render");
 
   return (
     <Row className="has-spacer-padding-top">
@@ -78,6 +91,7 @@ const Profile = () => {
       </Col>
       <Col className="is-flex-center stack-cols" span={24}>
         <Posts
+          refetch={_refetch}
           postList={profileData.posts}
           noDataMsg={`${profileData.username} hasn't posted anything :(`}
         />
