@@ -1,7 +1,8 @@
 import { useQuery } from "@apollo/client";
 import { Col, Descriptions, PageHeader, Row } from "antd";
-import { useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { MobileContext } from "../../Context/MobileContext";
 import { UserContext } from "../../Context/UserContext";
 import { GET_USER_QUERY } from "../../GraphQL/queries";
 import Error from "../Error/Error";
@@ -15,6 +16,12 @@ const Profile = () => {
   const usernameFromURL = location.pathname.replace("/profile/", "");
 
   const { user, setUser } = useContext(UserContext);
+  const { isMobile } = useContext(MobileContext);
+
+  const desktopWidth = { span: 8, offset: 2 };
+  const mobileWidth = { span: 24, offset: 0 };
+  const colWidth = isMobile ? mobileWidth : desktopWidth;
+
   const isUsersProfile = user && user.username === usernameFromURL;
 
   const { loading, error, data, refetch } = useQuery(GET_USER_QUERY, {
@@ -22,8 +29,6 @@ const Profile = () => {
   });
 
   const profileData = data?.user;
-  const isMobile = window.innerWidth < 768;
-  const colWidth = isMobile ? { span: 24, offset: 0 } : { span: 8, offset: 2 };
 
   window.gl_profileData = profileData;
 

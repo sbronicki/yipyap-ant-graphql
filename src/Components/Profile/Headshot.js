@@ -1,10 +1,12 @@
 import { Layout } from "antd";
+import { useContext } from "react";
+import { MobileContext } from "../../Context/MobileContext";
 
 import tempImg from "../Logo/yip-yap-logo-png.png";
 
 const { Content } = Layout;
 const Headshot = () => {
-  const isMobile = window.innerWidth < 768;
+  const { isMobile } = useContext(MobileContext);
   return (
     <Layout
       className={`headshot ${
