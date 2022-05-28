@@ -3,7 +3,7 @@ import { gql, useQuery } from "@apollo/client";
 import { Col, PageHeader, Row } from "antd";
 import { GET_POSTS_QUERY } from "../../GraphQL/queries";
 import Error from "../Error/Error";
-import Loading from "../Loading/Loading";
+import LoadingLogo from "../Loading/LoadingLogo";
 import Logo from "../Logo/Logo";
 import Posts from "../Post/Posts";
 import Banner from "../Profile/Banner";
@@ -18,7 +18,7 @@ const Feed = () => {
     console.count("refetch");
   }, []);
 
-  if (loading) return <Loading />;
+  if (loading) return <LoadingLogo />;
   if (error) return <Error error={error} />;
 
   return (

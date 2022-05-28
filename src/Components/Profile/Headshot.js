@@ -2,10 +2,10 @@ import { Layout } from "antd";
 import { useContext } from "react";
 import { MobileContext } from "../../Context/MobileContext";
 
-import tempImg from "../Logo/yip-yap-logo-png.png";
+import LogoSrc from "../Logo/yip-yap-logo-png.png";
 
 const { Content } = Layout;
-const Headshot = () => {
+const Headshot = ({ imageSrc }) => {
   const { isMobile } = useContext(MobileContext);
   return (
     <Layout
@@ -14,7 +14,7 @@ const Headshot = () => {
       }`}
     >
       <Content>
-        <img src={tempImg} />
+        <img src={imageSrc || LogoSrc} />
       </Content>
     </Layout>
   );

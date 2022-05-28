@@ -11,11 +11,11 @@ import {
   UPDATE_POST_MUTATION,
 } from "../../GraphQL/mutations";
 import { useState } from "react/cjs/react.development";
-import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../Context/UserContext";
+import LoadingLogo from "../Loading/LoadingLogo";
 
 const { TextArea } = Input;
 
@@ -65,7 +65,7 @@ const Post = ({ postData, className }) => {
     }).then((res) => console.log(res));
   };
 
-  if (loading) return <Loading />;
+  if (loading) return <LoadingLogo />;
   if (error) return <Error error={error} />;
 
   return (
