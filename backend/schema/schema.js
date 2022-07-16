@@ -26,7 +26,10 @@ const UserType = new GraphQLObjectType({
     username: { type: GraphQLString },
     email: { type: GraphQLString },
     password: { type: GraphQLString },
-    createDate: { type: GraphQLString },
+    bio: { type: GraphQLString },
+    profileImg: { type: GraphQLString },
+    bannerImg: { type: GraphQLString },
+    created: { type: GraphQLString },
     token: { type: GraphQLString },
     posts: {
       type: GraphQLList(PostType),
@@ -46,12 +49,7 @@ const PostType = new GraphQLObjectType({
     content: { type: GraphQLString },
     image: { type: GraphQLString },
     username: { type: GraphQLString },
-    // user: {
-    //   type: UserType,
-    //   resolve(parent, args) {
-    //     return User.findById(parent.userID);
-    //   },
-    // },
+    created: { type: GraphQLString },
   }),
 });
 
@@ -94,8 +92,6 @@ const RootQuery = new GraphQLObjectType({
         },
       },
       resolve(parent, args) {
-        console.log({ parent });
-        console.log({ args });
         return Post.find({ username: args.username });
       },
     },
@@ -125,15 +121,11 @@ const Mutation = new GraphQLObjectType({
           username: args.username,
           email: args.email,
           password: hash,
-          createDate: formatDate(new Date().toISOString()),
+          created: formatDate(new Date().toISOString()),
         });
-        console.log(user);
-
         const res = await user.save();
-
-        console.log(res);
-
         const token = generateToken(res);
+
         return {
           ...res._doc,
           id: res._id,
@@ -162,7 +154,6 @@ const Mutation = new GraphQLObjectType({
 
         if (match && user) {
           const token = generateToken(user);
-          console.log("login", user);
           return {
             ...user._doc,
             id: user._id,
@@ -211,9 +202,9 @@ const Mutation = new GraphQLObjectType({
           content: args.content,
           image: args.image,
           username: args.username,
+          created: formatDate(new Date().toISOString()),
         });
 
-        console.log(post);
         return post.save();
       },
     },
@@ -248,7 +239,7 @@ const Mutation = new GraphQLObjectType({
         const deletedPost = Post.findByIdAndDelete(args.id).exec();
 
         if (!deletedPost) {
-          throw new "Error"();
+          throw new Error("Post delete was unsuccessful");
         }
         return deletedPost;
       },
