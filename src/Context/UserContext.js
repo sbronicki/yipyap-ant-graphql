@@ -1,27 +1,33 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
 
 export const UserContext = createContext(null);
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  window.gl_user = user;
 
-  const login = (_user) => {
-    setUser(_user);
-    localStorage.setItem("token", _user.auth.token);
-    localStorage.setItem("username", _user.username);
+  const login = (data) => {
+    const { token, username } = data;
+    setUser(new User(data));
+
+    localStorage.setItem("token", token);
+    localStorage.setItem("username", username);
+  };
+
+  const updateUser = (data) => {
+    setUser({ ...user, ...data });
   };
 
   const logout = () => {
     setUser(null);
+
     localStorage.removeItem("token");
     localStorage.removeItem("username");
   };
 
+  window.gl_user = user;
+
   return (
-    <UserContext.Provider
-      value={{ user: user, setUser: setUser, logout: logout, login: login }}
-    >
+    <UserContext.Provider value={{ user, setUser, updateUser, logout, login }}>
       {children}
     </UserContext.Provider>
   );
@@ -29,20 +35,14 @@ export const UserProvider = ({ children }) => {
 
 export class User {
   constructor(data) {
-    // this.userID = data.id;
-    this.email = data.email;
-    this.username = data.username;
     this.id = data.id;
-    this.profileData = {
-      banner: data.banner,
-      image: data.image,
-      bio: data.bio,
-      created: data.created,
-      username: data.username,
-      posts: data.posts,
-    };
-    this.auth = {
-      token: data.token,
-    };
+    this.token = data.token;
+    this.username = data.username;
+    this.email = data.email;
+    this.bio = data.bio;
+    this.profileImg = data.profileImg;
+    this.bannerImg = data.bannerImg;
+    this.created = data.created;
   }
+  posts = null;
 }
