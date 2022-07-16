@@ -5,6 +5,7 @@ const postSchema = mongoose.Schema({
   content: { type: String, required: true },
   image: { type: String },
   username: { type: String, required: true },
+  created: { type: String, required: true },
 });
 
 module.exports = mongoose.model("Post", postSchema);

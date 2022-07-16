@@ -37,7 +37,7 @@ export class User {
       banner: data.banner,
       image: data.image,
       bio: data.bio,
-      createDate: data.createDate,
+      created: data.created,
       username: data.username,
       posts: data.posts,
     };

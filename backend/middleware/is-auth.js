@@ -22,8 +22,6 @@ module.exports = (req, res, next) => {
     return next();
   }
 
-  console.log(decodedToken);
-
   if (!decodedToken) {
     req.isAuth = false;
     return next();
