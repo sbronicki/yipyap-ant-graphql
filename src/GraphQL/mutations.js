@@ -50,7 +50,7 @@ export const CREATE_USER_MUTATION = gql`
       id
       email
       username
-      createDate
+      created
       token
     }
   }

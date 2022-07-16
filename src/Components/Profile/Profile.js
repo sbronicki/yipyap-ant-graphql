@@ -66,7 +66,7 @@ const Profile = () => {
             <PageHeader title={profileData.username} subTitle="I'm the user!">
               <Descriptions column={1}>
                 <Descriptions.Item label="Member Since">
-                  {profileData.createDate}
+                  {profileData.created}
                 </Descriptions.Item>
                 <Descriptions.Item label="Posts">
                   {profileData.posts.length}

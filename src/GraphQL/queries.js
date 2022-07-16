@@ -5,7 +5,7 @@ export const GET_USER_QUERY = gql`
     user(username: $username) {
       id
       username
-      createDate
+      created
       posts {
         id
         title
