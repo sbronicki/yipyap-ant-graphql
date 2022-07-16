@@ -50,7 +50,7 @@ const Profile = () => {
           className="is-overflow-hidden is-flex-center banner-container"
           span={24}
         >
-          <Banner />
+          <Banner src={profileData.bannerImg} />
         </Col>
       )}
       <Col>
@@ -60,10 +60,10 @@ const Profile = () => {
             span={colWidth.span}
             offset={colWidth.offset}
           >
-            <Headshot />
+            <Headshot src={profileData.profileImg} />
           </Col>
           <Col span={colWidth.span} offset={colWidth.offset}>
-            <PageHeader title={profileData.username} subTitle="I'm the user!">
+            <PageHeader title={profileData.username} subTitle={profileData.bio}>
               <Descriptions column={1}>
                 <Descriptions.Item label="Member Since">
                   {profileData.created}
