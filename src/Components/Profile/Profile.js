@@ -15,7 +15,7 @@ const Profile = () => {
   const location = useLocation();
   const usernameFromURL = location.pathname.replace("/profile/", "");
 
-  const { user, setUser } = useContext(UserContext);
+  const { user, updateUser } = useContext(UserContext);
   const { isMobile } = useContext(MobileContext);
 
   const desktopWidth = { span: 8, offset: 2 };
@@ -30,14 +30,12 @@ const Profile = () => {
 
   const profileData = data?.user;
 
-  window.gl_profileData = profileData;
-
   useEffect(() => {
     if (isUsersProfile) {
-      if (user.profileData.posts) refetch();
-      setUser({ ...user, profileData: { ...profileData } });
+      if (user.posts !== null) refetch();
+      updateUser(profileData);
     }
-  }, [isUsersProfile]);
+  }, [isUsersProfile, profileData]);
 
   if (loading) return <LoadingLogo />;
   if (error) return <Error error={error} />;

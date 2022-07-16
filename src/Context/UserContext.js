@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
 
 export const UserContext = createContext(null);
 
@@ -14,7 +14,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const updateUser = (data) => {
-    setUser(user.setPosts());
+    setUser({ ...user, ...data });
   };
 
   const logout = () => {
@@ -44,4 +44,5 @@ export class User {
     this.bannerImg = data.bannerImg;
     this.created = data.created;
   }
+  posts = null;
 }
