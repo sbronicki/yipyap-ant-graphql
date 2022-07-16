@@ -5,11 +5,16 @@ export const GET_USER_QUERY = gql`
     user(username: $username) {
       id
       username
-      createDate
+      bio
+      profileImg
+      bannerImg
+      created
       posts {
         id
         title
         content
+        image
+        created
         username
       }
     }
@@ -35,6 +40,7 @@ export const GET_POST_QUERY = gql`
       content
       image
       username
+      created
     }
   }
 `;
@@ -46,6 +52,7 @@ export const GET_USER_POSTS = gql`
       content
       id
       image
+      created
     }
   }
 `;
@@ -57,6 +64,7 @@ export const GET_POSTS_QUERY = gql`
       title
       content
       username
+      created
     }
   }
 `;
