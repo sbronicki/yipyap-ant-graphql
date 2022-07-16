@@ -122,6 +122,9 @@ const Mutation = new GraphQLObjectType({
           email: args.email,
           password: hash,
           created: formatDate(new Date().toISOString()),
+          bio: null,
+          profileImg: null,
+          bannerImg: null,
         });
         const res = await user.save();
         const token = generateToken(res);
