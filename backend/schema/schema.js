@@ -239,12 +239,17 @@ const Mutation = new GraphQLObjectType({
         id: { type: new GraphQLNonNull(GraphQLID) },
       },
       resolve(parent, args) {
-        const deletedPost = Post.findByIdAndDelete(args.id).exec();
+        try {
+          const deletedPost = Post.findByIdAndDelete(args.id).exec();
 
-        if (!deletedPost) {
-          throw new Error("Post delete was unsuccessful");
+          if (!deletedPost) {
+            throw new Error("Post delete was unsuccessful");
+          }
+
+          return deletedPost;
+        } catch {
+          throw new Error("Post delete was unsuccessful catch");
         }
-        return deletedPost;
       },
     },
   },
