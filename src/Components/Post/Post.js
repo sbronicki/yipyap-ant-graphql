@@ -20,7 +20,7 @@ import LoadingLogo from "../Loading/LoadingLogo";
 const { TextArea } = Input;
 
 const Post = ({ postData, className }) => {
-  const { id, username } = postData;
+  const { id, username, created } = postData;
   const [title, setTitle] = useState(postData.title);
   const [content, setContent] = useState(postData.content);
   const [image, setImage] = useState(postData.image);
@@ -45,8 +45,6 @@ const Post = ({ postData, className }) => {
   };
 
   const onUpdate = (postID) => {
-    console.log(postID);
-    console.log("edit post");
     updatePost({
       variables: {
         id,
@@ -72,6 +70,7 @@ const Post = ({ postData, className }) => {
     <Row className={`post-container ${className}`} id={id} key={id}>
       <Col offset={1} span={22}>
         <Comment
+          datetime={created}
           author={<Link to={`/profile/${username}`}>{username}</Link>}
           content={
             <PostBody

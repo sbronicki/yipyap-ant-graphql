@@ -13,6 +13,8 @@ export const GET_USER_QUERY = gql`
         id
         title
         content
+        image
+        created
         username
       }
     }
