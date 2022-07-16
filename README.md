@@ -6,6 +6,8 @@ Todo: (for launch)
 
         Update UI after update, delete post
 
+        Sidebar highlighted link not reflecting current page
+
         Handle errors frontend and backend
 
         Handle loading
