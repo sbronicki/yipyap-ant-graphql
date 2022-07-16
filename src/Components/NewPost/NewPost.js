@@ -19,8 +19,7 @@ const NewPost = () => {
   const [createPost, { loading, error }] = useMutation(CREATE_POST_MUTATION, {
     context: {
       headers: {
-        // "Content-Type": "application/json",
-        Authorization: "Bearer " + user.auth.token,
+        Authorization: "Bearer " + user.token,
       },
     },
   });
@@ -37,9 +36,8 @@ const NewPost = () => {
         image,
       },
     }).then((res) => {
-      console.log(res);
+      clear();
     });
-    clear();
   };
   const clear = () => {
     setTitle("");
