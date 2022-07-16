@@ -17,7 +17,7 @@ import Profile from "./Components/Profile/Profile";
 import Feed from "./Components/Feed/Feed";
 import NewPost from "./Components/NewPost/NewPost";
 import UserAuth from "./Components/UserAuth/UserAuth";
-import { User, UserContext } from "./Context/UserContext";
+import { UserContext } from "./Context/UserContext";
 import { useLayoutEffect, useState, useEffect } from "react";
 import { useContext } from "react";
 import SideBar from "./Components/Nav/SideBar/SideBar";
@@ -62,7 +62,7 @@ const App = () => {
   useEffect(() => {
     if (localStorage.token) {
       if (!user && data) {
-        login(new User(data.user));
+        login(data.user);
       }
     }
   }, [data]);

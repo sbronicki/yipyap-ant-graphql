@@ -1,4 +1,4 @@
-import { Col, Menu, Row, Form, Input, Button, Checkbox } from "antd";
+import { Col, Menu, Row, Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import Logo from "../Logo/Logo";
 import { useState, useEffect } from "react";
@@ -8,17 +8,16 @@ import {
   LOGIN_USER_MUTATION,
 } from "../../GraphQL/mutations";
 import { useContext } from "react";
-import { UserContext, User } from "../../Context/UserContext";
+import { UserContext } from "../../Context/UserContext";
 import LoadingLogo from "../Loading/LoadingLogo";
 import Error from "../Error/Error";
 import { useNavigate } from "react-router-dom";
 
 const UserAuth = () => {
-  const { user, setUser, login } = useContext(UserContext);
+  const { user, login } = useContext(UserContext);
   const navigate = useNavigate();
   const [isSignup, setIsSignup] = useState(true);
   const [showWelcome, setShowWelcome] = useState(false);
-  const [subbedUserame, setSubbedUsername] = useState(null);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -52,7 +51,7 @@ const UserAuth = () => {
           password,
         },
       }).then((res) => {
-        login(new User(res.data.loginUser));
+        login(res.data.loginUser);
       });
     }
   };
@@ -74,7 +73,6 @@ const UserAuth = () => {
 
   const handleWelcome = () => {
     setShowWelcome(true);
-    setSubbedUsername(username);
   };
 
   const showSignin = () => {
@@ -111,10 +109,7 @@ const UserAuth = () => {
             {isSignup && (loading || _loading) ? (
               <LoadingLogo />
             ) : showWelcome ? (
-              <WelcomeNewUser
-                username={subbedUserame}
-                showSignin={showSignin}
-              />
+              <WelcomeNewUser username={username} showSignin={showSignin} />
             ) : (
               <>
                 <p className={!isSignup ? "link-hover" : ""}>
