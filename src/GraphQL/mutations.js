@@ -14,8 +14,6 @@ export const CREATE_POST_MUTATION = gql`
       image: $image
     ) {
       id
-      title
-      username
     }
   }
 `;
@@ -37,7 +35,6 @@ export const UPDATE_POST_MUTATION = gql`
   ) {
     updatePost(id: $id, title: $title, content: $content, image: $image) {
       post {
-        title
         id
       }
     }
@@ -51,7 +48,6 @@ export const CREATE_USER_MUTATION = gql`
       email
       username
       created
-      token
     }
   }
 `;
