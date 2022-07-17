@@ -45,7 +45,7 @@ const Post = ({ postData, className, deleteCB }) => {
     setImageEdit(image);
   };
 
-  const onUpdate = (postID) => {
+  const onUpdate = () => {
     updatePost({
       variables: {
         id,
@@ -53,10 +53,12 @@ const Post = ({ postData, className, deleteCB }) => {
         contentEdit,
         imageEdit,
       },
+    }).then((res) => {
+      debugger;
     });
   };
 
-  const onDelete = (id) => {
+  const onDelete = () => {
     deletePost({
       variables: {
         id,
@@ -91,7 +93,6 @@ const Post = ({ postData, className, deleteCB }) => {
               onDiscardEdit={onDiscardEdit}
               onEdit={onEdit}
               onDelete={onDelete}
-              id={id}
               username={username}
             />
           }
@@ -115,7 +116,6 @@ const PostBody = ({
   onEdit,
   onUpdate,
   onDelete,
-  id,
   username,
 }) => {
   const { user } = useContext(UserContext);
@@ -139,7 +139,6 @@ const PostBody = ({
           {showPostActions && (
             <Col className="is-flex-center" span={3}>
               <PostActions
-                id={id}
                 editMode={editMode}
                 onDiscardEdit={onDiscardEdit}
                 onEdit={onEdit}
@@ -167,7 +166,6 @@ const PostBody = ({
 };
 
 const PostActions = ({
-  id,
   editMode,
   onDiscardEdit,
   onEdit,
@@ -187,7 +185,7 @@ const PostActions = ({
         </span>
       </Tooltip>
       <Tooltip className="tool-tip-hover">
-        <span onClick={(e) => onUpdate(id)}>
+        <span onClick={onUpdate}>
           <CheckOutlined className="has-spacer-padding" />
         </span>
       </Tooltip>
@@ -200,7 +198,7 @@ const PostActions = ({
         </span>
       </Tooltip>
       <Tooltip className="tool-tip-hover">
-        <span onClick={(e) => onDelete(id)}>
+        <span onClick={onDelete}>
           <DeleteOutlined className="has-spacer-padding" />
         </span>
       </Tooltip>
