@@ -4,6 +4,8 @@ MERNG app
 
 Todo: (for launch)
         
+        login inputs just dont render sometimes ???
+        
         feed => click different users profile from post => view your profile = will show posts from the different user
         
         Update UI after update, delete post
