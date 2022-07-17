@@ -1,6 +1,6 @@
 import Post from "./Post";
 
-const Posts = ({ postList, noDataMsg, deleteCB }) => {
+const Posts = ({ postList, noDataMsg, actionCB }) => {
   if (postList.length === 0) {
     return <h1>{noDataMsg || "No posts data!"}</h1>;
   }
@@ -12,7 +12,7 @@ const Posts = ({ postList, noDataMsg, deleteCB }) => {
       <Post
         key={i}
         postData={post}
-        deleteCB={deleteCB}
+        actionCB={actionCB}
         className={`post ${
           i === 0 ? "first-post" : i === postList.length - 1 ? "last-post" : ""
         }`}

@@ -52,12 +52,15 @@ const Profile = () => {
   if (loading || !profileData) return <LoadingLogo />;
   if (error) return <Error error={error} />;
 
-  const deleteCB = () => {
+  const actionCB = () => {
     refetch().then((res) => {
       updateUser(res.data.user);
       setProfileData(res.data.user);
+      debugger;
     });
   };
+
+  console.log({ profileData });
 
   return (
     <Row className="has-spacer-padding-top">
@@ -94,7 +97,7 @@ const Profile = () => {
       </Col>
       <Col className="is-flex-center stack-cols" span={24}>
         <Posts
-          deleteCB={deleteCB}
+          actionCB={actionCB}
           postList={profileData.posts}
           noDataMsg={`${profileData.username} hasn't posted anything :(`}
         />
