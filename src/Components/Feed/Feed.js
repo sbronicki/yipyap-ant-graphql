@@ -9,16 +9,28 @@ import Posts from "../Post/Posts";
 import Banner from "../Profile/Banner";
 import { useContext } from "react";
 import { MobileContext } from "../../Context/MobileContext";
+import { useState } from "react/cjs/react.development";
 
 const Feed = () => {
-  const { loading, error, data, refetch } = useQuery(GET_POSTS_QUERY);
+  const { loading, error, data, refetch } = useQuery(GET_POSTS_QUERY, {
+    notifyOnNetworkStatusChange: true,
+  });
 
   useEffect(() => {
-    refetch();
-    console.count("refetch");
-  }, []);
+    if (data) {
+      if (!posts) {
+        setPosts(data.posts);
+      } else {
+        refetch().then((res) => {
+          setPosts(res.data.posts);
+        });
+      }
+    }
+  }, [data]);
 
-  if (loading) return <LoadingLogo />;
+  const [posts, setPosts] = useState(data?.posts);
+
+  if (loading || !posts) return <LoadingLogo />;
   if (error) return <Error error={error} />;
 
   return (
@@ -32,7 +44,7 @@ const Feed = () => {
         />
       </Col>
       <Col className="is-flex-center stack-cols" span={24}>
-        <Posts postList={data.posts} parent="feed" />
+        <Posts postList={posts} parent="feed" />
       </Col>
     </Row>
   );

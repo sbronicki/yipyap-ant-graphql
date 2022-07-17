@@ -19,6 +19,7 @@ const UserAuth = () => {
   const [isSignup, setIsSignup] = useState(true);
   const [showWelcome, setShowWelcome] = useState(false);
   const [username, setUsername] = useState("");
+  const [newUsername, setNewUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const expandedClass = "is-expandable-expanded";
@@ -73,6 +74,7 @@ const UserAuth = () => {
 
   const handleWelcome = () => {
     setShowWelcome(true);
+    setNewUsername(username);
   };
 
   const showSignin = () => {
@@ -109,7 +111,7 @@ const UserAuth = () => {
             {isSignup && (loading || _loading) ? (
               <LoadingLogo />
             ) : showWelcome ? (
-              <WelcomeNewUser username={username} showSignin={showSignin} />
+              <WelcomeNewUser username={newUsername} showSignin={showSignin} />
             ) : (
               <>
                 <p className={!isSignup ? "link-hover" : ""}>
