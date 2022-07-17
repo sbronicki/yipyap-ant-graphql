@@ -11,11 +11,7 @@ import { UserContext } from "../../Context/UserContext";
 import { useEffect } from "react";
 
 const NavBar = ({ toggleSideBar }) => {
-  const { user, setUser } = useContext(UserContext);
-
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
+  const { user } = useContext(UserContext);
 
   return (
     <Header className="navbar">
