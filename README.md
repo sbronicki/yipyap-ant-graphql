@@ -3,7 +3,9 @@ Yip Yap V2!
 MERNG app
 
 Todo: (for launch)
-
+        
+        feed => click different users profile from post => view your profile = will show posts from the different user
+        
         Update UI after update, delete post
 
         Sidebar highlighted link not reflecting current page
