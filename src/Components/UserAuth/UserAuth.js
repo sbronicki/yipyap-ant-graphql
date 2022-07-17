@@ -26,7 +26,8 @@ const UserAuth = () => {
   const collapsedClass = "is-expandable-collapsed";
 
   const [createUser, { loading, error }] = useMutation(CREATE_USER_MUTATION);
-  const [loginUser, { _loading, _error }] = useMutation(LOGIN_USER_MUTATION);
+  const [loginUser, { loading: _loading, error: _error }] =
+    useMutation(LOGIN_USER_MUTATION);
 
   useEffect(() => {
     if (user) navigate("/");

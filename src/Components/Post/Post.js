@@ -31,7 +31,8 @@ const Post = ({ postData, className, deleteCB }) => {
   const [editMode, setEditMode] = useState(false);
 
   const [deletePost, { loading, error }] = useMutation(DELETE_POST_MUTATION);
-  const [updatePost] = useMutation(UPDATE_POST_MUTATION);
+  const [updatePost, { loading: _loading, error: _error }] =
+    useMutation(UPDATE_POST_MUTATION);
 
   const onEdit = () => {
     onDiscardEdit();
@@ -62,13 +63,12 @@ const Post = ({ postData, className, deleteCB }) => {
       },
       notifyOnNetworkStatusChange: true,
     }).then((res) => {
-      console.log(res);
       deleteCB();
     });
   };
 
-  if (loading) return <LoadingLogo />;
-  if (error) return <Error error={error} />;
+  if (loading || _loading) return <LoadingLogo />;
+  if (error || _error) return <Error error={error} />;
 
   return (
     <Row className={`post-container ${className}`} id={id} key={id}>
