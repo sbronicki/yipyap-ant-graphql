@@ -49,9 +49,9 @@ const Post = ({ postData, className, deleteCB }) => {
     updatePost({
       variables: {
         id,
-        titleEdit,
-        contentEdit,
-        imageEdit,
+        title: titleEdit,
+        content: contentEdit,
+        image: imageEdit,
       },
     }).then((res) => {
       debugger;
