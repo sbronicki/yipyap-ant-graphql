@@ -24,22 +24,21 @@ const Profile = () => {
 
   const isUsersProfile = user && user.username === usernameFromURL;
 
-  const { loading, error, data, refetch } = useQuery(GET_USER_QUERY, {
+  const { loading, error, data } = useQuery(GET_USER_QUERY, {
     variables: { username: usernameFromURL },
   });
 
-  const profileData = data?.user;
+  const [profileData, setProfileData] = useState(data?.user);
 
   useEffect(() => {
-    if (isUsersProfile) {
-      if (user.posts !== null) refetch();
-      updateUser(profileData);
+    if (data) {
+      if (isUsersProfile) updateUser(data.user);
+      setProfileData(data.user);
     }
-  }, [isUsersProfile, profileData]);
+  }, [data]);
 
-  if (loading) return <LoadingLogo />;
+  if (loading || !profileData) return <LoadingLogo />;
   if (error) return <Error error={error} />;
-  if (!profileData) return <Error error={"No profile data"} />;
 
   return (
     <Row className="has-spacer-padding-top">
