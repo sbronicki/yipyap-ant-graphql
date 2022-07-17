@@ -19,7 +19,7 @@ import LoadingLogo from "../Loading/LoadingLogo";
 
 const { TextArea } = Input;
 
-const Post = ({ postData, className }) => {
+const Post = ({ postData, className, deleteCB }) => {
   const { id, username, created } = postData;
   const [title, setTitle] = useState(postData.title);
   const [content, setContent] = useState(postData.content);
@@ -60,7 +60,11 @@ const Post = ({ postData, className }) => {
       variables: {
         id,
       },
-    }).then((res) => console.log(res));
+      notifyOnNetworkStatusChange: true,
+    }).then((res) => {
+      console.log(res);
+      deleteCB();
+    });
   };
 
   if (loading) return <LoadingLogo />;

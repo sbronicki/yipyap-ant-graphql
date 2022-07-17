@@ -33,6 +33,12 @@ const Feed = () => {
   if (loading || !posts) return <LoadingLogo />;
   if (error) return <Error error={error} />;
 
+  const deleteCB = () => {
+    refetch().then((res) => {
+      setPosts(res.data.posts);
+    });
+  };
+
   return (
     <Row className="is-fullWidth">
       <Col className="is-flex-center stack-cols" span={24}>
@@ -44,7 +50,7 @@ const Feed = () => {
         />
       </Col>
       <Col className="is-flex-center stack-cols" span={24}>
-        <Posts postList={posts} parent="feed" />
+        <Posts postList={posts} deleteCB={deleteCB} />
       </Col>
     </Row>
   );
