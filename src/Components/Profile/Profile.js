@@ -24,16 +24,28 @@ const Profile = () => {
 
   const isUsersProfile = user && user.username === usernameFromURL;
 
-  const { loading, error, data } = useQuery(GET_USER_QUERY, {
+  const { loading, error, data, refetch } = useQuery(GET_USER_QUERY, {
     variables: { username: usernameFromURL },
+    notifyOnNetworkStatusChange: true,
   });
 
   const [profileData, setProfileData] = useState(data?.user);
 
   useEffect(() => {
     if (data) {
-      if (isUsersProfile) updateUser(data.user);
-      setProfileData(data.user);
+      if (!profileData) {
+        if (isUsersProfile) {
+          updateUser(data.user);
+        }
+        setProfileData(data.user);
+      } else {
+        refetch().then((res) => {
+          if (isUsersProfile) {
+            updateUser(res.data.user);
+          }
+          setProfileData(res.data.user);
+        });
+      }
     }
   }, [data]);
 

@@ -12,12 +12,23 @@ import { MobileContext } from "../../Context/MobileContext";
 import { useState } from "react/cjs/react.development";
 
 const Feed = () => {
-  const { loading, error, data } = useQuery(GET_POSTS_QUERY);
-  const [posts, setPosts] = useState(data?.posts);
+  const { loading, error, data, refetch } = useQuery(GET_POSTS_QUERY, {
+    notifyOnNetworkStatusChange: true,
+  });
 
   useEffect(() => {
-    if (data) setPosts(data.posts);
+    if (data) {
+      if (!posts) {
+        setPosts(data.posts);
+      } else {
+        refetch().then((res) => {
+          setPosts(res.data.posts);
+        });
+      }
+    }
   }, [data]);
+
+  const [posts, setPosts] = useState(data?.posts);
 
   if (loading || !posts) return <LoadingLogo />;
   if (error) return <Error error={error} />;
