@@ -56,11 +56,8 @@ const Profile = () => {
     refetch().then((res) => {
       updateUser(res.data.user);
       setProfileData(res.data.user);
-      debugger;
     });
   };
-
-  console.log({ profileData });
 
   return (
     <Row className="has-spacer-padding-top">

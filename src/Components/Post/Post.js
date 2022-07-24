@@ -13,7 +13,7 @@ import {
 import { useState } from "react/cjs/react.development";
 import Error from "../Error/Error";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../../Context/UserContext";
 import LoadingLogo from "../Loading/LoadingLogo";
 
@@ -33,6 +33,12 @@ const Post = ({ postData, className, actionCB }) => {
   const [deletePost, { loading, error }] = useMutation(DELETE_POST_MUTATION);
   const [updatePost, { loading: _loading, error: _error }] =
     useMutation(UPDATE_POST_MUTATION);
+
+  useEffect(() => {
+    setTitle(postData.title);
+    setContent(postData.content);
+    setImage(postData.image);
+  }, [postData]);
 
   const onEdit = () => {
     onDiscardEdit();
@@ -72,6 +78,7 @@ const Post = ({ postData, className, actionCB }) => {
   if (loading || _loading) return <LoadingLogo />;
   if (error || _error) return <Error error={error} />;
 
+  console.count("POST RENDER");
   return (
     <Row className={`post-container ${className}`} id={id} key={id}>
       <Col offset={1} span={22}>
