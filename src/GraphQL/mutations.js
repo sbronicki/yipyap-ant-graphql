@@ -34,9 +34,10 @@ export const UPDATE_POST_MUTATION = gql`
     $image: String
   ) {
     updatePost(id: $id, title: $title, content: $content, image: $image) {
-      post {
-        id
-      }
+      id
+      title
+      content
+      image
     }
   }
 `;

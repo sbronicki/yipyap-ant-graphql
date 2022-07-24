@@ -13,13 +13,13 @@ import {
 import { useState } from "react/cjs/react.development";
 import Error from "../Error/Error";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../../Context/UserContext";
 import LoadingLogo from "../Loading/LoadingLogo";
 
 const { TextArea } = Input;
 
-const Post = ({ postData, className }) => {
+const Post = ({ postData, className, actionCB }) => {
   const { id, username, created } = postData;
   const [title, setTitle] = useState(postData.title);
   const [content, setContent] = useState(postData.content);
@@ -31,7 +31,14 @@ const Post = ({ postData, className }) => {
   const [editMode, setEditMode] = useState(false);
 
   const [deletePost, { loading, error }] = useMutation(DELETE_POST_MUTATION);
-  const [updatePost] = useMutation(UPDATE_POST_MUTATION);
+  const [updatePost, { loading: _loading, error: _error }] =
+    useMutation(UPDATE_POST_MUTATION);
+
+  useEffect(() => {
+    setTitle(postData.title);
+    setContent(postData.content);
+    setImage(postData.image);
+  }, [postData]);
 
   const onEdit = () => {
     onDiscardEdit();
@@ -44,28 +51,34 @@ const Post = ({ postData, className }) => {
     setImageEdit(image);
   };
 
-  const onUpdate = (postID) => {
+  const onUpdate = () => {
     updatePost({
       variables: {
         id,
-        titleEdit,
-        contentEdit,
-        imageEdit,
+        title: titleEdit,
+        content: contentEdit,
+        image: imageEdit,
       },
+    }).then((res) => {
+      actionCB();
     });
   };
 
-  const onDelete = (id) => {
+  const onDelete = () => {
     deletePost({
       variables: {
         id,
       },
-    }).then((res) => console.log(res));
+      notifyOnNetworkStatusChange: true,
+    }).then((res) => {
+      actionCB();
+    });
   };
 
-  if (loading) return <LoadingLogo />;
-  if (error) return <Error error={error} />;
+  if (loading || _loading) return <LoadingLogo />;
+  if (error || _error) return <Error error={error} />;
 
+  console.count("POST RENDER");
   return (
     <Row className={`post-container ${className}`} id={id} key={id}>
       <Col offset={1} span={22}>
@@ -87,7 +100,6 @@ const Post = ({ postData, className }) => {
               onDiscardEdit={onDiscardEdit}
               onEdit={onEdit}
               onDelete={onDelete}
-              id={id}
               username={username}
             />
           }
@@ -111,7 +123,6 @@ const PostBody = ({
   onEdit,
   onUpdate,
   onDelete,
-  id,
   username,
 }) => {
   const { user } = useContext(UserContext);
@@ -135,7 +146,6 @@ const PostBody = ({
           {showPostActions && (
             <Col className="is-flex-center" span={3}>
               <PostActions
-                id={id}
                 editMode={editMode}
                 onDiscardEdit={onDiscardEdit}
                 onEdit={onEdit}
@@ -163,7 +173,6 @@ const PostBody = ({
 };
 
 const PostActions = ({
-  id,
   editMode,
   onDiscardEdit,
   onEdit,
@@ -183,7 +192,7 @@ const PostActions = ({
         </span>
       </Tooltip>
       <Tooltip className="tool-tip-hover">
-        <span onClick={(e) => onUpdate(id)}>
+        <span onClick={onUpdate}>
           <CheckOutlined className="has-spacer-padding" />
         </span>
       </Tooltip>
@@ -196,7 +205,7 @@ const PostActions = ({
         </span>
       </Tooltip>
       <Tooltip className="tool-tip-hover">
-        <span onClick={(e) => onDelete(id)}>
+        <span onClick={onDelete}>
           <DeleteOutlined className="has-spacer-padding" />
         </span>
       </Tooltip>

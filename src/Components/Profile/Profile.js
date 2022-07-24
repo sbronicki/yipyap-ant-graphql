@@ -52,6 +52,13 @@ const Profile = () => {
   if (loading || !profileData) return <LoadingLogo />;
   if (error) return <Error error={error} />;
 
+  const actionCB = () => {
+    refetch().then((res) => {
+      updateUser(res.data.user);
+      setProfileData(res.data.user);
+    });
+  };
+
   return (
     <Row className="has-spacer-padding-top">
       {!isMobile && (
@@ -87,6 +94,7 @@ const Profile = () => {
       </Col>
       <Col className="is-flex-center stack-cols" span={24}>
         <Posts
+          actionCB={actionCB}
           postList={profileData.posts}
           noDataMsg={`${profileData.username} hasn't posted anything :(`}
         />
