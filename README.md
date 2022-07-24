@@ -8,8 +8,6 @@ Todo: (for launch)
         
         feed => click different users profile from post => view your profile = will show posts from the different user
         
-        Update UI after update, delete post
-
         Sidebar highlighted link not reflecting current page
 
         Handle errors frontend and backend
