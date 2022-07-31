@@ -1,5 +1,7 @@
 import { useQuery } from "@apollo/client";
-import { Col, Descriptions, PageHeader, Row } from "antd";
+import { Button, Col, Descriptions, PageHeader, Row } from "antd";
+import ButtonGroup from "antd/lib/button/button-group";
+import TextArea from "antd/lib/input/TextArea";
 import { useState, useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { MobileContext } from "../../Context/MobileContext";
@@ -29,7 +31,9 @@ const Profile = () => {
     notifyOnNetworkStatusChange: true,
   });
 
+  const [editMode, setEditMode] = useState(false);
   const [profileData, setProfileData] = useState(data?.user);
+  const [editData, setEditData] = useState(null);
 
   useEffect(() => {
     if (data) {
@@ -59,6 +63,33 @@ const Profile = () => {
     });
   };
 
+  const onEditProfile = (e) => {
+    editMode ? setEditData(null) : setEditData(profileData);
+    setEditMode(!editMode);
+  };
+
+  const onEditBio = (val) => {
+    setEditData({ ...editData, bio: val });
+  };
+
+  const onEditProfileImg = (val) => {
+    setEditData({ ...editData, profileImg: val });
+  };
+
+  const onEditBannerImg = (val) => {
+    setEditData({ ...editData, bannerImg: val });
+  };
+
+  const onCancelEdit = () => {
+    setEditData(null);
+    setEditMode(false);
+  };
+
+  const onSaveEdit = () => {
+    console.log({ editData });
+    setProfileData(editData);
+  };
+
   return (
     <Row className="has-spacer-padding-top">
       {!isMobile && (
@@ -79,7 +110,22 @@ const Profile = () => {
             <Headshot src={profileData.profileImg} />
           </Col>
           <Col span={colWidth.span} offset={colWidth.offset}>
-            <PageHeader title={profileData.username} subTitle={profileData.bio}>
+            <PageHeader
+              title={profileData.username}
+              subTitle={
+                editMode ? (
+                  <TextArea
+                    placeholder="Edit your bio!"
+                    size="large"
+                    maxLength={100}
+                    onChange={(e) => onEditBio(e.target.value)}
+                    value={editData.bio}
+                  />
+                ) : (
+                  profileData.bio
+                )
+              }
+            >
               <Descriptions column={1}>
                 <Descriptions.Item label="Member Since">
                   {profileData.created}
@@ -90,6 +136,20 @@ const Profile = () => {
               </Descriptions>
             </PageHeader>
           </Col>
+          {isUsersProfile && (
+            <Col>
+              <ButtonGroup>
+                {editMode ? (
+                  <>
+                    <Button onClick={onSaveEdit}>Save</Button>
+                    <Button onClick={onCancelEdit}>Cancel</Button>
+                  </>
+                ) : (
+                  <Button onClick={onEditProfile}>Edit Profile</Button>
+                )}
+              </ButtonGroup>
+            </Col>
+          )}
         </Row>
       </Col>
       <Col className="is-flex-center stack-cols" span={24}>
