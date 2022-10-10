@@ -181,13 +181,7 @@ const SigninSignup = ({
   const [_isActive, set_isActive] = useState(false);
 
   useEffect(() => {
-    if (!isActive) {
-      setTimeout(() => {
-        set_isActive(isActive);
-      }, 750);
-    } else {
-      set_isActive(isActive);
-    }
+    set_isActive(isActive);
   }, [isActive]);
 
   return (
