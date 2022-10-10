@@ -166,21 +166,22 @@ const Mutation = new GraphQLObjectType({
       },
     },
     updateUser: {
+      // bio, banner and profile images
       type: UserType,
       args: {
         id: { type: new GraphQLNonNull(GraphQLID) },
-        username: { type: GraphQLString },
-        email: { type: GraphQLString },
-        password: { type: GraphQLString },
+        bio: { type: GraphQLString },
+        profileImg: { type: GraphQLString },
+        bannerImg: { type: GraphQLString },
       },
       resolve(parent, args) {
         return User.findByIdAndUpdate(
           args.id,
           {
             $set: {
-              username: args.username,
-              email: args.email,
-              password: args.password,
+              bio: args.bio,
+              profileImg: args.profileImg,
+              bannerImg: args.bannerImg,
             },
           },
           { new: true }

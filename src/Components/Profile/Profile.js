@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { Button, Col, Descriptions, PageHeader, Row } from "antd";
 import ButtonGroup from "antd/lib/button/button-group";
 import TextArea from "antd/lib/input/TextArea";
@@ -6,6 +6,7 @@ import { useState, useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { MobileContext } from "../../Context/MobileContext";
 import { UserContext } from "../../Context/UserContext";
+import { UPDATE_USER_MUTATION } from "../../GraphQL/mutations";
 import { GET_USER_QUERY } from "../../GraphQL/queries";
 import Error from "../Error/Error";
 import LoadingLogo from "../Loading/LoadingLogo";
@@ -17,7 +18,7 @@ const Profile = () => {
   const location = useLocation();
   const usernameFromURL = location.pathname.replace("/profile/", "");
 
-  const { user, updateUser } = useContext(UserContext);
+  const { user, updateCurrentUser } = useContext(UserContext);
   const { isMobile } = useContext(MobileContext);
 
   const desktopWidth = { span: 8, offset: 2 };
@@ -31,6 +32,17 @@ const Profile = () => {
     notifyOnNetworkStatusChange: true,
   });
 
+  const [updateUser, { loading: sLoading, error: sError }] = useMutation(
+    UPDATE_USER_MUTATION,
+    {
+      context: {
+        headers: {
+          Authorization: "Bearer " + user.token,
+        },
+      },
+    }
+  );
+
   const [editMode, setEditMode] = useState(false);
   const [profileData, setProfileData] = useState(data?.user);
   const [editData, setEditData] = useState(null);
@@ -39,13 +51,13 @@ const Profile = () => {
     if (data) {
       if (!profileData) {
         if (isUsersProfile) {
-          updateUser(data.user);
+          updateCurrentUser(data.user);
         }
         setProfileData(data.user);
       } else {
         refetch().then((res) => {
           if (isUsersProfile) {
-            updateUser(res.data.user);
+            updateCurrentUser(res.data.user);
           }
           setProfileData(res.data.user);
         });
@@ -58,7 +70,7 @@ const Profile = () => {
 
   const actionCB = () => {
     refetch().then((res) => {
-      updateUser(res.data.user);
+      updateCurrentUser(res.data.user);
       setProfileData(res.data.user);
     });
   };
@@ -72,13 +84,13 @@ const Profile = () => {
     setEditData({ ...editData, bio: val });
   };
 
-  const onEditProfileImg = (val) => {
-    setEditData({ ...editData, profileImg: val });
-  };
+  // const onEditProfileImg = (val) => {
+  //   setEditData({ ...editData, profileImg: val });
+  // };
 
-  const onEditBannerImg = (val) => {
-    setEditData({ ...editData, bannerImg: val });
-  };
+  // const onEditBannerImg = (val) => {
+  //   setEditData({ ...editData, bannerImg: val });
+  // };
 
   const onCancelEdit = () => {
     setEditData(null);
@@ -86,8 +98,19 @@ const Profile = () => {
   };
 
   const onSaveEdit = () => {
-    console.log({ editData });
-    setProfileData(editData);
+    console.log(user.id);
+    updateUser({
+      variables: {
+        id: user.id,
+        bio: editData.bio,
+        profileImg: editData.profileImg,
+        bannerImg: editData.bannerImg,
+      },
+    }).then((res) => {
+      setProfileData(editData);
+      setEditMode(false);
+      debugger;
+    });
   };
 
   return (

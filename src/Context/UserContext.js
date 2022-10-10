@@ -13,7 +13,7 @@ export const UserProvider = ({ children }) => {
     localStorage.setItem("username", username);
   };
 
-  const updateUser = (data) => {
+  const updateCurrentUser = (data) => {
     setUser({ ...user, ...data });
   };
 
@@ -27,7 +27,9 @@ export const UserProvider = ({ children }) => {
   window.gl_user = user;
 
   return (
-    <UserContext.Provider value={{ user, setUser, updateUser, logout, login }}>
+    <UserContext.Provider
+      value={{ user, setUser, updateCurrentUser, logout, login }}
+    >
       {children}
     </UserContext.Provider>
   );
