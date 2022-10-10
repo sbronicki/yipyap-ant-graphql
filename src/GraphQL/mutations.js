@@ -67,3 +67,24 @@ export const LOGIN_USER_MUTATION = gql`
     }
   }
 `;
+
+export const UPDATE_USER_MUTATION = gql`
+  mutation updateUser(
+    $id: ID!
+    $bio: String
+    $profileImg: String
+    $bannerImg: String
+  ) {
+    updateUser(
+      id: $id
+      bio: $bio
+      profileImg: $profileImg
+      bannerImg: $bannerImg
+    ) {
+      id
+      bio
+      profileImg
+      bannerImg
+    }
+  }
+`;
