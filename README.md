@@ -4,15 +4,7 @@ MERNG app
 
 Todo: (for launch)
         
-        Sidebar highlighted link not reflecting current page
-
-        Handle errors frontend and backend
-
-        Handle loading
-
         Handle and persist auth properly
-
-        User bios, profile picture, profile banner
 
         Image upload (profile img, banner, posts)
 
