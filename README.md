@@ -4,8 +4,6 @@ MERNG app
 
 Todo: (for launch)
         
-        login inputs just dont render sometimes ???
-        
         Sidebar highlighted link not reflecting current page
 
         Handle errors frontend and backend
