@@ -76,7 +76,7 @@ const Profile = () => {
   }, [data]);
 
   if (loading || !profileData) return <LoadingLogo />;
-  if (error) return <Error error={error} />;
+  if (error || sError) return <Error error={error || sError} />;
 
   const actionCB = () => {
     refetch().then((res) => {
