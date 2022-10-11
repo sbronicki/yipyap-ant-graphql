@@ -55,6 +55,7 @@ const Profile = () => {
   const [editMode, setEditMode] = useState(false);
   const [profileData, setProfileData] = useState(data?.user);
   const [editData, setEditData] = useState(null);
+  const [fileList, setFileList] = useState([]);
 
   useEffect(() => {
     if (data) {
@@ -93,8 +94,9 @@ const Profile = () => {
     setEditData({ ...editData, bio: val });
   };
 
-  const onEditProfileImg = (val) => {
-    setEditData({ ...editData, profileImg: val });
+  const onChangeProfileImg = (newFileList) => {
+    setFileList([newFileList.file]);
+    setEditData({ ...editData, profileImg: newFileList.file });
   };
 
   // const onEditBannerImg = (val) => {
@@ -111,7 +113,7 @@ const Profile = () => {
       variables: {
         id: user.id,
         bio: editData.bio,
-        profileImg: editData.profileImg,
+        profileImg: editData.profileImg.thumbUrl,
         bannerImg: editData.bannerImg,
       },
     }).then((res) => {
@@ -141,11 +143,10 @@ const Profile = () => {
               <Upload
                 action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                 listType="picture-card"
-                // fileList={fileList}
-                // onChange={onChange}
-                // onPreview={onPreview}
+                fileList={fileList}
+                onChange={onChangeProfileImg}
               >
-                {[].length === 0 && "+ Upload"}
+                + Upload
               </Upload>
             ) : (
               <Headshot src={profileData.profileImg} />
