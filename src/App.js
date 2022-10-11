@@ -39,8 +39,10 @@ const App = () => {
 
   const { loading, error, data } = useQuery(GET_USER_QUERY, {
     variables: { username: localStorage.username },
-    skip: !localStorage.token,
+    skip: !localStorage.getItem("authToken"),
   });
+
+  const lsToken = localStorage.getItem("authToken");
 
   useEffect(() => {
     const path = location.pathname.split("/")[1];
@@ -60,12 +62,10 @@ const App = () => {
   }, [location]);
 
   useEffect(() => {
-    if (localStorage.token) {
-      if (!user && data) {
-        login(data.user);
-      }
+    if (lsToken && !user) {
+      if (data) login({ ...data.user, token: lsToken });
     }
-  }, [data]);
+  }, [data, lsToken, user]);
 
   console.count("App renders");
 

@@ -9,7 +9,7 @@ export const UserProvider = ({ children }) => {
     const { token, username } = data;
     setUser(new User(data));
 
-    localStorage.setItem("token", token);
+    localStorage.setItem("authToken", token);
     localStorage.setItem("username", username);
   };
 
@@ -20,7 +20,7 @@ export const UserProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
 
-    localStorage.removeItem("token");
+    localStorage.removeItem("authToken");
     localStorage.removeItem("username");
   };
 
