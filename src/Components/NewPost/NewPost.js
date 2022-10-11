@@ -85,11 +85,11 @@ const NewPost = () => {
       >
         <Row>
           <Col span={12}>
-            <Upload onChange={onChangeImg} maxCount={1}>
+            {/* <Upload onChange={onChangeImg} maxCount={1}>
               <Button className="button" icon={<UploadOutlined />}>
                 Upload Image
               </Button>
-            </Upload>
+            </Upload> */}
           </Col>
           <Col span={12}>
             <Button className="bg-brand save-post-btn button" onClick={onSave}>
