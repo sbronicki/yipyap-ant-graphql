@@ -7,6 +7,7 @@ import { UserContext } from "../../Context/UserContext";
 import { CREATE_POST_MUTATION } from "../../GraphQL/mutations";
 import Error from "../Error/Error";
 import LoadingLogo from "../Loading/LoadingLogo";
+import { getBase64 } from "../../utils/helperFuncs";
 
 const { TextArea } = Input;
 
@@ -39,6 +40,14 @@ const NewPost = () => {
       clear();
     });
   };
+
+  const onChangeImg = (image) => {
+    getBase64(image.file.originFileObj, (e) => {
+      setImage(e);
+    });
+    debugger;
+  };
+
   const clear = () => {
     setTitle("");
     setContent("");
@@ -52,7 +61,7 @@ const NewPost = () => {
         span={22}
         offset={1}
       >
-        <h2>New Post!</h2>
+        <h2>{`New Post by ${user.username}!`}</h2>
       </Col>
       <Col span={22} offset={1}>
         <Input
@@ -76,11 +85,11 @@ const NewPost = () => {
       >
         <Row>
           <Col span={12}>
-            <Upload onChange={(e) => setImage(e)} maxCount={1}>
+            {/* <Upload onChange={onChangeImg} maxCount={1}>
               <Button className="button" icon={<UploadOutlined />}>
                 Upload Image
               </Button>
-            </Upload>
+            </Upload> */}
           </Col>
           <Col span={12}>
             <Button className="bg-brand save-post-btn button" onClick={onSave}>

@@ -1,5 +1,14 @@
+import { UploadOutlined } from "@ant-design/icons";
 import { useMutation, useQuery } from "@apollo/client";
-import { Button, Col, Descriptions, PageHeader, Row } from "antd";
+import {
+  Button,
+  Col,
+  Descriptions,
+  Input,
+  PageHeader,
+  Row,
+  Upload,
+} from "antd";
 import ButtonGroup from "antd/lib/button/button-group";
 import TextArea from "antd/lib/input/TextArea";
 import { useState, useContext, useEffect } from "react";
@@ -46,6 +55,7 @@ const Profile = () => {
   const [editMode, setEditMode] = useState(false);
   const [profileData, setProfileData] = useState(data?.user);
   const [editData, setEditData] = useState(null);
+  const [fileList, setFileList] = useState([]);
 
   useEffect(() => {
     if (data) {
@@ -84,9 +94,10 @@ const Profile = () => {
     setEditData({ ...editData, bio: val });
   };
 
-  // const onEditProfileImg = (val) => {
-  //   setEditData({ ...editData, profileImg: val });
-  // };
+  const onChangeProfileImg = (newFileList) => {
+    setFileList([newFileList.file]);
+    setEditData({ ...editData, profileImg: newFileList.file });
+  };
 
   // const onEditBannerImg = (val) => {
   //   setEditData({ ...editData, bannerImg: val });
@@ -98,18 +109,16 @@ const Profile = () => {
   };
 
   const onSaveEdit = () => {
-    console.log(user.id);
     updateUser({
       variables: {
         id: user.id,
         bio: editData.bio,
-        profileImg: editData.profileImg,
+        profileImg: editData.profileImg.thumbUrl,
         bannerImg: editData.bannerImg,
       },
     }).then((res) => {
       setProfileData(editData);
       setEditMode(false);
-      debugger;
     });
   };
 
@@ -126,18 +135,29 @@ const Profile = () => {
       <Col>
         <Row className="stack-cols-mobile">
           <Col
-            className="has-spacer-padding-bottom"
+            className="has-spacer-padding has-border-basic has-spacer-margin"
             span={colWidth.span}
             offset={colWidth.offset}
           >
-            <Headshot src={profileData.profileImg} />
+            {editMode ? (
+              <Upload
+                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                listType="picture-card"
+                fileList={fileList}
+                onChange={onChangeProfileImg}
+              >
+                + Upload
+              </Upload>
+            ) : (
+              <Headshot src={profileData.profileImg} />
+            )}
           </Col>
           <Col span={colWidth.span} offset={colWidth.offset}>
             <PageHeader
               title={profileData.username}
               subTitle={
                 editMode ? (
-                  <TextArea
+                  <Input
                     placeholder="Edit your bio!"
                     size="large"
                     maxLength={100}
@@ -160,7 +180,7 @@ const Profile = () => {
             </PageHeader>
           </Col>
           {isUsersProfile && (
-            <Col>
+            <Col className={isMobile ? "has-spacer-padding" : ""}>
               <ButtonGroup>
                 {editMode ? (
                   <>
