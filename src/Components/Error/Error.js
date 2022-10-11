@@ -25,7 +25,7 @@ const Error = ({ error }) => {
         <Card size="small" title="Error!">
           <h1>Uh Oh!</h1>
           <p>
-            {typeof error === "string"
+            {error && typeof error === "string"
               ? error
               : error.message || defaultErrorMessage}
           </p>

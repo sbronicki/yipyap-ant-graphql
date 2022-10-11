@@ -8,17 +8,33 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  useQuery,
-  gql,
+  createHttpLink,
 } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 import { UserProvider } from "./Context/UserContext";
 import { BrowserRouter } from "react-router-dom";
 import { MobileProvider } from "./Context/MobileContext";
 
 axios.defaults.baseURL = "http://localhost:4000/graphql";
 
-const client = new ApolloClient({
+const httpLink = createHttpLink({
   uri: "http://localhost:4000/graphql",
+});
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = localStorage.getItem("authToken");
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    },
+  };
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 

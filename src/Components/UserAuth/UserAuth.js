@@ -33,7 +33,7 @@ const UserAuth = () => {
     if (user) navigate("/");
   }, [user]);
 
-  if (error || _error) return <Error error={error} />;
+  if (error || _error) return <Error error={error || _error} />;
 
   const onSubmit = () => {
     if (isSignup) {
