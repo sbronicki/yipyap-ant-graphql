@@ -61,7 +61,7 @@ const NewPost = () => {
         span={22}
         offset={1}
       >
-        <h2>New Post!</h2>
+        <h2>{`New Post by ${user.username}!`}</h2>
       </Col>
       <Col span={22} offset={1}>
         <Input
