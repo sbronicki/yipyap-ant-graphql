@@ -235,6 +235,9 @@ textarea {
 .has-spacer-padding-top {
   padding-top: 0.75em;
 }
+.has-spacer-margin {
+  margin: 1.5em;
+}
 .bg-brand {
   background-color: #05fca9;
   color: #fff;

@@ -8,11 +8,7 @@ const { Content } = Layout;
 const Headshot = ({ src }) => {
   const { isMobile } = useContext(MobileContext);
   return (
-    <Layout
-      className={`headshot ${
-        isMobile ? "has-border-basic-bottom" : "has-border-basic"
-      }`}
-    >
+    <Layout className="headshot">
       <Content>
         <img src={src || Logo} alt="headshot" />
       </Content>
