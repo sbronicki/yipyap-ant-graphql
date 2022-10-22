@@ -2,9 +2,7 @@ Yip Yap V2!
 
 MERNG app
 
-Todo: (for launch)
-        Handle and persist auth properly
-        YipYap Team profile
+![image](https://user-images.githubusercontent.com/54191802/197361517-3d56b96c-cec3-44fd-9041-533d809f387b.png)
 
 Backlog:
         Banner Images
