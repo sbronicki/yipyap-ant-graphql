@@ -1,4 +1,4 @@
-YipYapApp.com
+YipYapApp.com *Backend services currently unavailable thanks to Heroku.com cancelling their free teir!*
 
 Yip Yap V2!
 
