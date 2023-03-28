@@ -124,14 +124,14 @@ const Profile = () => {
 
   return (
     <Row className="has-spacer-padding-top">
-      {!isMobile && (
+      {!isMobile ? (
         <Col
           className="is-overflow-hidden is-flex-center banner-container"
           span={24}
         >
-          <Banner src={profileData.bannerImg} />
+          <Banner src={profileData?.bannerImg} />
         </Col>
-      )}
+      ) : null}
       <Col>
         <Row className="stack-cols-mobile">
           <Col
@@ -149,12 +149,12 @@ const Profile = () => {
                 + Upload
               </Upload>
             ) : (
-              <Headshot src={profileData.profileImg} />
+              <Headshot src={profileData?.profileImg} />
             )}
           </Col>
           <Col span={colWidth.span} offset={colWidth.offset}>
             <PageHeader
-              title={profileData.username}
+              title={profileData?.username || usernameFromURL}
               subTitle={
                 editMode ? (
                   <Input
@@ -162,24 +162,24 @@ const Profile = () => {
                     size="large"
                     maxLength={100}
                     onChange={(e) => onEditBio(e.target.value)}
-                    value={editData.bio}
+                    value={editData?.bio}
                   />
                 ) : (
-                  profileData.bio
+                  profileData?.bio || "Bio"
                 )
               }
             >
               <Descriptions column={1}>
                 <Descriptions.Item label="Member Since">
-                  {profileData.created}
+                  {profileData?.created || "Famous Date"}
                 </Descriptions.Item>
                 <Descriptions.Item label="Posts">
-                  {profileData.posts.length}
+                  {profileData?.posts?.length || 0}
                 </Descriptions.Item>
               </Descriptions>
             </PageHeader>
           </Col>
-          {isUsersProfile && (
+          {isUsersProfile ? (
             <Col className={isMobile ? "has-spacer-padding" : ""}>
               <ButtonGroup>
                 {editMode ? (
@@ -192,15 +192,19 @@ const Profile = () => {
                 )}
               </ButtonGroup>
             </Col>
-          )}
+          ) : null}
         </Row>
       </Col>
       <Col className="is-flex-center stack-cols" span={24}>
-        <Posts
-          actionCB={actionCB}
-          postList={profileData.posts}
-          noDataMsg={`${profileData.username} hasn't posted anything :(`}
-        />
+        {profileData ? (
+          <Posts
+            actionCB={actionCB}
+            postList={profileData.posts}
+            noDataMsg={`${profileData.username} hasn't posted anything :(`}
+          />
+        ) : (
+          <>{usernameFromURL + `hasn't posted anything :(`} </>
+        )}
       </Col>
     </Row>
   );
