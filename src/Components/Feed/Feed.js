@@ -30,7 +30,7 @@ const Feed = () => {
 
   const [posts, setPosts] = useState(data?.posts);
 
-  if (loading || !posts) return <LoadingLogo />;
+  if (loading) return <LoadingLogo />;
   if (error) return <Error error={error} />;
 
   const actionCB = () => {
@@ -50,7 +50,11 @@ const Feed = () => {
         />
       </Col>
       <Col className="is-flex-center stack-cols" span={24}>
-        <Posts postList={posts} actionCB={actionCB} />
+        {posts.length ? (
+          <Posts postList={posts} actionCB={actionCB} />
+        ) : (
+          "No Posts :("
+        )}
       </Col>
     </Row>
   );
