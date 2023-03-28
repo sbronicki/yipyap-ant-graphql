@@ -50,7 +50,7 @@ const Feed = () => {
         />
       </Col>
       <Col className="is-flex-center stack-cols" span={24}>
-        {posts.length ? (
+        {posts?.length ? (
           <Posts postList={posts} actionCB={actionCB} />
         ) : (
           "No Posts :("
