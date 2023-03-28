@@ -130,6 +130,7 @@ textarea {
   max-width: 1024px;
   width: 100%;
   border: 5px;
+  padding-bottom: 25px;
 }
 /* home page */
 .home-page {
