@@ -55,7 +55,7 @@ export const NavMenu = ({ classNames, styles, inSideBar = false }) => {
       ) : (
         <>
           <Menu.Item key={"profile"} className="is-menu-item menu-first">
-            <Link to="/profile/yip-yap-team">Yip-Yap Team Profile</Link>
+            <Link to="/profile/Yip-Yap-Team">Yip-Yap Team Profile</Link>
           </Menu.Item>
           <Menu.Item key={"feed"} className="is-menu-item">
             <Link to="/feed">Community Feed</Link>

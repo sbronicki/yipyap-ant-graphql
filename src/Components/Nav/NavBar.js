@@ -18,7 +18,7 @@ const NavBar = ({ toggleSideBar }) => {
       <div className="nav-item-container">
         <MenuOutlined onClick={toggleSideBar} style={{ fontSize: "2em" }} />
         <Logo size="small" />
-        <Link to={`/profile/${user ? user.username : "yip-yap-team"}`}>
+        <Link to={`/profile/${user ? user.username : "Yip-Yap-Team"}`}>
           <Avatar
             style={{
               border: "2px solid #fff",
