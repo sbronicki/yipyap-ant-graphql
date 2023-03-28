@@ -75,7 +75,7 @@ const Profile = () => {
     }
   }, [data]);
 
-  if (loading || !profileData) return <LoadingLogo />;
+  if (loading || sLoading) return <LoadingLogo />;
   if (error || sError) return <Error error={error || sError} />;
 
   const actionCB = () => {
