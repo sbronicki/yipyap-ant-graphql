@@ -10,7 +10,7 @@ import {
   WarningOutlined,
 } from "@ant-design/icons";
 
-const Error = ({ error }) => {
+const Error = ({ error, showLogo }) => {
   const { user, logout } = useContext(UserContext);
 
   const defaultErrorMessage = "There seems to have been an error!";
@@ -18,11 +18,13 @@ const Error = ({ error }) => {
   console.log(error);
   return (
     <Row className="error error-is-auth">
-      <Col style={{ padding: "1em" }} span={24}>
-        <Logo />
-      </Col>
+      {showLogo ? (
+        <Col style={{ padding: "1em" }} span={24}>
+          <Logo />
+        </Col>
+      ) : null}
       <Col className="has-spacer-padding-bottom" span={24}>
-        <Card size="small" title="Error!">
+        <Card size="default" title="Error!">
           <h1>Uh Oh!</h1>
           <p>
             {error && typeof error === "string"

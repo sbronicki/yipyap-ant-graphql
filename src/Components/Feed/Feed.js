@@ -31,7 +31,6 @@ const Feed = () => {
   const [posts, setPosts] = useState(data?.posts);
 
   if (loading) return <LoadingLogo />;
-  if (error) return <Error error={error} />;
 
   const actionCB = () => {
     refetch().then((res) => {
@@ -50,7 +49,9 @@ const Feed = () => {
         />
       </Col>
       <Col className="is-flex-center stack-cols" span={24}>
-        {posts?.length ? (
+        {error ? (
+          <Error error={error} />
+        ) : posts?.length ? (
           <Posts postList={posts} actionCB={actionCB} />
         ) : (
           "No Posts :("
