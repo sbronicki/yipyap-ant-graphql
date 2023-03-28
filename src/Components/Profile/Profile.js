@@ -75,9 +75,6 @@ const Profile = () => {
     }
   }, [data]);
 
-  if (loading || sLoading) return <LoadingLogo />;
-  if (error || sError) return <Error error={error || sError} />;
-
   const actionCB = () => {
     refetch().then((res) => {
       updateCurrentUser(res.data.user);
@@ -196,7 +193,11 @@ const Profile = () => {
         </Row>
       </Col>
       <Col className="is-flex-center stack-cols" span={24}>
-        {profileData ? (
+        {loading || sLoading ? (
+          <LoadingLogo />
+        ) : error || sError ? (
+          <Error error={error || sError} />
+        ) : profileData ? (
           <Posts
             actionCB={actionCB}
             postList={profileData.posts}

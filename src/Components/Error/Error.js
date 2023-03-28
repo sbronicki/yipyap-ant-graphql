@@ -24,8 +24,7 @@ const Error = ({ error, showLogo }) => {
         </Col>
       ) : null}
       <Col className="has-spacer-padding-bottom" span={24}>
-        <Card size="default" title="Error!">
-          <h1>Uh Oh!</h1>
+        <Card style={{ minWidth: "350px" }} size="default" title="Error!">
           <p>
             {error && typeof error === "string"
               ? error
